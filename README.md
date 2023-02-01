@@ -64,8 +64,7 @@ When you develop features and enrich the product, remember that you have first t
 
 ### Product Backlog
 
-| Id | Feature title | Who? | Start | End | Status |
-|:--:|---------------|------|-------|-----|--------|
-|    |               |      |       |     |        |
-
-
+| Id  | Feature title                                           | Who? | Start      | End | Status |
+| :-: | ------------------------------------------------------- | ---- | ---------- | --- | ------ |
+| F01 | Draw segments between vertices to visualize the squares |      | 2023-02-01 |     | P      |
+|     |                                                         |      |            |     |        |
