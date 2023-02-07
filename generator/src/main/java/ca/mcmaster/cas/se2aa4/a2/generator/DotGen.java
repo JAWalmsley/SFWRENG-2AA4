@@ -39,13 +39,13 @@ public class DotGen {
                 vertices.add(v3);
                 vertices.add(v4);
                 segments.add(Segment.newBuilder().setV1Idx(highest_vertex_index)
-                        .setV2Idx(highest_vertex_index - 1).build());
-                segments.add(Segment.newBuilder().setV1Idx(highest_vertex_index - 1)
                         .setV2Idx(highest_vertex_index - 2).build());
-                segments.add(Segment.newBuilder().setV1Idx(highest_vertex_index - 2)
+                segments.add(Segment.newBuilder().setV1Idx(highest_vertex_index - 1)
                         .setV2Idx(highest_vertex_index - 3).build());
-                segments.add(Segment.newBuilder().setV1Idx(highest_vertex_index - 3)
-                        .setV2Idx(highest_vertex_index).build());
+                segments.add(Segment.newBuilder().setV1Idx(highest_vertex_index -2)
+                        .setV2Idx(highest_vertex_index-3).build());
+                segments.add(Segment.newBuilder().setV1Idx(highest_vertex_index)
+                        .setV2Idx(highest_vertex_index - 1).build());
             }
         }
         // Distribute colors randomly. Vertices are immutable, need to enrich them
