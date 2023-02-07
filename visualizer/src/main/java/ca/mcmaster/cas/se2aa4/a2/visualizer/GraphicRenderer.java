@@ -10,7 +10,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GraphicRenderer {
@@ -37,7 +36,7 @@ public class GraphicRenderer {
             Vertex v2 = vertices.get(s.getV2Idx());
             Color old = canvas.getColor();
             canvas.setColor(extractColor(s.getPropertiesList()));
-            Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX() , v2.getY());
+            Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
             canvas.draw(line);
             canvas.setColor(old);
         }

@@ -26,10 +26,8 @@ public class DotGen {
         for (int x = 0; x < width; x += square_size) {
             for (int y = 0; y < height; y += square_size) {
                 Vertex v1 = Vertex.newBuilder().setX((double) x).setY((double) y).build();
-                Vertex v2 =
-                        Vertex.newBuilder().setX((double) x + square_size).setY((double) y).build();
-                Vertex v3 =
-                        Vertex.newBuilder().setX((double) x).setY((double) y + square_size).build();
+                Vertex v2 = Vertex.newBuilder().setX((double) x + square_size).setY((double) y).build();
+                Vertex v3 = Vertex.newBuilder().setX((double) x).setY((double) y + square_size).build();
                 Vertex v4 = Vertex.newBuilder().setX((double) x + square_size)
                         .setY((double) y + square_size).build();
                 highest_vertex_index += 4;
@@ -42,8 +40,8 @@ public class DotGen {
                         .setV2Idx(highest_vertex_index - 2).build());
                 segments.add(Segment.newBuilder().setV1Idx(highest_vertex_index - 1)
                         .setV2Idx(highest_vertex_index - 3).build());
-                segments.add(Segment.newBuilder().setV1Idx(highest_vertex_index -2)
-                        .setV2Idx(highest_vertex_index-3).build());
+                segments.add(Segment.newBuilder().setV1Idx(highest_vertex_index - 2)
+                        .setV2Idx(highest_vertex_index - 3).build());
                 segments.add(Segment.newBuilder().setV1Idx(highest_vertex_index)
                         .setV2Idx(highest_vertex_index - 1).build());
             }
@@ -62,12 +60,14 @@ public class DotGen {
             // System.out.println(colored.getPropertiesList());
             verticesWithColors.add(colored);
         }
-        for (Segment s: segments) {
+        for (Segment s : segments) {
             Vertex v1 = verticesWithColors.get(s.getV1Idx());
             Vertex v2 = verticesWithColors.get(s.getV2Idx());
-            int color1[] = Arrays.stream(v1.getProperties(0).getValue().split(",")).mapToInt(Integer::parseInt).toArray();
-            int color2[] = Arrays.stream(v2.getProperties(0).getValue().split(",")).mapToInt(Integer::parseInt).toArray();
-            
+            int color1[] = Arrays.stream(v1.getProperties(0).getValue().split(","))
+                    .mapToInt(Integer::parseInt).toArray();
+            int color2[] = Arrays.stream(v2.getProperties(0).getValue().split(","))
+                    .mapToInt(Integer::parseInt).toArray();
+
             int red = (color1[0] + color2[0]) / 2;
             int green = (color1[1] + color2[1]) / 2;
             int blue = (color1[2] + color2[2]) / 2;
