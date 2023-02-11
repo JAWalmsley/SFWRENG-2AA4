@@ -1,10 +1,8 @@
 package ca.mcmaster.cas.se2aa4.a2.generator;
 
-import java.util.ArrayList;
-
 public class GenerateMesh {
     private int square_size = 5;
-    public void makeVertecies(Mesh mesh){
+    public void makeVertices(Mesh mesh){
         // Create all the vertices
         for (int x = 0; x < mesh.width; x += square_size) {
             for (int y = 0; y < mesh.height; y += square_size) {
@@ -20,7 +18,7 @@ public class GenerateMesh {
         Polygon poly = new Polygon(new Vertex(0, 0)); //Centroid currently unsed so just set to 0,0
         //Make Square
         Vertex vert1 = mesh.vertices.get(0);
-        Vertex vert2 = mesh.vertices.get(0+(int)(Math.sqrt(mesh.vertices.size())));
+        Vertex vert2 = mesh.vertices.get((int) (Math.sqrt(mesh.vertices.size())));
         Vertex vert3 = mesh.vertices.get(1+(int)(Math.sqrt(mesh.vertices.size())));
         Vertex vert4 = mesh.vertices.get(1);
 
@@ -32,11 +30,11 @@ public class GenerateMesh {
         Segment seg1 = new Segment(mesh.vertices.get(0), mesh.vertices.get(1));
         seg1.index.add(0);
         seg1.index.add(1);
-        Segment seg2 = new Segment(mesh.vertices.get(0), mesh.vertices.get(0+(int)(Math.sqrt(mesh.vertices.size()))));
+        Segment seg2 = new Segment(mesh.vertices.get(0), mesh.vertices.get((int) (Math.sqrt(mesh.vertices.size()))));
         seg2.index.add(0);
-        seg2.index.add(0+mesh.width);
-        Segment seg3 = new Segment(mesh.vertices.get(0+(int)(Math.sqrt(mesh.vertices.size()))), mesh.vertices.get(1+(int)(Math.sqrt(mesh.vertices.size()))));
-        seg3.index.add(0+mesh.width);
+        seg2.index.add(mesh.width);
+        Segment seg3 = new Segment(mesh.vertices.get((int) (Math.sqrt(mesh.vertices.size()))), mesh.vertices.get(1+(int)(Math.sqrt(mesh.vertices.size()))));
+        seg3.index.add(mesh.width);
         seg3.index.add(1+mesh.width);
         Segment seg4 = new Segment(mesh.vertices.get(1), mesh.vertices.get(1+(int)(Math.sqrt(mesh.vertices.size()))));
         seg4.index.add(1);
@@ -52,7 +50,7 @@ public class GenerateMesh {
     public Mesh generatePolygonMesh(int sides) {
         //Create new mesh
         Mesh mesh = new Mesh(625, 625);
-        makeVertecies(mesh);
+        makeVertices(mesh);
         makePolygons(mesh, sides);
 
         return mesh;
