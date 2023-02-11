@@ -1,13 +1,21 @@
 package ca.mcmaster.cas.se2aa4.a2.generator;
 
+import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+
 public class GenerateMesh {
     private int square_size = 5;
     public void makeVertices(Mesh mesh){
         // Create all the vertices
+        int bag = 0;
         for (int x = 0; x < mesh.width; x += square_size) {
             for (int y = 0; y < mesh.height; y += square_size) {
                 Vertex v1 = new Vertex(x, y);
                 mesh.vertices.add(v1);
+                int red = bag;
+                int green = bag;
+                int blue = bag;
+                String colorCode = red + "," + green + "," + blue;
+                v1.setColour(new int[]{red,green,blue});
             }
         }
     }    
