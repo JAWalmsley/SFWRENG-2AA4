@@ -14,13 +14,16 @@ public class Polygon {
     public void addSegment(Segment seg) {
         if(this.segments.size() == 0) {
             this.segments.add(seg);
+            return;
         }
         // Find segment with a matching vertex and add it afterward
         for(int i = 0; i < this.segments.size(); i++) {
             if(this.segments.get(i).getV2() == seg.getV1()) {
                 this.segments.add(i+1, seg);
+                return;
             }
         }
+        this.segments.add(seg);
     }
 
     public ArrayList<Segment> getSegments() {
