@@ -36,6 +36,7 @@ public class DotGen {
                 vertices.add(v2);
                 vertices.add(v3);
                 vertices.add(v4);
+                // Create the segments
                 segments.add(Segment.newBuilder().setV1Idx(highest_vertex_index)
                         .setV2Idx(highest_vertex_index - 2).build());
                 segments.add(Segment.newBuilder().setV1Idx(highest_vertex_index - 1)
