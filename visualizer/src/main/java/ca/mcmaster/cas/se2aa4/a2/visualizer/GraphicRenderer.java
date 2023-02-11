@@ -53,6 +53,8 @@ public class GraphicRenderer {
                 Vertex v2 = vertices.get(segments.get(i).getV2Idx());
                 xpoints.add((int) v1.getX());
                 ypoints.add((int) v1.getY());
+                xpoints.add((int) v2.getX());
+                ypoints.add((int) v2.getY());
             }
             int[] xpointsarr = xpoints.stream().mapToInt(Integer::intValue).toArray();
             int[] ypointsarr = ypoints.stream().mapToInt(Integer::intValue).toArray();
