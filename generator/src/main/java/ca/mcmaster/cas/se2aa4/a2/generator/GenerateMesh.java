@@ -45,6 +45,7 @@ public class GenerateMesh {
         poly.addSegment(seg3);
         poly.addSegment(seg4);        
         
+        mesh.polygons.add(poly);
     }
 
     public Mesh generatePolygonMesh(int sides) {
