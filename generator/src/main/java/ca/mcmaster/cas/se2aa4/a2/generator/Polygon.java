@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class Polygon {
     private Vertex centroid;
-    private ArrayList<Segment> segments;
+    private ArrayList<Segment> segments = new ArrayList<>();
+    public ArrayList<Vertex> verticies = new ArrayList<>();
+
     public Polygon(Vertex centroid) {
         this.centroid = centroid;
     }
@@ -19,5 +21,9 @@ public class Polygon {
                 this.segments.add(i+1, seg);
             }
         }
+    }
+
+    public ArrayList<Segment> getSegments() {
+        return this.segments;
     }
 }
