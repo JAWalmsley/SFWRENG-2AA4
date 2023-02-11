@@ -11,6 +11,8 @@ public class Mesh {
 
     public int width;
     public int height;
+    public int rows;
+    public int columns;
 
     public Mesh(int width, int height) {
         this.width = width;
