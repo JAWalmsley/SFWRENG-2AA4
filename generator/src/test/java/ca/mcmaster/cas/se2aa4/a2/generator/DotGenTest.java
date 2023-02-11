@@ -13,5 +13,5 @@ public class DotGenTest {
         Structs.Mesh aMesh = generator.generate();
         assertNotNull(aMesh);
     }
-
 }
+
