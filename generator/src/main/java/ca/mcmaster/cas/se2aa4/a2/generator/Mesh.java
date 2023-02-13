@@ -5,7 +5,6 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 
 public class Mesh {
-    private ArrayList<Segment> segments;
 
     public ArrayList<Vertex> vertices = new ArrayList<>();
     public ArrayList<Polygon> polygons = new ArrayList<>();
@@ -24,10 +23,6 @@ public class Mesh {
         ArrayList<Structs.Vertex> IOVertices = new ArrayList<>();
         ArrayList<Structs.Segment> IOSegments = new ArrayList<>();
         ArrayList<Structs.Polygon> IOPolygons = new ArrayList<>();
-        for (Vertex v : vertices) {
-            IOVertices.add(Structs.Vertex.newBuilder().setX(v.getX()).setY(v.getY())
-                    .addProperties(colourToProperty(v.getColour())).build());
-        }
         for (Polygon p : polygons) {
             ArrayList<Integer> segmentIdxs = new ArrayList<>();
             for (Segment s : p.getSegments()) {
