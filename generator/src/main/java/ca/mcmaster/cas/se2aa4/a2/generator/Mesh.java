@@ -26,7 +26,7 @@ public class Mesh {
         ArrayList<Structs.Polygon> IOPolygons = new ArrayList<>();
         for (Vertex v : vertices) {
             IOVertices.add(Structs.Vertex.newBuilder().setX(v.getX()).setY(v.getY())
-            .addProperties(colourToProperty(v.getColour())).build());
+                    .addProperties(colourToProperty(v.getColour())).build());
         }
         for (Polygon p : polygons) {
             ArrayList<Integer> segmentIdxs = new ArrayList<>();
@@ -43,14 +43,26 @@ public class Mesh {
                         .setY(s.getV2().getY())
                         .addProperties(v2Colour)
                         .build());
-                IOSegments.add(Structs.Segment.newBuilder().setV1Idx(IOVertices.size() - 2)
-                        .setV2Idx(IOVertices.size() - 1).build());
+
+                Property sColour = colourToProperty(s.getColour());
+                IOSegments.add(Structs.Segment.newBuilder()
+                        .setV1Idx(IOVertices.size() - 2)
+                        .setV2Idx(IOVertices.size() - 1)
+                        .addProperties(sColour)
+                        .build());
                 segmentIdxs.add(IOSegments.size() - 1);
             }
-            IOPolygons.add(Structs.Polygon.newBuilder().addAllSegmentIdxs(segmentIdxs).build());
+            Property pColour = colourToProperty(p.getColour());
+            IOPolygons.add(Structs.Polygon.newBuilder()
+                    .addAllSegmentIdxs(segmentIdxs)
+                    .addProperties(pColour)
+                    .build());
         }
-        return Structs.Mesh.newBuilder().addAllVertices(IOVertices).addAllSegments(IOSegments)
-                .addAllPolygons(IOPolygons).build();
+        return Structs.Mesh.newBuilder()
+                .addAllVertices(IOVertices)
+                .addAllSegments(IOSegments)
+                .addAllPolygons(IOPolygons)
+                .build();
     }
 
     private static Property colourToProperty(int[] colour) {

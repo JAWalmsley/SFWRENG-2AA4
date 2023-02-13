@@ -10,6 +10,7 @@ public class Polygon {
 
     public Polygon(Vertex centroid) {
         this.centroid = centroid;
+        this.colour = new int[]{0, 0, 0};
     }
 
     public void addSegment(Segment seg) {

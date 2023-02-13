@@ -1,10 +1,12 @@
 package ca.mcmaster.cas.se2aa4.a2.generator;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import java.util.Random;
 
 public class GenerateMesh {
     private int square_size = 5;
-    public void makeVertices(Mesh mesh){
+
+    public void makeVertices(Mesh mesh) {
         // Create all the vertices
         int bag = 0;
         for (int x = 0; x < mesh.width; x += square_size) {
@@ -16,7 +18,8 @@ public class GenerateMesh {
                     mesh.rows++;
             }
         }
-    }    
+    }
+
 
     public void makePolygons(Mesh mesh, int sides){
         //TODO: Create a polygon with the given number of sides
@@ -43,7 +46,11 @@ public class GenerateMesh {
                 poly.addSegment(seg1);
                 poly.addSegment(seg2);
                 poly.addSegment(seg3);
-                poly.addSegment(seg4);        
+                poly.addSegment(seg4);  
+
+                Random bag = new Random();
+                int[] colour = {bag.nextInt(255), bag.nextInt(255), bag.nextInt(255)};
+                poly.setColour(colour);      
                 
                 mesh.polygons.add(poly);
             }
@@ -51,7 +58,7 @@ public class GenerateMesh {
     }
 
     public Mesh generatePolygonMesh(int sides) {
-        //Create new mesh
+        // Create new mesh
         Mesh mesh = new Mesh(40, 40);
         makeVertices(mesh);
         makePolygons(mesh, sides);

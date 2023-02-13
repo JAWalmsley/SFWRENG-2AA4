@@ -12,6 +12,7 @@ public class Segment {
     public Segment(Vertex v1, Vertex v2) {
         this.v1 = v1;
         this.v2 = v2;
+        this.colour = new int[]{0, 0, 0};
     }
 
     public Vertex getV1() {
