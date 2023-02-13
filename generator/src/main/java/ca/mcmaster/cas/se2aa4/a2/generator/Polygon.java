@@ -6,6 +6,7 @@ public class Polygon {
     private Vertex centroid;
     private ArrayList<Segment> segments = new ArrayList<>();
     public ArrayList<Vertex> verticies = new ArrayList<>();
+    private int[] colour;
 
     public Polygon(Vertex centroid) {
         this.centroid = centroid;
@@ -25,5 +26,12 @@ public class Polygon {
 
     public ArrayList<Segment> getSegments() {
         return this.segments;
+    }
+
+    public int[] getColour() {
+        return colour;
+    }
+    public void setColour(int[] colourToSet) {
+        colour = colourToSet;
     }
 }
