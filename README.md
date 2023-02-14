@@ -64,9 +64,10 @@ When you develop features and enrich the product, remember that you have first t
 
 ### Product Backlog
 
-| Id  | Feature title                                           | Who?          | Start      | End        | Status |
-| :-: | ------------------------------------------------------- | ------------- | ---------- | ---------- | ------ |
-| F01 | Draw segments between vertices to visualize the squares | Jack Walmsley | 2023-02-01 | 2023-02-06 | D      |
-| F02 | Mesh ADT                                                |               |            |            | P      |
-| F03 | Storing grid mesh as Polygons                           |               |            |            | P      |
-| F04 | Debug visualization mode                                |               |            |            | P      |
+| Id  | Feature title                                           | Who?            | Start      | End        | Status |
+| :-: | ------------------------------------------------------- | --------------- | ---------- | ---------- | ------ |
+| F01 | Draw segments between vertices to visualize the squares | Jack Walmsley   | 2023-02-01 | 2023-02-06 | D      |
+| F02 | Mesh ADT                                                | All             | 2023-02-11 | 2023-02-11 | D      |
+| F03 | Generating with Mesh ADT                                | Graham Morrison | 2023-02-11 |            | S      |
+| F03 | Visualizing with Mesh ADT                               | Jack Walmsley   | 2023-02-11 |            | S      |
+| F04 | Debug visualization mode                                | Mathieu Gaudet  | 2023-02-11 |            | S      |
