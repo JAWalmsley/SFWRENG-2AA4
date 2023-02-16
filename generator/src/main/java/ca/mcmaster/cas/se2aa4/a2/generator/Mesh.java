@@ -47,8 +47,14 @@ public class Mesh {
                         .build());
                 segmentIdxs.add(IOSegments.size() - 1);
             }
+            IOVertices.add(Structs.Vertex.newBuilder()
+                    .setX(p.getCentroid().getX())
+                    .setY(p.getCentroid().getY())
+                    .addProperties(colourToProperty(p.getCentroid().getColour()))
+                    .build());
             Property pColour = colourToProperty(p.getColour());
             IOPolygons.add(Structs.Polygon.newBuilder()
+                    .setCentroidIdx(IOVertices.size() - 1)
                     .addAllSegmentIdxs(segmentIdxs)
                     .addProperties(pColour)
                     .build());
