@@ -15,8 +15,8 @@ import java.util.List;
 
 public class GraphicRenderer {
 
-    private static final int SEGMENT_THICKNESS = 1;
-    private static final int VERTEX_THICKNESS = 2;
+    private static final float SEGMENT_THICKNESS = 0.5f;
+    private static final int VERTEX_THICKNESS = 1;
 
     public void render(Mesh aMesh, Graphics2D canvas) {
         List<Vertex> vertices = aMesh.getVerticesList();
