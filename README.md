@@ -71,3 +71,10 @@ When you develop features and enrich the product, remember that you have first t
 | F03 | Generating with Mesh ADT                                | Graham Morrison | 2023-02-11 |            | S      |
 | F03 | Visualizing with Mesh ADT                               | Jack Walmsley   | 2023-02-11 |            | S      |
 | F04 | Debug visualization mode                                | Mathieu Gaudet  | 2023-02-11 |            | S      |
+| F05 | Random points generation                                |                 |            |            | P      |
+| F06 | Voronoi diagram computation                             |                 |            |            | B(F05) |
+| F07 | Lloyd relaxation                                        |                 |            |            | B(F06) |
+| F08 | Mesh cropping to expected width and height              |                 |            |            | B(F07) |
+| F09 | Delayney triangulation for neighbourhood relationships  |                 |            |            | B(F08) |
+| F10 | Convex hull computation for consecutiveness of segments |                 |            |            | B(F09) |
+| F11 | Reading options from command line                       |                 |            |            | P      |
