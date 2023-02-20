@@ -11,7 +11,7 @@ public class GenerateMesh {
             float x = bag.nextFloat() * mesh.width;
             float y = bag.nextFloat() * mesh.height;
             Vertex v = new Vertex(x, y);
-            mesh.vertices.add(v);
+            mesh.addVertex(v);
         }
     }
 
@@ -22,10 +22,10 @@ public class GenerateMesh {
             for (int j = 0; j < mesh.columns - 1; j++) {
                 Polygon poly = new Polygon(new Vertex(0, 0)); // Centroid currently unsed so just set to 0,0
                 // Make Square
-                Vertex vert1 = mesh.vertices.get(i * mesh.rows + j);
-                Vertex vert2 = mesh.vertices.get(i * mesh.rows + j + mesh.rows);
-                Vertex vert3 = mesh.vertices.get(i * mesh.rows + j + 1 + mesh.rows);
-                Vertex vert4 = mesh.vertices.get(i * mesh.rows + j + 1);
+                Vertex vert1 = mesh.getVertex(i * mesh.rows + j);
+                Vertex vert2 = mesh.getVertex(i * mesh.rows + j + mesh.rows);
+                Vertex vert3 = mesh.getVertex(i * mesh.rows + j + 1 + mesh.rows);
+                Vertex vert4 = mesh.getVertex(i * mesh.rows + j + 1);
 
                 poly.verticies.add(vert1);
                 poly.verticies.add(vert2);
@@ -55,7 +55,7 @@ public class GenerateMesh {
 
     public Mesh generatePolygonMesh(int sides) {
         // Create new mesh
-        Mesh mesh = new Mesh(500, 500);
+        Mesh mesh = new Mesh(100, 100, 1);
         makeVertices(mesh);
         // makePolygons(mesh, sides);
 
