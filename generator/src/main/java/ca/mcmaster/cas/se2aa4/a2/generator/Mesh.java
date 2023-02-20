@@ -23,6 +23,14 @@ public class Mesh {
         ArrayList<Structs.Vertex> IOVertices = new ArrayList<>();
         ArrayList<Structs.Segment> IOSegments = new ArrayList<>();
         ArrayList<Structs.Polygon> IOPolygons = new ArrayList<>();
+        for(Vertex v : vertices) {
+            Property vColour = colourToProperty(v.getColour());
+            IOVertices.add(Structs.Vertex.newBuilder()
+                    .setX(v.getX())
+                    .setY(v.getY())
+                    .addProperties(vColour)
+                    .build());
+        }
         for (Polygon p : polygons) {
             ArrayList<Integer> segmentIdxs = new ArrayList<>();
             for (Segment s : p.getSegments()) {

@@ -3,18 +3,15 @@ package ca.mcmaster.cas.se2aa4.a2.generator;
 import java.util.Random;
 
 public class GenerateMesh {
-    private int square_size = 5;
+    private int numVertices = 100;
 
     public void makeVertices(Mesh mesh) {
-        // Create all the vertices
-        for (int x = 0; x < mesh.width; x += square_size) {
-            mesh.columns++;
-            for (int y = 0; y < mesh.height; y += square_size) {
-                Vertex v1 = new Vertex(x, y);
-                mesh.vertices.add(v1);
-                if (x == 0)
-                    mesh.rows++;
-            }
+        Random bag = new Random();
+        for (int i = 0; i < numVertices; i++) {
+            float x = bag.nextFloat() * mesh.width;
+            float y = bag.nextFloat() * mesh.height;
+            Vertex v = new Vertex(x, y);
+            mesh.vertices.add(v);
         }
     }
 
@@ -58,9 +55,9 @@ public class GenerateMesh {
 
     public Mesh generatePolygonMesh(int sides) {
         // Create new mesh
-        Mesh mesh = new Mesh(40, 40);
+        Mesh mesh = new Mesh(500, 500);
         makeVertices(mesh);
-        makePolygons(mesh, sides);
+        // makePolygons(mesh, sides);
 
         return mesh;
     }
