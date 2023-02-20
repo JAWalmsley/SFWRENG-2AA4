@@ -1,14 +1,15 @@
 package ca.mcmaster.cas.se2aa4.a2.generator;
 
-import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 
 public class Vertex {
     private float x;
     private float y;
+    private int[] colour;
 
     public Vertex(float x, float y) {
         this.x = x;
         this.y = y;
+        colour = new int[]{0,0,0};
     }
 
     public float getX() {
@@ -17,6 +18,12 @@ public class Vertex {
 
     public float getY() {
         return this.y;
+    }
+    public int[] getColour() {
+        return colour;
+    }
+    public void setColour(int[] colourToSet) {
+        colour = colourToSet;
     }
 
 }
