@@ -6,23 +6,62 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 
 public class Mesh {
 
-    public ArrayList<Vertex> vertices = new ArrayList<>();
+    private ArrayList<Vertex> vertices = new ArrayList<>();
     public ArrayList<Polygon> polygons = new ArrayList<>();
 
     public int width;
     public int height;
     public int rows;
     public int columns;
+    
+    private int precision;
 
-    public Mesh(int width, int height) {
+    /**
+     * Creates a new Mesh object
+     * @param width The width of the canvas
+     * @param height The height of the canvas
+     * @param precision Number of decimal places to use when comparing vertices' positions
+     */
+    public Mesh(int width, int height, int precision) {
         this.width = width;
         this.height = height;
+        this.precision = precision;
     }
 
+    
+    /** 
+     * Adds a vertex to the mesh if it is not already present
+     * @param v The vertex to add
+     */
+    public void addVertex(Vertex v) {
+        for(Vertex vert : this.vertices) {
+            if(vert.isEqual(v, this.precision)) {
+                return;
+            }
+        }
+        this.vertices.add(v);
+    }
+
+    public Vertex getVertex(int index) {
+        return this.vertices.get(index);
+    }
+
+    /**
+     * Converts this Mesh object to the Structs.Mesh object used for IO
+     * @return Structs.Mesh object
+     */
     public Structs.Mesh getIOMesh() {
         ArrayList<Structs.Vertex> IOVertices = new ArrayList<>();
         ArrayList<Structs.Segment> IOSegments = new ArrayList<>();
         ArrayList<Structs.Polygon> IOPolygons = new ArrayList<>();
+        for(Vertex v : vertices) {
+            Property vColour = colourToProperty(v.getColour());
+            IOVertices.add(Structs.Vertex.newBuilder()
+                    .setX(v.getX())
+                    .setY(v.getY())
+                    .addProperties(vColour)
+                    .build());
+        }
         for (Polygon p : polygons) {
             ArrayList<Integer> segmentIdxs = new ArrayList<>();
             for (Segment s : p.getSegments()) {
@@ -66,6 +105,12 @@ public class Mesh {
                 .build();
     }
 
+    
+    /** 
+     * Converts a colour array to a Property object
+     * @param colour array in order [red, green, blue]
+     * @return Property The colour property
+     */
     private static Property colourToProperty(int[] colour) {
         String colorCode = colour[0] + "," + colour[1] + "," + colour[2] + ',' + colour[3];
         Property colourProp = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();

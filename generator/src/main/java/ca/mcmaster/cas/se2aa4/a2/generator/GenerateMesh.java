@@ -3,18 +3,15 @@ package ca.mcmaster.cas.se2aa4.a2.generator;
 import java.util.Random;
 
 public class GenerateMesh {
-    private int square_size = 5;
+    private int numVertices = 100;
 
     public void makeVertices(Mesh mesh) {
-        // Create all the vertices
-        for (int x = 0; x < mesh.width; x += square_size) {
-            mesh.columns++;
-            for (int y = 0; y < mesh.height; y += square_size) {
-                Vertex v1 = new Vertex(x, y);
-                mesh.vertices.add(v1);
-                if (x == 0)
-                    mesh.rows++;
-            }
+        Random bag = new Random();
+        for (int i = 0; i < numVertices; i++) {
+            float x = bag.nextFloat() * mesh.width;
+            float y = bag.nextFloat() * mesh.height;
+            Vertex v = new Vertex(x, y);
+            mesh.addVertex(v);
         }
     }
 
@@ -25,10 +22,10 @@ public class GenerateMesh {
             for (int j = 0; j < mesh.columns - 1; j++) {
                 Polygon poly = new Polygon(new Vertex(0, 0)); // Centroid currently unused so just set to 0,0
                 // Make Square
-                Vertex vert1 = mesh.vertices.get(i * mesh.rows + j);
-                Vertex vert2 = mesh.vertices.get(i * mesh.rows + j + mesh.rows);
-                Vertex vert3 = mesh.vertices.get(i * mesh.rows + j + 1 + mesh.rows);
-                Vertex vert4 = mesh.vertices.get(i * mesh.rows + j + 1);
+                Vertex vert1 = mesh.getVertex(i * mesh.rows + j);
+                Vertex vert2 = mesh.getVertex(i * mesh.rows + j + mesh.rows);
+                Vertex vert3 = mesh.getVertex(i * mesh.rows + j + 1 + mesh.rows);
+                Vertex vert4 = mesh.getVertex(i * mesh.rows + j + 1);
 
                 poly.verticies.add(vert1);
                 poly.verticies.add(vert2);
@@ -58,9 +55,9 @@ public class GenerateMesh {
 
     public Mesh generatePolygonMesh(int sides) {
         // Create new mesh
-        Mesh mesh = new Mesh(40, 40);
+        Mesh mesh = new Mesh(100, 100, 1);
         makeVertices(mesh);
-        makePolygons(mesh, sides);
+        // makePolygons(mesh, sides);
 
         return mesh;
     }
