@@ -48,7 +48,7 @@ public class GenerateMesh {
                 poly.addSegment(seg4);
 
                 Random bag = new Random();
-                int[] colour = { bag.nextInt(255), bag.nextInt(255), bag.nextInt(255) };
+                int[] colour = { bag.nextInt(255), bag.nextInt(255), bag.nextInt(255), 130 };
                 poly.setColour(colour);
 
                 mesh.polygons.add(poly);
