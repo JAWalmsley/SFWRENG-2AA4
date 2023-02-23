@@ -37,7 +37,7 @@ public class GraphicRenderer {
             int[] ypointsarr = ypoints.stream().mapToInt(Integer::intValue).toArray();
             Color old = canvas.getColor();
             if (debugMode) {
-                canvas.setColor(Color.BLACK);
+                canvas.setColor(Color.BLUE);
             }
             else {
                 canvas.setColor(extractColor(p.getPropertiesList()));
@@ -62,18 +62,27 @@ public class GraphicRenderer {
             else {
                 canvas.setColor(extractColor(s.getPropertiesList()));
             }
-            
-            // For when Neighbourhood relations are implemented
-            if (debugMode) {
-                canvas.setColor(Color.BLACK);
-            }
-            else {
-                canvas.setColor(extractColor(s.getPropertiesList()));
-            }
-            
+
+
             Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
             canvas.draw(line);
             canvas.setColor(old);
+        }
+        for (Polygon p : aMesh.getPolygonsList()) {
+            canvas.setStroke(new BasicStroke(SEGMENT_THICKNESS));
+            Vertex v1 = vertices.get(p.getCentroidIdx());
+            for( int neighbour : p.getNeighborIdxsList()) {
+
+                Vertex v2 = vertices.get(neighbour);
+                Color old = canvas.getColor();
+                if (debugMode) {
+                    canvas.setColor(Color.GRAY);
+                    Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
+                    canvas.draw(line);
+                    canvas.setColor(old);
+                }
+
+            }
         }
 
         for (Vertex v : vertices) {
@@ -81,7 +90,28 @@ public class GraphicRenderer {
             double centre_x = v.getX() - (VERTEX_THICKNESS / 2.0d);
             double centre_y = v.getY() - (VERTEX_THICKNESS / 2.0d);
             Color old = canvas.getColor();
-            canvas.setColor(extractColor(v.getPropertiesList()));
+            if (debugMode) {
+                canvas.setColor(Color.GREEN);
+            }
+            else {
+                canvas.setColor(extractColor(v.getPropertiesList()));
+            }
+            Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, VERTEX_THICKNESS, VERTEX_THICKNESS);
+            canvas.fill(point);
+            canvas.setColor(old);
+        }
+        for (Polygon p : aMesh.getPolygonsList()) {
+            Vertex v = vertices.get(p.getCentroidIdx());
+            double centre_x = v.getX() - (VERTEX_THICKNESS / 2.0d);
+            double centre_y = v.getY() - (VERTEX_THICKNESS / 2.0d);
+            Color old = canvas.getColor();
+            if (debugMode) {
+                canvas.setColor(Color.YELLOW);
+            }
+            else {
+                canvas.setColor(extractColor(v.getPropertiesList()));
+            }
+
             Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, VERTEX_THICKNESS, VERTEX_THICKNESS);
             canvas.fill(point);
             canvas.setColor(old);

@@ -23,7 +23,7 @@ public class GenerateMesh {
         sides = 4;
         for (int i = 0; i < mesh.rows - 1; i++) {
             for (int j = 0; j < mesh.columns - 1; j++) {
-                Polygon poly = new Polygon(new Vertex(0, 0)); // Centroid currently unsed so just set to 0,0
+                Polygon poly = new Polygon(new Vertex(0, 0)); // Centroid currently unused so just set to 0,0
                 // Make Square
                 Vertex vert1 = mesh.vertices.get(i * mesh.rows + j);
                 Vertex vert2 = mesh.vertices.get(i * mesh.rows + j + mesh.rows);

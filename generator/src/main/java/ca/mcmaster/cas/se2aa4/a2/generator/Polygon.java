@@ -8,7 +8,7 @@ public class Polygon {
     public ArrayList<Vertex> verticies = new ArrayList<>();
     private int[] colour;
 
-    int[] CENTROID_COLOUR = new int[] { 255, 0, 0 };
+    int[] CENTROID_COLOUR = new int[] { 0, 0, 0 };
 
     public Polygon(Vertex centroid) {
         this.centroid = centroid;
