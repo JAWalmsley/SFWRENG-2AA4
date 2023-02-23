@@ -8,7 +8,7 @@ public class Vertex {
     public Vertex(float x, float y) {
         this.x = x;
         this.y = y;
-        colour = new int[] { 0, 0, 0 };
+        colour = new int[] { 0, 0, 0, 255 };
     }
 
     public float getX() {

@@ -8,11 +8,10 @@ public class Polygon {
     public ArrayList<Vertex> verticies = new ArrayList<>();
     private int[] colour;
 
-    int[] CENTROID_COLOUR = new int[] { 255, 0, 0 };
 
     public Polygon(Vertex centroid) {
         this.centroid = centroid;
-        this.colour = new int[] { 0, 0, 0 };
+        this.colour = new int[] { 0, 0, 0, 255 };
     }
 
     public void addSegment(Segment seg) {
@@ -35,7 +34,6 @@ public class Polygon {
     }
 
     public void setCentroid(Vertex v) {
-        v.setColour(CENTROID_COLOUR);
         this.centroid = v;
     }
 

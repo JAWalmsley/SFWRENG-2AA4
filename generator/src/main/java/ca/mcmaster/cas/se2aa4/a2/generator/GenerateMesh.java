@@ -20,7 +20,7 @@ public class GenerateMesh {
         sides = 4;
         for (int i = 0; i < mesh.rows - 1; i++) {
             for (int j = 0; j < mesh.columns - 1; j++) {
-                Polygon poly = new Polygon(new Vertex(0, 0)); // Centroid currently unsed so just set to 0,0
+                Polygon poly = new Polygon(new Vertex(0, 0)); // Centroid currently unused so just set to 0,0
                 // Make Square
                 Vertex vert1 = mesh.getVertex(i * mesh.rows + j);
                 Vertex vert2 = mesh.getVertex(i * mesh.rows + j + mesh.rows);
@@ -45,7 +45,7 @@ public class GenerateMesh {
                 poly.addSegment(seg4);
 
                 Random bag = new Random();
-                int[] colour = { bag.nextInt(255), bag.nextInt(255), bag.nextInt(255) };
+                int[] colour = { bag.nextInt(255), bag.nextInt(255), bag.nextInt(255), 130 };
                 poly.setColour(colour);
 
                 mesh.polygons.add(poly);

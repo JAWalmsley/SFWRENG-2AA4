@@ -112,7 +112,7 @@ public class Mesh {
      * @return Property The colour property
      */
     private static Property colourToProperty(int[] colour) {
-        String colorCode = colour[0] + "," + colour[1] + "," + colour[2];
+        String colorCode = colour[0] + "," + colour[1] + "," + colour[2] + ',' + colour[3];
         Property colourProp = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
         return colourProp;
     }
