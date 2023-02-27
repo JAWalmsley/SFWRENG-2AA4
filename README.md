@@ -72,8 +72,8 @@ When you develop features and enrich the product, remember that you have first t
 | F03 | Visualizing with Mesh ADT                               | Jack Walmsley   | 2023-02-11 | 2023-02-16 | D      |
 | F04 | Debug visualization mode                                | Mathieu Gaudet  | 2023-02-11 |            | S      |
 | F05 | Random points generation                                | Jack Walmsley   | 2023-02-19 | 2023-02-20 | D      |
-| F06 | Voronoi diagram computation                             | Graham Morrison |            |            | P      |
-| F07 | Lloyd relaxation                                        | Graham Morrison |            |            | B(F06) |
+| F06 | Voronoi diagram computation                             | Graham Morrison | 2023-02-26 | 2023-02-27 | D      |
+| F07 | Lloyd relaxation                                        | Graham Morrison | 2023-02-26 | 2023-02-27 | D      |
 | F08 | Mesh cropping to expected width and height              | Mathieu Gaudet  |            |            | B(F07) |
 | F09 | Delauney triangulation for neighbourhood relationships  | Jack Walmsley   |            |            | B(F08) |
 | F10 | Convex hull computation for consecutiveness of segments | Jack Walmsley   |            |            | B(F08) |

@@ -2,6 +2,10 @@ package ca.mcmaster.cas.se2aa4.a2.generator;
 
 import java.util.Random;
 
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
+
 public class GenerateMesh {
     private int numVertices = 100;
 
@@ -45,7 +49,7 @@ public class GenerateMesh {
                 poly.addSegment(seg4);
 
                 Random bag = new Random();
-                int[] colour = { bag.nextInt(255), bag.nextInt(255), bag.nextInt(255), 130 };
+                int[] colour = { bag.nextInt(255), bag.nextInt(255), bag.nextInt(255), 130};
                 poly.setColour(colour);
 
                 mesh.polygons.add(poly);
@@ -53,11 +57,46 @@ public class GenerateMesh {
         }
     }
 
+
+    public void calculateVoronoi(Mesh mesh) {
+        mesh.polygons.clear();
+        mesh.createCords();
+
+        GeometryFactory fact = new GeometryFactory();
+
+        for(int i=0; i < mesh.getCoordinates().size(); i++){
+            fact.createPoint(mesh.getCoordinates().get(i));
+        }
+
+        VoronoiDiagramBuilder voronoiBuilder = new VoronoiDiagramBuilder();
+        voronoiBuilder.setSites(mesh.getCoordinates());
+        Geometry voronoiDiagram = voronoiBuilder.getDiagram(fact);
+
+        for (int i = 0; i < voronoiDiagram.getNumGeometries(); i++) {
+            Polygon poly = new Polygon(mesh.getVertices().get(i));
+            poly.convertGeometry(voronoiDiagram.getGeometryN(i));
+            mesh.polygons.add(poly);
+        }
+    } 
+
+    public void loidRelaxation(Mesh mesh) {
+        int LOOP = 10;
+        
+        for(int i=0; i <= LOOP; i++){
+            calculateVoronoi(mesh);
+            for(int j=0; j < mesh.polygons.size(); j++){
+                mesh.polygons.get(j).setCentroid(mesh.polygons.get(j).centerOfMass());
+            }
+        }
+    } 
+
     public Mesh generatePolygonMesh(int sides) {
         // Create new mesh
         Mesh mesh = new Mesh(100, 100, 1);
         makeVertices(mesh);
         // makePolygons(mesh, sides);
+        //calculateVoronoi(mesh);
+        loidRelaxation(mesh);
 
         return mesh;
     }

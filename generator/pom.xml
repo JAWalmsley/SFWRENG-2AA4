@@ -24,9 +24,13 @@
     <dependency>
       <groupId>org.locationtech.jts</groupId>
       <artifactId>jts-core</artifactId>
-      <version>1.18.2</version>
+      <version>${jts.version}</version>
     </dependency>
   </dependencies>
+
+  <properties>
+      <jts.version>1.16.1</jts.version>
+    </properties>
 
   <build>
     <plugins>
