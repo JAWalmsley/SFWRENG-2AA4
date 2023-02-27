@@ -88,11 +88,44 @@ public class GenerateMesh {
         
         for(int i=0; i <= LOOP; i++){
             calculateVoronoi(mesh);
+
             for(int j=0; j < mesh.polygons.size(); j++){
                 mesh.polygons.get(j).setCentroid(mesh.polygons.get(j).centerOfMass());
             }
         }
-    } 
+    }
+    public void cropMesh(Mesh mesh) {
+        for( int i=0; i<=mesh.polygons.size(); i++){
+            Polygon poly = mesh.polygons.get(i);
+            for(int j=0; j<=poly.verticies.size(); j++){
+                if (poly.verticies.get(j).getX() >= mesh.width || poly.verticies.get(j).getY() >= mesh.height) {
+                    mesh.polygons.remove(i);
+                    break;
+            }
+
+
+        }
+        /*for(int i = 0; i<mesh.polygons.size(); i++) {
+            Vertex centroid = mesh.polygons.get(i).getCentroid();
+
+            System.out.print(centroid.getX() + " + ");
+            System.out.println(centroid.getY());
+            System.out.print(mesh.polygons.get(i).getColour()[0] + ", ");
+            System.out.print(mesh.polygons.get(i).getColour()[1]+ ", ");
+            System.out.println(mesh.polygons.get(i).getColour()[2]);
+            if(centroid.getX() >= mesh.width || centroid.getY() >= mesh.height || centroid.getX() < 0 || centroid.getY() < 0){
+                System.out.println("too big");
+                mesh.polygons.remove(i);
+            } else {
+                for (Vertex v : mesh.polygons.get(i).verticies) {
+                    if (v.getX() >= mesh.width || v.getY() >= mesh.height) {
+                        mesh.polygons.remove(i);
+                        break;
+                    }
+                }
+            }
+        }*/
+    }
 
     public Mesh generatePolygonMesh(int sides) {
         // Create new mesh
@@ -100,7 +133,9 @@ public class GenerateMesh {
         makeVertices(mesh);
         // makePolygons(mesh, sides);
         //calculateVoronoi(mesh);
+
         loidRelaxation(mesh);
+        cropMesh(mesh);
 
         return mesh;
     }
