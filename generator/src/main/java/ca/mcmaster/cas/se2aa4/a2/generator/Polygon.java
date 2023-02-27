@@ -1,6 +1,7 @@
 package ca.mcmaster.cas.se2aa4.a2.generator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
@@ -10,10 +11,12 @@ public class Polygon {
     private ArrayList<Segment> segments = new ArrayList<>();
     public ArrayList<Vertex> verticies = new ArrayList<>();
     private int[] colour;
+    private ArrayList<Polygon> neighbours;
 
     public Polygon(Vertex centroid) {
         this.centroid = centroid;
         this.colour = new int[] { 0, 0, 0, 255 };
+        this.neighbours = new ArrayList<Polygon>();
     }
 
     public void addSegment(Segment seg) {
@@ -29,6 +32,17 @@ public class Polygon {
             }
         }
         this.segments.add(seg);
+    }
+
+    public void addNeighbour(Polygon p) {
+        if(!this.neighbours.contains(p))
+        {
+            this.neighbours.add(p);
+        }
+    }
+
+    public List<Polygon> getNeighbours() {
+        return this.neighbours;
     }
 
     public Vertex getCentroid() {

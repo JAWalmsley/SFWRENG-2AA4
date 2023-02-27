@@ -88,7 +88,6 @@ public class GenerateMesh {
 
         for (int i = 0; i <= LOOP; i++) {
             calculateVoronoi(mesh);
-
             for (int j = 0; j < mesh.polygons.size(); j++) {
                 mesh.polygons.get(j).setCentroid(mesh.polygons.get(j).centerOfMass());
             }
@@ -139,11 +138,12 @@ public class GenerateMesh {
         // Create new mesh
         Mesh mesh = new Mesh(100, 100, 1);
         makeVertices(mesh);
-        // makePolygons(mesh, sides);
-        // calculateVoronoi(mesh);
 
         loidRelaxation(mesh);
         cropMesh(mesh);
+
+        // Remove the original points after they have been relaxed
+        mesh.getVertices().clear();
 
         return mesh;
     }

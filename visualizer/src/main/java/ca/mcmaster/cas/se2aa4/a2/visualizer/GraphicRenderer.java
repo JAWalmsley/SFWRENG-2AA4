@@ -72,8 +72,8 @@ public class GraphicRenderer {
             canvas.setStroke(new BasicStroke(SEGMENT_THICKNESS));
             Vertex v1 = vertices.get(p.getCentroidIdx());
             for( int neighbour : p.getNeighborIdxsList()) {
-
-                Vertex v2 = vertices.get(neighbour);
+                Polygon neighbourPoly = aMesh.getPolygons(neighbour);
+                Vertex v2 = vertices.get(neighbourPoly.getCentroidIdx());
                 Color old = canvas.getColor();
                 if (debugMode) {
                     canvas.setColor(Color.GRAY);
