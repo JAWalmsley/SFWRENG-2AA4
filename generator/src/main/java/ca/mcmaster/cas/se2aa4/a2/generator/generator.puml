@@ -1,0 +1,77 @@
+@startuml
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class GenerateMesh {
+    + GenerateMesh():
+    + generatePolygonMesh(int): Mesh
+    + makePolygons(Mesh, int): void
+    + makeVertices(Mesh): void
+}
+
+class Main {
+    + Main():
+    + main(String[]): void
+}
+
+class Mesh {
+    + Mesh(int width, int height, int precision):
+    + colourToProperty(int[]): Property
+    + IOMesh: Mesh
+    + width : int
+    + height : int
+    + addVertex : void
+    + getVertex(int index) : Vertex
+    + createCoords() : void
+    + getCoordinates() : Coordinate[]
+    + getIOMesh() : Structs.Mesh
+    - precision : int
+    - vertices : Vertex[]
+    - coordinates : Coordinate[]
+    - polygons : Polygon[]
+}
+
+class Polygon {
+    + Polygon(Vertex centroid):
+    - centroid: Vertex
+    - colour: int[]
+    - segments: Segment[]
+    - vertices: Vertex[]
+    + addSegment(Segment): void
+    + getCentroid(): Vertex
+    + setCentroid(): void
+    + centerOfMass(): Vertex
+    + getColour(): int[]
+    + setColour(int[]): void
+    + convertGeometry(Geometry): void
+}
+
+class Segment {
+    + Segment(Vertex v1, Vertex v2):
+    - colour: int[]
+    - v1: Vertex
+    - v2: Vertex
+    + getColour(): int[]
+    + setColour(int[]): void
+    + getV1(): Vertex
+    + getV2(): Vertex
+}
+class Vertex {
+    + Vertex(float x, float y):
+    + colour: int[]
+    - x: float
+    - y: float
+    + getX(): float
+    + getY(): float
+    + getColour(): int[]
+    + setColour(): void
+    + isEqual(Vertex v, int precision): boolean
+}
+
+Mesh             o-- Polygon
+Mesh             o-- Vertex
+Polygon          o-- Segment
+Polygon          o-- Vertex
+Segment          o-- Vertex
+@enduml
