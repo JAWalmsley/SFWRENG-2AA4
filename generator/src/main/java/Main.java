@@ -6,10 +6,13 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 
 import java.io.IOException;
 
+import com.google.protobuf.DescriptorProtos.GeneratedCodeInfo;
+
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Mesh m = SampleData.createData();
+        GenerateMesh generator = new GenerateMesh();
+        Mesh m = generator.generatePolygonMesh(4);
         m.calculateNeighbours();
         Structs.Mesh myMesh = m.getIOMesh();
         MeshFactory factory = new MeshFactory();

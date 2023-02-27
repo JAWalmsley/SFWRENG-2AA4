@@ -49,7 +49,7 @@ public class GenerateMesh {
                 poly.addSegment(seg4);
 
                 Random bag = new Random();
-                int[] colour = { bag.nextInt(255), bag.nextInt(255), bag.nextInt(255), 130};
+                int[] colour = { bag.nextInt(255), bag.nextInt(255), bag.nextInt(255), 130 };
                 poly.setColour(colour);
 
                 mesh.polygons.add(poly);
@@ -57,14 +57,13 @@ public class GenerateMesh {
         }
     }
 
-
     public void calculateVoronoi(Mesh mesh) {
         mesh.polygons.clear();
         mesh.createCords();
 
         GeometryFactory fact = new GeometryFactory();
 
-        for(int i=0; i < mesh.getCoordinates().size(); i++){
+        for (int i = 0; i < mesh.getCoordinates().size(); i++) {
             fact.createPoint(mesh.getCoordinates().get(i));
         }
 
@@ -77,26 +76,28 @@ public class GenerateMesh {
             poly.convertGeometry(voronoiDiagram.getGeometryN(i));
             mesh.polygons.add(poly);
         }
-    } 
+    }
 
     public void loidRelaxation(Mesh mesh) {
         int LOOP = 10;
-        
-        for(int i=0; i <= LOOP; i++){
+
+        for (int i = 0; i <= LOOP; i++) {
             calculateVoronoi(mesh);
-            for(int j=0; j < mesh.polygons.size(); j++){
+            for (int j = 0; j < mesh.polygons.size(); j++) {
                 mesh.polygons.get(j).setCentroid(mesh.polygons.get(j).centerOfMass());
             }
         }
-    } 
+    }
 
     public Mesh generatePolygonMesh(int sides) {
         // Create new mesh
         Mesh mesh = new Mesh(100, 100, 1);
         makeVertices(mesh);
-        // makePolygons(mesh, sides);
-        //calculateVoronoi(mesh);
+
         loidRelaxation(mesh);
+
+        // Remove the original points after they have been relaxed
+        mesh.getVertices().clear();
 
         return mesh;
     }
