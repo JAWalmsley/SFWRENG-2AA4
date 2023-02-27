@@ -1,12 +1,16 @@
 package ca.mcmaster.cas.se2aa4.a2.generator;
 
 import java.util.ArrayList;
+
+import org.locationtech.jts.geom.Coordinate;
+
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 
 public class Mesh {
 
     private ArrayList<Vertex> vertices = new ArrayList<>();
+    private ArrayList<Coordinate> coordinates = new ArrayList<>();
     public ArrayList<Polygon> polygons = new ArrayList<>();
 
     public int width;
@@ -44,6 +48,21 @@ public class Mesh {
 
     public Vertex getVertex(int index) {
         return this.vertices.get(index);
+    }
+    
+    public ArrayList<Vertex> getVertices() {
+        return this.vertices;
+    }
+
+    public void createCords(){ 
+        for(Vertex v : this.vertices){
+            Coordinate c = new Coordinate(v.getX(), v.getY());
+            this.coordinates.add(c);
+        }
+    }
+
+    public ArrayList<Coordinate> getCoordinates(){
+        return this.coordinates;
     }
 
     /**
