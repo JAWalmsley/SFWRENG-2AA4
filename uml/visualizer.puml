@@ -1,0 +1,8 @@
+@startuml Visualizer
+    class GraphicRenderer {
+        - SEGMENT_THICKNESS: float
+        - VERTEX_THICKNESS: int
+        + render(Mesh aMesh, Graphics2D canvas, boolean debug): void
+        - extractColor(properties: Property[]): Color
+    }
+@enduml
