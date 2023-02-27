@@ -1,5 +1,6 @@
 package ca.mcmaster.cas.se2aa4.a2.generator;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.locationtech.jts.geom.Geometry;
@@ -49,7 +50,7 @@ public class GenerateMesh {
                 poly.addSegment(seg4);
 
                 Random bag = new Random();
-                int[] colour = { bag.nextInt(255), bag.nextInt(255), bag.nextInt(255), 130};
+                int[] colour = { bag.nextInt(255), bag.nextInt(255), bag.nextInt(255), 130 };
                 poly.setColour(colour);
 
                 mesh.polygons.add(poly);
@@ -57,14 +58,13 @@ public class GenerateMesh {
         }
     }
 
-
     public void calculateVoronoi(Mesh mesh) {
         mesh.polygons.clear();
         mesh.createCords();
 
         GeometryFactory fact = new GeometryFactory();
 
-        for(int i=0; i < mesh.getCoordinates().size(); i++){
+        for (int i = 0; i < mesh.getCoordinates().size(); i++) {
             fact.createPoint(mesh.getCoordinates().get(i));
         }
 
@@ -77,54 +77,62 @@ public class GenerateMesh {
             poly.convertGeometry(voronoiDiagram.getGeometryN(i));
 
             Random bag = new Random();
-            int[] colour = { bag.nextInt(255), bag.nextInt(255), bag.nextInt(255), 130};
+            int[] colour = { bag.nextInt(255), bag.nextInt(255), bag.nextInt(255), 130 };
             poly.setColour(colour);
             mesh.polygons.add(poly);
         }
-    } 
+    }
 
     public void loidRelaxation(Mesh mesh) {
         int LOOP = 10;
-        
-        for(int i=0; i <= LOOP; i++){
+
+        for (int i = 0; i <= LOOP; i++) {
             calculateVoronoi(mesh);
 
-            for(int j=0; j < mesh.polygons.size(); j++){
+            for (int j = 0; j < mesh.polygons.size(); j++) {
                 mesh.polygons.get(j).setCentroid(mesh.polygons.get(j).centerOfMass());
             }
         }
     }
+
     public void cropMesh(Mesh mesh) {
-        for( int i=0; i<=mesh.polygons.size(); i++){
-            Polygon poly = mesh.polygons.get(i);
-            for(int j=0; j<=poly.verticies.size(); j++){
-                if (poly.verticies.get(j).getX() >= mesh.width || poly.verticies.get(j).getY() >= mesh.height) {
-                    mesh.polygons.remove(i);
+        ArrayList<Polygon> toRemove = new ArrayList<Polygon>();
+        for (Polygon p : mesh.polygons) {
+            for (Segment s : p.getSegments()) {
+                Vertex v1 = s.getV1();
+                Vertex v2 = s.getV2();
+                boolean v1out = v1.getX() > mesh.width || v1.getY() > mesh.height || v1.getX() < 0 || v1.getY() < 0;
+                boolean v2out = v2.getX() > mesh.width || v2.getY() > mesh.height || v2.getX() < 0 || v2.getY() < 0;
+                if (v1out || v2out) {
+                    toRemove.add(p);
                     break;
-            }
-
-
-        }
-        /*for(int i = 0; i<mesh.polygons.size(); i++) {
-            Vertex centroid = mesh.polygons.get(i).getCentroid();
-
-            System.out.print(centroid.getX() + " + ");
-            System.out.println(centroid.getY());
-            System.out.print(mesh.polygons.get(i).getColour()[0] + ", ");
-            System.out.print(mesh.polygons.get(i).getColour()[1]+ ", ");
-            System.out.println(mesh.polygons.get(i).getColour()[2]);
-            if(centroid.getX() >= mesh.width || centroid.getY() >= mesh.height || centroid.getX() < 0 || centroid.getY() < 0){
-                System.out.println("too big");
-                mesh.polygons.remove(i);
-            } else {
-                for (Vertex v : mesh.polygons.get(i).verticies) {
-                    if (v.getX() >= mesh.width || v.getY() >= mesh.height) {
-                        mesh.polygons.remove(i);
-                        break;
-                    }
                 }
             }
-        }*/
+        }
+        mesh.polygons.removeAll(toRemove);
+        /*
+         * for(int i = 0; i<mesh.polygons.size(); i++) {
+         * Vertex centroid = mesh.polygons.get(i).getCentroid();
+         * 
+         * System.out.print(centroid.getX() + " + ");
+         * System.out.println(centroid.getY());
+         * System.out.print(mesh.polygons.get(i).getColour()[0] + ", ");
+         * System.out.print(mesh.polygons.get(i).getColour()[1]+ ", ");
+         * System.out.println(mesh.polygons.get(i).getColour()[2]);
+         * if(centroid.getX() >= mesh.width || centroid.getY() >= mesh.height ||
+         * centroid.getX() < 0 || centroid.getY() < 0){
+         * System.out.println("too big");
+         * mesh.polygons.remove(i);
+         * } else {
+         * for (Vertex v : mesh.polygons.get(i).verticies) {
+         * if (v.getX() >= mesh.width || v.getY() >= mesh.height) {
+         * mesh.polygons.remove(i);
+         * break;
+         * }
+         * }
+         * }
+         * }
+         */
     }
 
     public Mesh generatePolygonMesh(int sides) {
@@ -132,7 +140,7 @@ public class GenerateMesh {
         Mesh mesh = new Mesh(100, 100, 1);
         makeVertices(mesh);
         // makePolygons(mesh, sides);
-        //calculateVoronoi(mesh);
+        // calculateVoronoi(mesh);
 
         loidRelaxation(mesh);
         cropMesh(mesh);
