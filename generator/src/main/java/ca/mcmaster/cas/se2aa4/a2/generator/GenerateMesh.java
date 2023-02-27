@@ -75,6 +75,10 @@ public class GenerateMesh {
         for (int i = 0; i < voronoiDiagram.getNumGeometries(); i++) {
             Polygon poly = new Polygon(mesh.getVertices().get(i));
             poly.convertGeometry(voronoiDiagram.getGeometryN(i));
+
+            Random bag = new Random();
+            int[] colour = { bag.nextInt(255), bag.nextInt(255), bag.nextInt(255), 130};
+            poly.setColour(colour);
             mesh.polygons.add(poly);
         }
     } 
