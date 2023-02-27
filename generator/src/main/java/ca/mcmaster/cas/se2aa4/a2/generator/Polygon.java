@@ -2,12 +2,14 @@ package ca.mcmaster.cas.se2aa4.a2.generator;
 
 import java.util.ArrayList;
 
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Geometry;
+
 public class Polygon {
     private Vertex centroid;
     private ArrayList<Segment> segments = new ArrayList<>();
     public ArrayList<Vertex> verticies = new ArrayList<>();
     private int[] colour;
-
 
     public Polygon(Vertex centroid) {
         this.centroid = centroid;
@@ -57,5 +59,16 @@ public class Polygon {
 
     public void setColour(int[] colourToSet) {
         colour = colourToSet;
+    }
+
+    public void convertGeometry(Geometry geometry) {
+        Coordinate[] coords = geometry.getCoordinates();
+        for (int i = 0; i < coords.length-1; i++) {
+            Vertex v1 = new Vertex((float) coords[i].x, (float) coords[i].y);
+            Vertex v2 = new Vertex((float) coords[i + 1].x, (float) coords[i + 1].y);
+            this.verticies.add(v1);
+            this.verticies.add(v2);
+            this.segments.add(new Segment(v1, v2));
+        }
     }
 }
