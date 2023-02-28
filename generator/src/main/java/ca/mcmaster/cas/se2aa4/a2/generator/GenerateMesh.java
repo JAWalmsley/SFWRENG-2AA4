@@ -10,21 +10,37 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 
 public class GenerateMesh {
-    private int numVertices = 100;
+    private int numCentroids = 100;
 
-    public void makeVertices(Mesh mesh) {
+    public void makeRandomVertices(Mesh mesh) {
         Random bag = new Random();
-        for (int i = 0; i < numVertices; i++) {
+        for (int i = 0; i < numCentroids; i++) {
             float x = bag.nextFloat() * mesh.width;
             float y = bag.nextFloat() * mesh.height;
             Vertex v = new Vertex(x, y);
             mesh.addVertex(v);
         }
     }
+    public void setNumPolygons(int numPolygons) {
+        this.numCentroids = numPolygons;
+    }
 
-    public void makePolygons(Mesh mesh, int sides) {
+    public void makeSquareVertices(Mesh mesh) {
+        int square_size = 5;
+        // Create all the vertices
+        for (int x = 0; x < mesh.width; x += square_size) {
+            mesh.columns++;
+            for (int y = 0; y < mesh.height; y += square_size) {
+                Vertex v1 = new Vertex(x, y);
+                mesh.addVertex(v1);
+                if (x == 0)
+                    mesh.rows++;
+            }
+        }
+    }
+
+    public void makeSquarePolygons(Mesh mesh) {
         // TODO: Create a polygon with the given number of sides
-        sides = 4;
         for (int i = 0; i < mesh.rows - 1; i++) {
             for (int j = 0; j < mesh.columns - 1; j++) {
                 Polygon poly = new Polygon(new Vertex(0, 0)); // Centroid currently unused so just set to 0,0
@@ -85,10 +101,9 @@ public class GenerateMesh {
         }
     }
 
-    public void loidRelaxation(Mesh mesh) {
-        int LOOP = 10;
+    public void loidRelaxation(Mesh mesh, int relaxLevel) {
 
-        for (int i = 0; i <= LOOP; i++) {
+        for (int i = 0; i <= relaxLevel; i++) {
             calculateVoronoi(mesh);
             for (int j = 0; j < mesh.polygons.size(); j++) {
                 mesh.polygons.get(j).setCentroid(mesh.polygons.get(j).centerOfMass());
@@ -102,8 +117,10 @@ public class GenerateMesh {
             for (Segment s : p.getSegments()) {
                 Vertex v1 = s.getV1();
                 Vertex v2 = s.getV2();
-                boolean v1out = v1.getX() > mesh.width || v1.getY() > mesh.height || v1.getX() < 0 || v1.getY() < 0;
-                boolean v2out = v2.getX() > mesh.width || v2.getY() > mesh.height || v2.getX() < 0 || v2.getY() < 0;
+                boolean v1out = v1.getX() > mesh.width ||
+                        v1.getY() > mesh.height || v1.getX() < 0 || v1.getY() < 0;
+                boolean v2out = v2.getX() > mesh.width ||
+                        v2.getY() > mesh.height || v2.getX() < 0 || v2.getY() < 0;
                 if (v1out || v2out) {
                     toRemove.add(p);
                     break;
@@ -122,20 +139,26 @@ public class GenerateMesh {
             ConvexHull hull = new ConvexHull(coords.toArray(new Coordinate[coords.size()]), new GeometryFactory());
             p.convertGeometry(hull.getConvexHull());
         }
+
     }
 
-    public Mesh generatePolygonMesh(int sides) {
+    public Mesh generatePolygonMesh(String meshType, int relaxLevel) {
         // Create new mesh
+
+
         Mesh mesh = new Mesh(100, 100, 1);
-        makeVertices(mesh);
+        if (meshType == "grid"){
+            makeSquareVertices(mesh);
+            makeSquarePolygons(mesh);
+        } else if(meshType == "irregular") {
+            makeRandomVertices(mesh);
+            loidRelaxation(mesh, relaxLevel);
+            cropMesh(mesh);
 
-        loidRelaxation(mesh);
-        convexHull(mesh);
-        cropMesh(mesh);
 
-        // Remove the original points after they have been relaxed
-        mesh.getVertices().clear();
-
+            // Remove the original points after they have been relaxed
+            mesh.getVertices().clear();
+        }
         return mesh;
     }
 }
