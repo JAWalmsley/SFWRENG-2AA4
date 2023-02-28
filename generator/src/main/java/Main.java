@@ -1,6 +1,12 @@
 
 import ca.mcmaster.cas.se2aa4.a2.generator.GenerateMesh;
 
+
+
+import ca.mcmaster.cas.se2aa4.a2.generator.MeshType;
+import ca.mcmaster.cas.se2aa4.a2.generator.GenerateGridMesh;
+import ca.mcmaster.cas.se2aa4.a2.generator.GenerateIrregularMesh;
+
 import ca.mcmaster.cas.se2aa4.a2.generator.Mesh;
 
 import ca.mcmaster.cas.se2aa4.a2.generator.SampleData;
@@ -34,7 +40,7 @@ public class Main {
                 .addOption("r", "relaxation", true, "Relaxation Level")
                 .addOption("o", "fileName", true, "Output File Name");
         CommandLine cli = cliParser.parse(options, args);
-        if (cli.getArgs().length !=1 || cli.hasOption("help")) {
+        if (cli.getArgs().length != 1 || cli.hasOption("help")) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("Generator [OPTIONS] grid/irregular", options);
             return;
@@ -42,12 +48,12 @@ public class Main {
 
         String[] choice = cli.getArgs();
         int numPolygons = 100;
-        if (!cli.hasOption("n")) {
+        if (cli.hasOption("n")) {
             numPolygons = Integer.valueOf(cli.getOptionValue("n"));
         }
 
         int relaxLevel = 10;
-        if (!cli.hasOption("r")) {
+        if (cli.hasOption("r")) {
             relaxLevel = Integer.valueOf(cli.getOptionValue("r"));
         }
 
@@ -56,10 +62,12 @@ public class Main {
             fileName = cli.getOptionValue("o");
         }
 
-
-        GenerateMesh generator = new GenerateMesh();
-        generator.setNumPolygons(numPolygons);
-        Mesh m = generator.generatePolygonMesh(choice[0], relaxLevel);
+        // Grid mesh by default
+        MeshType generator = new GenerateGridMesh(5);
+        if (choice[0].equals("irregular")) {
+            generator = new GenerateIrregularMesh(relaxLevel);
+        }
+        Mesh m = generator.generateMesh(numPolygons);
         m.calculateNeighbours();
         
         Structs.Mesh myMesh = m.getIOMesh();
