@@ -10,7 +10,7 @@ import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 public class GenerateMesh {
     private int numVertices = 100;
 
-    public void makeVertices(Mesh mesh) {
+    public void makeRandomVertices(Mesh mesh) {
         Random bag = new Random();
         for (int i = 0; i < numVertices; i++) {
             float x = bag.nextFloat() * mesh.width;
@@ -20,9 +20,22 @@ public class GenerateMesh {
         }
     }
 
-    public void makePolygons(Mesh mesh, int sides) {
+    public void makeSquareVertices(Mesh mesh) {
+        int square_size = 5;
+        // Create all the vertices
+        for (int x = 0; x < mesh.width; x += square_size) {
+            mesh.columns++;
+            for (int y = 0; y < mesh.height; y += square_size) {
+                Vertex v1 = new Vertex(x, y);
+                mesh.addVertex(v1);
+                if (x == 0)
+                    mesh.rows++;
+            }
+        }
+    }
+
+    public void makeSquarePolygons(Mesh mesh) {
         // TODO: Create a polygon with the given number of sides
-        sides = 4;
         for (int i = 0; i < mesh.rows - 1; i++) {
             for (int j = 0; j < mesh.columns - 1; j++) {
                 Polygon poly = new Polygon(new Vertex(0, 0)); // Centroid currently unused so just set to 0,0
@@ -109,41 +122,24 @@ public class GenerateMesh {
             }
         }
         mesh.polygons.removeAll(toRemove);
-        /*
-         * for(int i = 0; i<mesh.polygons.size(); i++) {
-         * Vertex centroid = mesh.polygons.get(i).getCentroid();
-         * 
-         * System.out.print(centroid.getX() + " + ");
-         * System.out.println(centroid.getY());
-         * System.out.print(mesh.polygons.get(i).getColour()[0] + ", ");
-         * System.out.print(mesh.polygons.get(i).getColour()[1]+ ", ");
-         * System.out.println(mesh.polygons.get(i).getColour()[2]);
-         * if(centroid.getX() >= mesh.width || centroid.getY() >= mesh.height ||
-         * centroid.getX() < 0 || centroid.getY() < 0){
-         * System.out.println("too big");
-         * mesh.polygons.remove(i);
-         * } else {
-         * for (Vertex v : mesh.polygons.get(i).verticies) {
-         * if (v.getX() >= mesh.width || v.getY() >= mesh.height) {
-         * mesh.polygons.remove(i);
-         * break;
-         * }
-         * }
-         * }
-         * }
-         */
     }
 
-    public Mesh generatePolygonMesh(int sides) {
+    public Mesh generatePolygonMesh(String meshType) {
         // Create new mesh
+
+        meshType = "square";
         Mesh mesh = new Mesh(100, 100, 1);
-        makeVertices(mesh);
+        if (meshType == "square"){
+            makeSquareVertices(mesh);
+            makeSquarePolygons(mesh);
+        } else {
+            makeRandomVertices(mesh);
+            loidRelaxation(mesh);
+            cropMesh(mesh);
 
-        loidRelaxation(mesh);
-        cropMesh(mesh);
-
-        // Remove the original points after they have been relaxed
-        mesh.getVertices().clear();
+            // Remove the original points after they have been relaxed
+            mesh.getVertices().clear();
+        }
 
         return mesh;
     }

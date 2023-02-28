@@ -27,7 +27,7 @@ public class Main {
                 .addOption("d", "debug", false, "debug mode ON");
 
         GenerateMesh generator = new GenerateMesh();
-        Mesh m = generator.generatePolygonMesh(4);
+        Mesh m = generator.generatePolygonMesh("square");
         m.calculateNeighbours();
         Structs.Mesh myMesh = m.getIOMesh();
         MeshFactory factory = new MeshFactory();
