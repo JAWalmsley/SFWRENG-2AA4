@@ -22,7 +22,7 @@ After installation, you'll find an application named `generator.jar` in the `gen
 
 ### Generator
 
-To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes one single argument (so far), the name of the file where the generated mesh will be stored as binary.
+To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes up to 4 arguments. Whether it is a regular grid or an irregular mesh, the number of polygons in an irregular mesh, the number of times the irregular mesh should be relaxed and the name of the file where the generated mesh will be stored as binary.
 
 ```
 mosser@azrael A2 % cd generator
@@ -31,10 +31,17 @@ mosser@azrael generator % ls -lh sample.mesh
 -rw-r--r--  1 mosser  staff    29K 29 Jan 10:52 sample.mesh
 mosser@azrael generator %
 ```
+```
+usage: Generator [OPTIONS] grid/irregular
+ -h,--help               Display help
+ -n,--polygons <arg>     Number of Polygons
+ -o,--fileName <arg>     Output File Name
+ -r,--relaxation <arg>   Relaxation Level
+```
 
 ### Visualizer
 
-To visualize an existing mesh, go the the `visualizer` directory, and use `java -jar` to run the product. The product take two arguments (so far): the file containing the mesh, and the name of the file to store the visualization (as an SVG image).
+To visualize an existing mesh, go the the `visualizer` directory, and use `java -jar` to run the product. The product take three arguments: the file containing the mesh, the name of the file to store the visualization (as an SVG image) and whether it is in debug mode (-X for debug mode).
 
 ```
 mosser@azrael A2 % cd visualizer
@@ -70,12 +77,12 @@ When you develop features and enrich the product, remember that you have first t
 | F02 | Mesh ADT                                                 | All             | 2023-02-11 | 2023-02-11 | D      |
 | F03 | Generating with Mesh ADT                                 | Graham Morrison | 2023-02-11 | 2023-02-16 | D      |
 | F03 | Visualizing with Mesh ADT                                | Jack Walmsley   | 2023-02-11 | 2023-02-16 | D      |
-| F04 | Debug visualization mode                                 | Mathieu Gaudet  | 2023-02-11 | 2023-02-22 | S      |
+| F04 | Debug visualization mode                                 | Mathieu Gaudet  | 2023-02-11 | 2023-02-22 | D      |
 | F05 | Random points generation                                 | Jack Walmsley   | 2023-02-19 | 2023-02-20 | D      |
 | F06 | Voronoi diagram computation                              | Graham Morrison | 2023-02-26 | 2023-02-27 | D      |
 | F07 | Lloyd relaxation                                         | Graham Morrison | 2023-02-26 | 2023-02-27 | D      |
-| F08 | Mesh cropping to expected width and height               | Mathieu Gaudet  |            |            | B(F07) |
-| F09 | Delauney triangulation for neighbourhood relationships   | Jack Walmsley   |            |            | B(F08) |
-| F10 | Convex hull computation for consecutiveness of segments  | Jack Walmsley   |            |            | B(F08) |
-| F11 | Reading options from command line                        | Mathieu Gaudet  |            |            | P      |
+| F08 | Mesh cropping to expected width and height               | Mathieu Gaudet  | 2023-02-27 | 2023-02-27 | D      |
+| F09 | Delauney triangulation for neighbourhood relationships   | Jack Walmsley   | 2023-02-27 | 2023-02-27 | D      |
+| F10 | Convex hull computation for consecutiveness of segments  | Jack Walmsley   | 2023-02-27 | 2023-02-27 | D      |
+| F11 | Reading options from command line                        | Mathieu Gaudet  | 2023-02-27 | 2023-02-27 | D      |
 | F12 | Add colour to polygons in mesh                           | Mathieu Gaudet  | 2023-02-27 | 2023-02-27 | D      |

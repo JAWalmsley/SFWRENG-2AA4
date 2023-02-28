@@ -49,7 +49,7 @@ public class Main {
         if (cli.hasOption("o")) {
             fileName = cli.getOptionValue("o");
         }
-        
+
 
         GenerateMesh generator = new GenerateMesh();
         generator.setNumPolygons(numPolygons);
