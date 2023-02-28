@@ -19,23 +19,24 @@ public class Polygon {
         this.neighbours = new ArrayList<Polygon>();
     }
 
-    public void addSegment(Segment seg) {
-        if ( this.segments.size() == 0 ) {
-            this.segments.add(seg);
+    public void addSegment(Segment segment) {
+
+        if (this.segments.size() == 0) {
+            this.segments.add(segment);
             return;
         }
         // Find segment with a matching vertex and add it afterward
-        for (int i = 0; i < this.segments.size(); i++) {
-            if ( this.segments.get(i).getV2() == seg.getV1() ) {
-                this.segments.add(i + 1, seg);
+        for ( int i = 0; i < this.segments.size(); i++ ) {
+            if ( this.segments.get(i).getV2() == segment.getV1() ) {
+                this.segments.add(i + 1, segment);
                 return;
             }
         }
-        this.segments.add(seg);
+        this.segments.add(segment);
     }
 
     public void addNeighbour(Polygon p) {
-        if( !this.neighbours.contains(p) )
+        if(!this.neighbours.contains(p))
         {
             this.neighbours.add(p);
         }
@@ -54,13 +55,14 @@ public class Polygon {
     }
 
     public Vertex centerOfMass() {
-        float x = 0;
-        float y = 0;
+        float xCoord = 0;
+        float yCoord = 0;
         for ( Vertex v : verticies ) {
-            x += v.getX();
-            y += v.getY();
+            xCoord += v.getX();
+            yCoord += v.getY();
         }
-        return new Vertex(x / verticies.size(), y / verticies.size());
+        return new Vertex(xCoord / verticies.size(),
+                yCoord / verticies.size());
     }
 
     public ArrayList<Segment> getSegments() {
@@ -78,8 +80,10 @@ public class Polygon {
     public void convertGeometry(Geometry geometry) {
         Coordinate[] coords = geometry.getCoordinates();
         for (int i = 0; i < coords.length-1; i++) {
-            Vertex v1 = new Vertex((float) coords[i].x, (float) coords[i].y);
-            Vertex v2 = new Vertex((float) coords[i + 1].x, (float) coords[i + 1].y);
+            Vertex v1 =
+                    new Vertex((float) coords[i].x, (float) coords[i].y);
+            Vertex v2
+                    = new Vertex((float) coords[i + 1].x, (float) coords[i + 1].y);
             this.verticies.add(v1);
             this.verticies.add(v2);
             this.segments.add(new Segment(v1, v2));

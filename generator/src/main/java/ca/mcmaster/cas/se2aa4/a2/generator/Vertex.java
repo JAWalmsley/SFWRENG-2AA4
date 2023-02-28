@@ -8,7 +8,9 @@ public class Vertex {
     public Vertex(float x, float y) {
         this.x = x;
         this.y = y;
-        colour = new int[] { 0, 0, 0, 255 };
+        colour = new int[] {
+                0, 0, 0, 255
+        };
     }
 
     public float getX() {
@@ -32,7 +34,8 @@ public class Vertex {
      */
     public boolean isEqual(Vertex v, int precision) {
         // Rounding by multiplying by 10^digits, then rounding, then dividing again
-        // It's weird but floats don't round in Java sooooo
+        // It's weird but floats don't round in Java
+
         float factor = (float) Math.pow(10, precision);
         float roundedX = Math.round(this.x * (factor)) / (factor);
         float roundedY = Math.round(this.y * (factor)) / (factor);

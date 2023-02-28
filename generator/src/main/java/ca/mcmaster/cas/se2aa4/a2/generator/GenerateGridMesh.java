@@ -22,6 +22,22 @@ public class GenerateGridMesh implements MeshType {
         }
     }
 
+    /*
+ The makeSquarePolygons function takes a Mesh object as input,
+ which is the mesh to which the polygons will be added.
+ The function generates a set of square polygons that cover the entire mesh.
+
+The function loops through each row and column of vertices in the mesh,
+and creates a new polygon for each square in the mesh.
+The polygon is initialized with an arbitrary vertex,
+and then its four vertices are defined based on the current row and column index.
+
+The function then creates four Segment objects that define the edges of the polygon,
+and adds them to the polygon object. The polygon's centroid is calculated and set,
+and a random color is generated for the polygon using the Random class.
+
+Finally, the function adds the polygon to the mesh's list of polygons.
+*/
     public void makeSquarePolygons(Mesh mesh) {
         for (int i = 0; i < mesh.rows - 1; i++) {
             for (int j = 0; j < mesh.columns - 1; j++) {

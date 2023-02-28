@@ -26,9 +26,9 @@ public class GraphicRenderer {
         for (Polygon p : aMesh.getPolygonsList()) {
             ArrayList<Integer> xpoints = new ArrayList<>();
             ArrayList<Integer> ypoints = new ArrayList<>();
-            for (int i : p.getSegmentIdxsList()) {
-                Vertex v1 = vertices.get(segments.get(i).getV1Idx());
-                Vertex v2 = vertices.get(segments.get(i).getV2Idx());
+            for (int j : p.getSegmentIdxsList()) {
+                Vertex v1 = vertices.get(segments.get(j).getV1Idx());
+                Vertex v2 = vertices.get(segments.get(j).getV2Idx());
                 xpoints.add((int) v1.getX());
                 ypoints.add((int) v1.getY());
                 xpoints.add((int) v2.getX());
@@ -49,6 +49,7 @@ public class GraphicRenderer {
                     new java.awt.Polygon(xpointsarr, ypointsarr, xpoints.size());
             canvas.fill(poly);
             canvas.setColor(old);
+
         }
 
 
