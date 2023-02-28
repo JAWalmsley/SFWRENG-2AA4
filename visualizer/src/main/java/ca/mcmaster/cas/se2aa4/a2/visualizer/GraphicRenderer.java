@@ -17,6 +17,7 @@ public class GraphicRenderer {
 
     private static final float SEGMENT_THICKNESS = 1.5f;
     private static final int VERTEX_THICKNESS = 1;
+    private static final float NEIGHBOUR_THICKNESS = 0.3f;
 
     public void render(Mesh aMesh, Graphics2D canvas, boolean debugMode) {
         List<Vertex> vertices = aMesh.getVerticesList();
@@ -69,7 +70,7 @@ public class GraphicRenderer {
             canvas.setColor(old);
         }
         for (Polygon p : aMesh.getPolygonsList()) {
-            canvas.setStroke(new BasicStroke(SEGMENT_THICKNESS));
+            canvas.setStroke(new BasicStroke(NEIGHBOUR_THICKNESS));
             Vertex v1 = vertices.get(p.getCentroidIdx());
             for( int neighbour : p.getNeighborIdxsList()) {
                 Polygon neighbourPoly = aMesh.getPolygons(neighbour);
