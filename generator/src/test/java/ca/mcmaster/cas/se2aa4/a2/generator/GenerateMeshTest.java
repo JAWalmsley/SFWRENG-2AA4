@@ -13,16 +13,28 @@ public class GenerateMeshTest {
 
     @Test
     /**
-     * This test checks that the mesh is not null.
+     * This test creates creates a irregular Voronoi mesh and checks that the mesh is not null.
      */
-    public void meshIsNotNull() {
+    public void voronoiMeshIsNotNull() {
         GenerateMesh generator = new GenerateMesh();
-        Mesh aMesh = generator.generatePolygonMesh(4);
-        //assertNotNull(aMesh);
-        Structs.Mesh sMesh = aMesh.getIOMesh();
-        //assertNotNull(sMesh);
-        //assertFalse(sMesh.getPolygonsCount() == 0);
+        Mesh mesh = generator.generatePolygonMesh("irregular", 10);
+        Structs.Mesh sMesh = mesh.getIOMesh();
+        assertNotNull(sMesh);
+        assertFalse(sMesh.getPolygonsCount() == 0);
     }
+
+    @Test
+    /**
+     * This test creates creates a square mesh and checks that the mesh is not null.
+     */
+    public void squareMeshIsNotNull() {
+        GenerateMesh generator = new GenerateMesh();
+        Mesh mesh = generator.generatePolygonMesh("grid", 10);
+        Structs.Mesh sMesh = mesh.getIOMesh();
+        assertNotNull(sMesh);
+        assertFalse(sMesh.getPolygonsCount() == 0);
+    }
+
 
     @Test
     /**
@@ -30,7 +42,7 @@ public class GenerateMeshTest {
      */
     public void verticesDoNotOverlap() {
         GenerateMesh generator = new GenerateMesh();
-        Mesh aMesh = generator.generatePolygonMesh(4);
+        Mesh aMesh = generator.generatePolygonMesh("grid", 10);
         Structs.Mesh sMesh = aMesh.getIOMesh();
         List<Structs.Vertex> vertexArray = sMesh.getVerticesList();
 
@@ -49,7 +61,7 @@ public class GenerateMeshTest {
      */
     public void segmentsAreInPolygons() {
         GenerateMesh generator = new GenerateMesh();
-        Mesh aMesh = generator.generatePolygonMesh(4);
+        Mesh aMesh = generator.generatePolygonMesh("irregular", 10);
         Structs.Mesh sMesh = aMesh.getIOMesh();
         List<Structs.Segment> segmentArray = sMesh.getSegmentsList();
         List<Structs.Polygon> polygonArray = sMesh.getPolygonsList();
@@ -63,7 +75,8 @@ public class GenerateMeshTest {
                     }
                 }
             }
-            // assertFalse(found);
+            assertTrue(found);
         }
     }
+
 }
