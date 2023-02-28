@@ -15,8 +15,10 @@ public class GenerateMesh {
     public void makeRandomVertices(Mesh mesh) {
         Random bag = new Random();
         for (int i = 0; i < numCentroids; i++) {
+
             float x = bag.nextFloat() * mesh.width;
             float y = bag.nextFloat() * mesh.height;
+
             Vertex v = new Vertex(x, y);
             mesh.addVertex(v);
         }
@@ -33,6 +35,7 @@ public class GenerateMesh {
             for (int y = 0; y < mesh.height; y += square_size) {
                 Vertex v1 = new Vertex(x, y);
                 mesh.addVertex(v1);
+
                 if (x == 0)
                     mesh.rows++;
             }
@@ -43,7 +46,9 @@ public class GenerateMesh {
         // TODO: Create a polygon with the given number of sides
         for (int i = 0; i < mesh.rows - 1; i++) {
             for (int j = 0; j < mesh.columns - 1; j++) {
-                Polygon poly = new Polygon(new Vertex(0, 0)); // Centroid currently unused so just set to 0,0
+
+                // Centroid currently unused so just set to 0,0
+                Polygon poly = new Polygon(new Vertex(0, 0));
                 // Make Square
                 Vertex vert1 = mesh.getVertex(i * mesh.rows + j);
                 Vertex vert2 = mesh.getVertex(i * mesh.rows + j + mesh.rows);
@@ -68,7 +73,11 @@ public class GenerateMesh {
                 poly.addSegment(seg4);
 
                 Random bag = new Random();
-                int[] colour = { bag.nextInt(255), bag.nextInt(255), bag.nextInt(255), 130 };
+                int[] colour = {
+                        bag.nextInt(255),
+                        bag.nextInt(255),
+                        bag.nextInt(255), 130 };
+
                 poly.setColour(colour);
 
                 mesh.polygons.add(poly);
@@ -91,11 +100,15 @@ public class GenerateMesh {
         Geometry voronoiDiagram = voronoiBuilder.getDiagram(fact);
 
         for (int i = 0; i < voronoiDiagram.getNumGeometries(); i++) {
+
             Polygon poly = new Polygon(mesh.getVertices().get(i));
             poly.convertGeometry(voronoiDiagram.getGeometryN(i));
 
             Random bag = new Random();
-            int[] colour = { bag.nextInt(255), bag.nextInt(255), bag.nextInt(255), 130 };
+            int[] colour = {
+                    bag.nextInt(255),
+                    bag.nextInt(255),
+                    bag.nextInt(255), 130 };
             poly.setColour(colour);
             mesh.polygons.add(poly);
         }
@@ -115,12 +128,16 @@ public class GenerateMesh {
         ArrayList<Polygon> toRemove = new ArrayList<Polygon>();
         for (Polygon p : mesh.polygons) {
             for (Segment s : p.getSegments()) {
+
                 Vertex v1 = s.getV1();
                 Vertex v2 = s.getV2();
+
                 boolean v1out = v1.getX() > mesh.width ||
                         v1.getY() > mesh.height || v1.getX() < 0 || v1.getY() < 0;
+
                 boolean v2out = v2.getX() > mesh.width ||
                         v2.getY() > mesh.height || v2.getX() < 0 || v2.getY() < 0;
+
                 if (v1out || v2out) {
                     toRemove.add(p);
                     break;
@@ -136,7 +153,8 @@ public class GenerateMesh {
             for(Segment s : p.getSegments()) {
                 coords.add(new Coordinate(s.getV1().getX(), s.getV1().getY()));
             }
-            ConvexHull hull = new ConvexHull(coords.toArray(new Coordinate[coords.size()]), new GeometryFactory());
+            ConvexHull hull = new ConvexHull(coords.toArray(new Coordinate[coords.size()]),
+                    new GeometryFactory());
             p.convertGeometry(hull.getConvexHull());
         }
 
@@ -148,18 +166,18 @@ public class GenerateMesh {
 
         Mesh mesh = new Mesh(100, 100, 1);
         if (meshType == "grid"){
+
             makeSquareVertices(mesh);
             makeSquarePolygons(mesh);
+
         } else if(meshType == "irregular") {
             makeRandomVertices(mesh);
             loidRelaxation(mesh, relaxLevel);
             cropMesh(mesh);
 
-
             // Remove the original points after they have been relaxed
             mesh.getVertices().clear();
         }
         return mesh;
-
     }
 }

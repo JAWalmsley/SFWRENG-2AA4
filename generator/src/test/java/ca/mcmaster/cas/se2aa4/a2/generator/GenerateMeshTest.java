@@ -25,7 +25,7 @@ public class GenerateMeshTest {
 
     @Test
     /**
-     * This test creates creates a square mesh and checks that the mesh is not null.
+     * This test  creates a square mesh and checks that the mesh is not null.
      */
     public void squareMeshIsNotNull() {
         GenerateMesh generator = new GenerateMesh();

@@ -22,7 +22,7 @@ After installation, you'll find an application named `generator.jar` in the `gen
 
 ### Generator
 
-To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes up to 4 arguments. Whether it is a regular grid or an irregular mesh, the number of polygons in an irregular mesh, the number of times the irregular mesh should be relaxed and the name of the file where the generated mesh will be stored as binary.
+To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes up to 4 arguments. Whether it is a regular grid or an irregular mesh, the number of polygons in the mesh, the number of times the irregular mesh should be relaxed and the name of the file where the generated mesh will be stored as binary.
 
 ```
 mosser@azrael A2 % cd generator

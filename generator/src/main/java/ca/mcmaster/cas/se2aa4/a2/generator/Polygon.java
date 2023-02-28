@@ -20,13 +20,13 @@ public class Polygon {
     }
 
     public void addSegment(Segment seg) {
-        if (this.segments.size() == 0) {
+        if ( this.segments.size() == 0 ) {
             this.segments.add(seg);
             return;
         }
         // Find segment with a matching vertex and add it afterward
         for (int i = 0; i < this.segments.size(); i++) {
-            if (this.segments.get(i).getV2() == seg.getV1()) {
+            if ( this.segments.get(i).getV2() == seg.getV1() ) {
                 this.segments.add(i + 1, seg);
                 return;
             }
@@ -35,7 +35,7 @@ public class Polygon {
     }
 
     public void addNeighbour(Polygon p) {
-        if(!this.neighbours.contains(p))
+        if( !this.neighbours.contains(p) )
         {
             this.neighbours.add(p);
         }
@@ -56,7 +56,7 @@ public class Polygon {
     public Vertex centerOfMass() {
         float x = 0;
         float y = 0;
-        for (Vertex v : verticies) {
+        for ( Vertex v : verticies ) {
             x += v.getX();
             y += v.getY();
         }
