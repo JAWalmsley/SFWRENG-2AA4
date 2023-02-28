@@ -34,8 +34,10 @@ public class GraphicRenderer {
                 xpoints.add((int) v2.getX());
                 ypoints.add((int) v2.getY());
             }
-            int[] xpointsarr = xpoints.stream().mapToInt(Integer::intValue).toArray();
-            int[] ypointsarr = ypoints.stream().mapToInt(Integer::intValue).toArray();
+            int[] xpointsarr = xpoints.stream()
+                    .mapToInt(Integer::intValue).toArray();
+            int[] ypointsarr = ypoints.stream()
+                    .mapToInt(Integer::intValue).toArray();
             Color old = canvas.getColor();
             if (debugMode) {
                 canvas.setColor(Color.BLUE);
@@ -43,8 +45,8 @@ public class GraphicRenderer {
             else {
                 canvas.setColor(extractColor(p.getPropertiesList()));
             }
-            java.awt.Polygon poly = new java.awt.Polygon(xpointsarr, ypointsarr, xpoints.size());
-            // canvas.draw(poly);
+            java.awt.Polygon poly =
+                    new java.awt.Polygon(xpointsarr, ypointsarr, xpoints.size());
             canvas.fill(poly);
             canvas.setColor(old);
         }
@@ -65,7 +67,7 @@ public class GraphicRenderer {
             }
 
 
-            Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
+            Line2D line = new Line2D.Double( v1.getX(), v1.getY(), v2.getX(), v2.getY());
             canvas.draw(line);
             canvas.setColor(old);
         }

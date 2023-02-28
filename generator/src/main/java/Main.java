@@ -1,7 +1,10 @@
 
 import ca.mcmaster.cas.se2aa4.a2.generator.GenerateMesh;
+
 import ca.mcmaster.cas.se2aa4.a2.generator.Mesh;
+
 import ca.mcmaster.cas.se2aa4.a2.generator.SampleData;
+
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 
@@ -10,6 +13,9 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.HelpFormatter;
+
+
+import ca.mcmaster.cas.se2aa4.a2.generator.FileExport;
 
 
 import java.io.IOException;
@@ -55,8 +61,12 @@ public class Main {
         generator.setNumPolygons(numPolygons);
         Mesh m = generator.generatePolygonMesh(choice[0], relaxLevel);
         m.calculateNeighbours();
+        
         Structs.Mesh myMesh = m.getIOMesh();
         MeshFactory factory = new MeshFactory();
         factory.write(myMesh, fileName);
+
+        FileExport exporter = new FileExport(m);
+        exporter.export("file.obj");
     }
 }
