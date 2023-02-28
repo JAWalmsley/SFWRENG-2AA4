@@ -131,12 +131,12 @@ public class GenerateMesh {
     public Mesh generatePolygonMesh(String meshType, int relaxLevel) {
         // Create new mesh
 
-        meshType = "square";
+
         Mesh mesh = new Mesh(100, 100, 1);
-        if (meshType == "square"){
+        if (meshType == "grid"){
             makeSquareVertices(mesh);
             makeSquarePolygons(mesh);
-        } else {
+        } else if(meshType == "irregular") {
             makeRandomVertices(mesh);
             loidRelaxation(mesh, relaxLevel);
             cropMesh(mesh);

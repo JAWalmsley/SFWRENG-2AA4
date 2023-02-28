@@ -28,23 +28,35 @@ public class Main {
                 .addOption("r", "relaxation", true, "Relaxation Level")
                 .addOption("o", "fileName", true, "Output File Name");
         CommandLine cli = cliParser.parse(options, args);
-        if (cli.getArgs.length !=1 || cli.hasOption("help")
-        || !cli.hasOption("n") || !cli.hasOption("r")) {
+        if (cli.getArgs().length !=1 || cli.hasOption("help")) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("Generator [OPTIONS] grid/irregular", options);
             return;
         }
-        String[] choice = cli.getArgs();
 
-        int numPolygons = Integer.valueOf(cli.getOptionValue("n"));
-        int relaxLevel = Integer.valueOf(cli.getOptionValue("r"));
+        String[] choice = cli.getArgs();
+        int numPolygons = 100;
+        if (!cli.hasOption("n")) {
+            numPolygons = Integer.valueOf(cli.getOptionValue("n"));
+        }
+
+        int relaxLevel = 10;
+        if (!cli.hasOption("r")) {
+            relaxLevel = Integer.valueOf(cli.getOptionValue("r"));
+        }
+
+        String fileName = "Sample.mesh";
+        if (cli.hasOption("o")) {
+            fileName = cli.getOptionValue("o");
+        }
+        
 
         GenerateMesh generator = new GenerateMesh();
         generator.setNumPolygons(numPolygons);
-        Mesh m = generator.generatePolygonMesh("square", relaxLevel);
+        Mesh m = generator.generatePolygonMesh(choice[0], relaxLevel);
         m.calculateNeighbours();
         Structs.Mesh myMesh = m.getIOMesh();
         MeshFactory factory = new MeshFactory();
-        factory.write(myMesh, cli.getOptionValue("o"));
+        factory.write(myMesh, fileName);
     }
 }
