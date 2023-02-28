@@ -83,6 +83,7 @@ public class GenerateIrregularMesh implements MeshType {
         makeRandomVertices(mesh, numPolygons);
         lloydRelaxation(mesh, relaxLevel);
         cropMesh(mesh);
+        mesh.getVertices().clear();
         return mesh;
     }
 

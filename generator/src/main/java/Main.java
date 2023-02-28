@@ -37,12 +37,12 @@ public class Main {
 
         String[] choice = cli.getArgs();
         int numPolygons = 100;
-        if (!cli.hasOption("n")) {
+        if (cli.hasOption("n")) {
             numPolygons = Integer.valueOf(cli.getOptionValue("n"));
         }
 
         int relaxLevel = 10;
-        if (!cli.hasOption("r")) {
+        if (cli.hasOption("r")) {
             relaxLevel = Integer.valueOf(cli.getOptionValue("r"));
         }
 
@@ -52,8 +52,8 @@ public class Main {
         }
 
         // Grid mesh by default
-        MeshType generator = new GenerateGridMesh();
-        if (choice[0] == "irregular") {
+        MeshType generator = new GenerateGridMesh(5);
+        if (choice[0].equals("irregular")) {
             generator = new GenerateIrregularMesh(relaxLevel);
         }
         Mesh m = generator.generateMesh(numPolygons);

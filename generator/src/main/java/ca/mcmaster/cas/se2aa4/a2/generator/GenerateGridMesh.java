@@ -3,8 +3,13 @@ package ca.mcmaster.cas.se2aa4.a2.generator;
 import java.util.Random;
 
 public class GenerateGridMesh implements MeshType {
+    int square_size;
+
+    public GenerateGridMesh(int square_size) {
+        this.square_size = square_size;
+    }
+
     public void makeSquareVertices(Mesh mesh) {
-        int square_size = 5;
         // Create all the vertices
         for (int x = 0; x < mesh.width; x += square_size) {
             mesh.columns++;
@@ -54,7 +59,7 @@ public class GenerateGridMesh implements MeshType {
     }
 
     public Mesh generateMesh(int numPolygons) {
-        int side_length = (int) Math.sqrt(numPolygons);
+        int side_length = (int) Math.sqrt(numPolygons) * square_size;
         Mesh mesh = new Mesh(side_length, side_length, 1);
 
         makeSquareVertices(mesh);
