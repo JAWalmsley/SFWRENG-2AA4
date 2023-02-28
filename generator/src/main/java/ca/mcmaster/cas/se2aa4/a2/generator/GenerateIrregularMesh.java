@@ -86,6 +86,9 @@ Finally, the function adds the polygon to the mesh's list of polygons.
         }
     }
 
+    /*
+    The function iterates through all the polygons in the mesh, and for each polygon, it checks if any of its segments contains a vertex outside of the mesh dimensions. If so, the polygon is added to a list of polygons to be remove
+     */
     public void cropMesh(Mesh mesh) {
         ArrayList<Polygon> toRemove = new ArrayList<Polygon>();
         for (Polygon p : mesh.polygons) {
