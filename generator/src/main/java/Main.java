@@ -23,6 +23,9 @@ public class Main {
         DefaultParser cliParser = new DefaultParser();
         Options options = new Options();
 
+        options.addOption("t","trace", false, "Trace mode ON")
+                .addOption("d", "debug", false, "debug mode ON");
+
         GenerateMesh generator = new GenerateMesh();
         Mesh m = generator.generatePolygonMesh(4);
         m.calculateNeighbours();
