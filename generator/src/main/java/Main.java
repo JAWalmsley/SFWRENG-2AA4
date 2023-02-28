@@ -25,7 +25,8 @@ public class Main {
 
         options.addOption("h", "help", false, "Display help")
                 .addOption("n", "polygons", true, "Number of Polygons")
-                .addOption("r", "relaxation", true, "Relaxation Level");
+                .addOption("r", "relaxation", true, "Relaxation Level")
+                .addOption("o", "fileName", true, "Output File Name");
         CommandLine cli = cliParser.parse(options, args);
         if (cli.getArgs.length !=1 || cli.hasOption("help")
         || !cli.hasOption("n") || !cli.hasOption("r")) {
@@ -44,6 +45,6 @@ public class Main {
         m.calculateNeighbours();
         Structs.Mesh myMesh = m.getIOMesh();
         MeshFactory factory = new MeshFactory();
-        factory.write(myMesh, args[0]);
+        factory.write(myMesh, cli.getOptionValue("o"));
     }
 }
