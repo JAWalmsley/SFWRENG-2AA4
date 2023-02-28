@@ -24,7 +24,7 @@ public class Main {
         Options options = new Options();
 
         GenerateMesh generator = new GenerateMesh();
-        Mesh m = generator.generatePolygonMesh(4);
+        Mesh m = generator.generatePolygonMesh("square");
         m.calculateNeighbours();
         Structs.Mesh myMesh = m.getIOMesh();
         MeshFactory factory = new MeshFactory();
