@@ -19,6 +19,9 @@ public class GenerateMesh {
             mesh.addVertex(v);
         }
     }
+    public void setNumPolygons(int numPolygons) {
+        this.numVertices = numPolygons;
+    }
 
     public void makeSquareVertices(Mesh mesh) {
         int square_size = 5;
@@ -96,10 +99,9 @@ public class GenerateMesh {
         }
     }
 
-    public void loidRelaxation(Mesh mesh) {
-        int LOOP = 10;
+    public void loidRelaxation(Mesh mesh, int relaxLevel) {
 
-        for (int i = 0; i <= LOOP; i++) {
+        for (int i = 0; i <= relaxLevel; i++) {
             calculateVoronoi(mesh);
             for (int j = 0; j < mesh.polygons.size(); j++) {
                 mesh.polygons.get(j).setCentroid(mesh.polygons.get(j).centerOfMass());
@@ -124,7 +126,7 @@ public class GenerateMesh {
         mesh.polygons.removeAll(toRemove);
     }
 
-    public Mesh generatePolygonMesh(String meshType) {
+    public Mesh generatePolygonMesh(String meshType, int relaxLevel) {
         // Create new mesh
 
         meshType = "square";
@@ -134,7 +136,7 @@ public class GenerateMesh {
             makeSquarePolygons(mesh);
         } else {
             makeRandomVertices(mesh);
-            loidRelaxation(mesh);
+            loidRelaxation(mesh, relaxLevel);
             cropMesh(mesh);
 
             // Remove the original points after they have been relaxed
