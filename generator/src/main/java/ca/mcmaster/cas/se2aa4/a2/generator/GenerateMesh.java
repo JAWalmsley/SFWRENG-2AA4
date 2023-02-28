@@ -8,11 +8,11 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 
 public class GenerateMesh {
-    private int numVertices = 100;
+    private int numCentroids = 100;
 
     public void makeRandomVertices(Mesh mesh) {
         Random bag = new Random();
-        for (int i = 0; i < numVertices; i++) {
+        for (int i = 0; i < numCentroids; i++) {
             float x = bag.nextFloat() * mesh.width;
             float y = bag.nextFloat() * mesh.height;
             Vertex v = new Vertex(x, y);
@@ -20,7 +20,7 @@ public class GenerateMesh {
         }
     }
     public void setNumPolygons(int numPolygons) {
-        this.numVertices = numPolygons;
+        this.numCentroids = numPolygons;
     }
 
     public void makeSquareVertices(Mesh mesh) {
@@ -115,8 +115,10 @@ public class GenerateMesh {
             for (Segment s : p.getSegments()) {
                 Vertex v1 = s.getV1();
                 Vertex v2 = s.getV2();
-                boolean v1out = v1.getX() > mesh.width || v1.getY() > mesh.height || v1.getX() < 0 || v1.getY() < 0;
-                boolean v2out = v2.getX() > mesh.width || v2.getY() > mesh.height || v2.getX() < 0 || v2.getY() < 0;
+                boolean v1out = v1.getX() > mesh.width ||
+                        v1.getY() > mesh.height || v1.getX() < 0 || v1.getY() < 0;
+                boolean v2out = v2.getX() > mesh.width ||
+                        v2.getY() > mesh.height || v2.getX() < 0 || v2.getY() < 0;
                 if (v1out || v2out) {
                     toRemove.add(p);
                     break;
