@@ -16,12 +16,12 @@ public class GenerateMeshTest {
      * This test checks that the mesh is not null.
      */
     public void meshIsNotNull() {
-        GenerateMesh generator = new GenerateMesh();
-        Mesh aMesh = generator.generatePolygonMesh(4);
-        //assertNotNull(aMesh);
+        MeshType generator = new GenerateGridMesh();
+        Mesh aMesh = generator.generateMesh(100);
+        assertNotNull(aMesh);
         Structs.Mesh sMesh = aMesh.getIOMesh();
-        //assertNotNull(sMesh);
-        //assertFalse(sMesh.getPolygonsCount() == 0);
+        assertNotNull(sMesh);
+        assertFalse(sMesh.getPolygonsCount() == 0);
     }
 
     @Test
@@ -29,8 +29,8 @@ public class GenerateMeshTest {
      * This test checks that no two vertices are the same.
      */
     public void verticesDoNotOverlap() {
-        GenerateMesh generator = new GenerateMesh();
-        Mesh aMesh = generator.generatePolygonMesh(4);
+        MeshType generator = new GenerateGridMesh();
+        Mesh aMesh = generator.generateMesh(100);
         Structs.Mesh sMesh = aMesh.getIOMesh();
         List<Structs.Vertex> vertexArray = sMesh.getVerticesList();
 
@@ -48,8 +48,8 @@ public class GenerateMeshTest {
      * This test checks that all segments belong to a polygon.
      */
     public void segmentsAreInPolygons() {
-        GenerateMesh generator = new GenerateMesh();
-        Mesh aMesh = generator.generatePolygonMesh(4);
+        MeshType generator = new GenerateGridMesh();
+        Mesh aMesh = generator.generateMesh(100);
         Structs.Mesh sMesh = aMesh.getIOMesh();
         List<Structs.Segment> segmentArray = sMesh.getSegmentsList();
         List<Structs.Polygon> polygonArray = sMesh.getPolygonsList();
@@ -63,7 +63,7 @@ public class GenerateMeshTest {
                     }
                 }
             }
-            // assertFalse(found);
+            assertTrue(found);
         }
     }
 }
