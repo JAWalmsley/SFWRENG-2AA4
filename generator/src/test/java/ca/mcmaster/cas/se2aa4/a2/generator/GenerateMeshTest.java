@@ -1,69 +1,69 @@
-// package ca.mcmaster.cas.se2aa4.a2.generator;
+package ca.mcmaster.cas.se2aa4.a2.generator;
 
-// import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-// import org.junit.jupiter.api.Test;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import org.junit.jupiter.api.Test;
 
-// import static org.junit.jupiter.api.Assertions.assertFalse;
-// import static org.junit.jupiter.api.Assertions.assertNotNull;
-// import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-// import java.util.List;
+import java.util.List;
 
-// public class GenerateMeshTest {
+public class GenerateMeshTest {
 
-//     @Test
-//     /**
-//      * This test checks that the mesh is not null.
-//      */
-//     public void meshIsNotNull() {
-//         GenerateMesh generator = new GenerateMesh();
-//         Mesh aMesh = generator.generatePolygonMesh(4);
-//         //assertNotNull(aMesh);
-//         Structs.Mesh sMesh = aMesh.getIOMesh();
-//         //assertNotNull(sMesh);
-//         //assertFalse(sMesh.getPolygonsCount() == 0);
-//     }
+    @Test
+    /**
+     * This test checks that the mesh is not null.
+     */
+    public void meshIsNotNull() {
+        GenerateMesh generator = new GenerateMesh();
+        Mesh aMesh = generator.generatePolygonMesh(4);
+        //assertNotNull(aMesh);
+        Structs.Mesh sMesh = aMesh.getIOMesh();
+        //assertNotNull(sMesh);
+        //assertFalse(sMesh.getPolygonsCount() == 0);
+    }
 
-//     @Test
-//     /**
-//      * This test checks that no two vertices are the same.
-//      */
-//     public void verticesDoNotOverlap() {
-//         GenerateMesh generator = new GenerateMesh();
-//         Mesh aMesh = generator.generatePolygonMesh(4);
-//         Structs.Mesh sMesh = aMesh.getIOMesh();
-//         List<Structs.Vertex> vertexArray = sMesh.getVerticesList();
+    @Test
+    /**
+     * This test checks that no two vertices are the same.
+     */
+    public void verticesDoNotOverlap() {
+        GenerateMesh generator = new GenerateMesh();
+        Mesh aMesh = generator.generatePolygonMesh(4);
+        Structs.Mesh sMesh = aMesh.getIOMesh();
+        List<Structs.Vertex> vertexArray = sMesh.getVerticesList();
 
-//         for (int i = 0; i < vertexArray.size(); i++) {
-//             for (int k = 0; k < vertexArray.size(); k++) {
-//                 if (i != k) {
-//                     assertFalse(vertexArray.get(i) == vertexArray.get(k));
-//                 }
-//             }
-//         }
-//     }
+        for (int i = 0; i < vertexArray.size(); i++) {
+            for (int k = 0; k < vertexArray.size(); k++) {
+                if (i != k) {
+                    assertFalse(vertexArray.get(i) == vertexArray.get(k));
+                }
+            }
+        }
+    }
 
-//     @Test
-//     /**
-//      * This test checks that all segments belong to a polygon.
-//      */
-//     public void segmentsAreInPolygons() {
-//         GenerateMesh generator = new GenerateMesh();
-//         Mesh aMesh = generator.generatePolygonMesh(4);
-//         Structs.Mesh sMesh = aMesh.getIOMesh();
-//         List<Structs.Segment> segmentArray = sMesh.getSegmentsList();
-//         List<Structs.Polygon> polygonArray = sMesh.getPolygonsList();
+    @Test
+    /**
+     * This test checks that all segments belong to a polygon.
+     */
+    public void segmentsAreInPolygons() {
+        GenerateMesh generator = new GenerateMesh();
+        Mesh aMesh = generator.generatePolygonMesh(4);
+        Structs.Mesh sMesh = aMesh.getIOMesh();
+        List<Structs.Segment> segmentArray = sMesh.getSegmentsList();
+        List<Structs.Polygon> polygonArray = sMesh.getPolygonsList();
 
-//         for (Structs.Segment seg : segmentArray) {
-//             boolean found = false;
-//             for (Structs.Polygon polygon : polygonArray) {
-//                 for (int i : polygon.getSegmentIdxsList()) {
-//                     if (segmentArray.get(i) == seg) {
-//                         found = true;
-//                     }
-//                 }
-//             }
-//             // assertFalse(found);
-//         }
-//     }
-// }
+        for (Structs.Segment seg : segmentArray) {
+            boolean found = false;
+            for (Structs.Polygon polygon : polygonArray) {
+                for (int i : polygon.getSegmentIdxsList()) {
+                    if (segmentArray.get(i) == seg) {
+                        found = true;
+                    }
+                }
+            }
+            // assertFalse(found);
+        }
+    }
+}

@@ -3,6 +3,8 @@ package ca.mcmaster.cas.se2aa4.a2.generator;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.locationtech.jts.algorithm.ConvexHull;
+import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
@@ -109,29 +111,17 @@ public class GenerateMesh {
             }
         }
         mesh.polygons.removeAll(toRemove);
-        /*
-         * for(int i = 0; i<mesh.polygons.size(); i++) {
-         * Vertex centroid = mesh.polygons.get(i).getCentroid();
-         * 
-         * System.out.print(centroid.getX() + " + ");
-         * System.out.println(centroid.getY());
-         * System.out.print(mesh.polygons.get(i).getColour()[0] + ", ");
-         * System.out.print(mesh.polygons.get(i).getColour()[1]+ ", ");
-         * System.out.println(mesh.polygons.get(i).getColour()[2]);
-         * if(centroid.getX() >= mesh.width || centroid.getY() >= mesh.height ||
-         * centroid.getX() < 0 || centroid.getY() < 0){
-         * System.out.println("too big");
-         * mesh.polygons.remove(i);
-         * } else {
-         * for (Vertex v : mesh.polygons.get(i).verticies) {
-         * if (v.getX() >= mesh.width || v.getY() >= mesh.height) {
-         * mesh.polygons.remove(i);
-         * break;
-         * }
-         * }
-         * }
-         * }
-         */
+    }
+
+    public void convexHull(Mesh mesh) {
+        for(Polygon p : mesh.polygons) {
+            ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
+            for(Segment s : p.getSegments()) {
+                coords.add(new Coordinate(s.getV1().getX(), s.getV1().getY()));
+            }
+            ConvexHull hull = new ConvexHull(coords.toArray(new Coordinate[coords.size()]), new GeometryFactory());
+            p.convertGeometry(hull.getConvexHull());
+        }
     }
 
     public Mesh generatePolygonMesh(int sides) {
@@ -140,6 +130,7 @@ public class GenerateMesh {
         makeVertices(mesh);
 
         loidRelaxation(mesh);
+        convexHull(mesh);
         cropMesh(mesh);
 
         // Remove the original points after they have been relaxed
