@@ -21,9 +21,6 @@ public class GenerateMesh {
             mesh.addVertex(v);
         }
     }
-    public void setNumPolygons(int numPolygons) {
-        this.numCentroids = numPolygons;
-    }
 
     public void makeSquareVertices(Mesh mesh) {
         int square_size = 5;
