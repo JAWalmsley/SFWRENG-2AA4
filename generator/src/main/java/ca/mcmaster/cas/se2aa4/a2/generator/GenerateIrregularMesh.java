@@ -93,23 +93,16 @@ Finally, the function adds the polygon to the mesh's list of polygons.
         ArrayList<Polygon> toRemove = new ArrayList<Polygon>();
         for (Polygon p : mesh.polygons) {
             for (Segment s : p.getSegments()) {
-                Vertex v1 = s.getV1();
-                Vertex v2 = s.getV2();
-                boolean v1out = v1.getX() > mesh.width ||
-                        v1.getY() > mesh.height || v1.getX() < 0 || v1.getY() < 0;
-                boolean v2out = v2.getX() > mesh.width ||
-                        v2.getY() > mesh.height || v2.getX() < 0 || v2.getY() < 0;
-                if (v1out || v2out) {
-                    toRemove.add(p);
-                    break;
-                }
+                s.getV1().crop(mesh.width, mesh.height);
+                s.getV2().crop(mesh.width, mesh.height);
             }
+            p.getCentroid().crop(mesh.width, mesh.height);
         }
         mesh.polygons.removeAll(toRemove);
     }
 
     public Mesh generateMesh(int numPolygons) {
-        Mesh mesh = new Mesh(100, 100, 1);
+        Mesh mesh = new Mesh(2000, 2000, -1);
 
         makeRandomVertices(mesh, numPolygons);
         lloydRelaxation(mesh, relaxLevel);

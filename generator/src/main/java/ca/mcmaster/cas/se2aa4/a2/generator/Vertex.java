@@ -21,6 +21,11 @@ public class Vertex {
         return this.y;
     }
 
+    public void crop(float maxX, float maxY){
+        this.x = Math.max(0.0f, Math.min(this.x, maxX));
+        this.y = Math.max(0.0f, Math.min(this.y, maxY));
+    }
+
     public int[] getColour() {
         return colour;
     }

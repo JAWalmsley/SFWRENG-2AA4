@@ -16,7 +16,7 @@ import java.util.List;
 public class GraphicRenderer {
 
     private static final float SEGMENT_THICKNESS = 1.5f;
-    private static final int VERTEX_THICKNESS = 1;
+    private static final int VERTEX_THICKNESS = 5;
     private static final float NEIGHBOUR_THICKNESS = 0.3f;
 
     public void render(Mesh aMesh, Graphics2D canvas, boolean debugMode) {
