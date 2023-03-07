@@ -31,6 +31,7 @@ mosser@azrael generator % ls -lh sample.mesh
 -rw-r--r--  1 mosser  staff    29K 29 Jan 10:52 sample.mesh
 mosser@azrael generator %
 ```
+
 ```
 usage: Generator [OPTIONS] grid/irregular
  -h,--help               Display help
@@ -69,20 +70,52 @@ When you develop features and enrich the product, remember that you have first t
 
 -- Insert here your definition of done for your features --
 
-### Product Backlog
+### Assignment 2 Backlog
 
-| Id  | Feature title                                            | Who?            | Start      | End        | Status |
-| :-: | -------------------------------------------------------- | --------------- | ---------- | ---------- | ------ |
-| F01 | Draw segments between vertices to visualize the squares  | Jack Walmsley   | 2023-02-01 | 2023-02-06 | D      |
-| F02 | Mesh ADT                                                 | All             | 2023-02-11 | 2023-02-11 | D      |
-| F03 | Generating with Mesh ADT                                 | Graham Morrison | 2023-02-11 | 2023-02-16 | D      |
-| F03 | Visualizing with Mesh ADT                                | Jack Walmsley   | 2023-02-11 | 2023-02-16 | D      |
-| F04 | Debug visualization mode                                 | Mathieu Gaudet  | 2023-02-11 | 2023-02-22 | D      |
-| F05 | Random points generation                                 | Jack Walmsley   | 2023-02-19 | 2023-02-20 | D      |
-| F06 | Voronoi diagram computation                              | Graham Morrison | 2023-02-26 | 2023-02-27 | D      |
-| F07 | Lloyd relaxation                                         | Graham Morrison | 2023-02-26 | 2023-02-27 | D      |
-| F08 | Mesh cropping to expected width and height               | Mathieu Gaudet  | 2023-02-27 | 2023-02-27 | D      |
-| F09 | Delauney triangulation for neighbourhood relationships   | Jack Walmsley   | 2023-02-27 | 2023-02-27 | D      |
-| F10 | Convex hull computation for consecutiveness of segments  | Jack Walmsley   | 2023-02-27 | 2023-02-27 | D      |
-| F11 | Reading options from command line                        | Mathieu Gaudet  | 2023-02-27 | 2023-02-27 | D      |
-| F12 | Add colour to polygons in mesh                           | Mathieu Gaudet  | 2023-02-27 | 2023-02-27 | D      |
+| Id  | Feature title                                           | Who?            | Start      | End        | Status |
+| :-: | ------------------------------------------------------- | --------------- | ---------- | ---------- | ------ |
+| F01 | Draw segments between vertices to visualize the squares | Jack Walmsley   | 2023-02-01 | 2023-02-06 | D      |
+| F02 | Mesh ADT                                                | All             | 2023-02-11 | 2023-02-11 | D      |
+| F03 | Generating with Mesh ADT                                | Graham Morrison | 2023-02-11 | 2023-02-16 | D      |
+| F03 | Visualizing with Mesh ADT                               | Jack Walmsley   | 2023-02-11 | 2023-02-16 | D      |
+| F04 | Debug visualization mode                                | Mathieu Gaudet  | 2023-02-11 | 2023-02-22 | D      |
+| F05 | Random points generation                                | Jack Walmsley   | 2023-02-19 | 2023-02-20 | D      |
+| F06 | Voronoi diagram computation                             | Graham Morrison | 2023-02-26 | 2023-02-27 | D      |
+| F07 | Lloyd relaxation                                        | Graham Morrison | 2023-02-26 | 2023-02-27 | D      |
+| F08 | Mesh cropping to expected width and height              | Mathieu Gaudet  | 2023-02-27 | 2023-02-27 | D      |
+| F09 | Delauney triangulation for neighbourhood relationships  | Jack Walmsley   | 2023-02-27 | 2023-02-27 | D      |
+| F10 | Convex hull computation for consecutiveness of segments | Jack Walmsley   | 2023-02-27 | 2023-02-27 | D      |
+| F11 | Reading options from command line                       | Mathieu Gaudet  | 2023-02-27 | 2023-02-27 | D      |
+| F12 | Add colour to polygons in mesh                          | Mathieu Gaudet  | 2023-02-27 | 2023-02-27 | D      |
+
+### Assignment 3 Backlog
+
+| Id  | Feature title                                                                                                        | Who? | Start | End | Status |
+| :-: | -------------------------------------------------------------------------------------------------------------------- | ---- | ----- | --- | ------ |
+| F01 | Create island sub-project with maven setup.                                                                          |      |       |     | P      |
+| F02 | Define land types (water, beach, lagoon and land)                                                                    |      |       |     | B(F01) |
+| F03 | Determine land type of polygon from function.                                                                        |      |       |     | B(F02) |
+| F04 | Colour in land types.                                                                                                |      |       |     | B(F03) |
+| F05 | Implement shape generator interface and implement circle                                                             |      |       |     | B(F01) |
+| F06 | Implement other shapes such as square                                                                                |      |       |     | B(F05) |
+| F07 | Implement selection of the shapes from the command line arguments                                                    |      |       |     | B(F06) |
+| F08 | Implement elevation generator interface and implement volcano                                                        |      |       |     | B(F01) |
+| F09 | Implement heat map to verify elevation                                                                               |      |       |     | B(F08) |
+| F10 | Implement other land types such as mountain ridge                                                                    |      |       |     | B(F08) |
+| F11 | Implement selection of the land types from the command line arguments                                                |      |       |     | B(F10) |
+| F12 | Place x random one tile lakes on land tiles                                                                          |      |       |     | B(F01) |
+| F13 | Implement lakes larger than one tile                                                                                 |      |       |     | B(F12) |
+| F14 | Implement user inputted number of lakes from the command line arguments                                              |      |       |     | B(F14) |
+| F15 | Implement randomly placed rivers that flow downhill to water or until reaches lowest point where it creates new lake |      |       |     | B(F12) |
+| F16 | Line segment width randomly generated                                                                                |      |       |     | B(F15) |
+| F17 | River flow: connecting ones add their widths                                                                         |      |       |     | B(F15) |
+| F18 | Implement user inputted number of rivers from the command line arguments                                             |      |       |     | B(F15) |
+| F19 | Generate random squares that are aquifers that increase humidity to surrounding areas.                               |      |       |     | B(F01) |
+| F20 | Implement a humidity heat map to test how moisture affects nearby areas.                                             |      |       |     | B(F19) |
+| F21 | Implement moisture for lakes.                                                                                        |      |       |     | B(F12) |
+| F22 | Implement moisture for rivers.                                                                                       |      |       |     | B(F17) |
+| F23 | Assign biome based on humidity and elevation. Assign Colour based on biome.                                          |      |       |     | B(F22) |
+| F24 | Decide what biomes are available (Whittaker diagram)                                                                 |      |       |     | B(F23) |
+| F25 | Implement selection of climate (Whittaker diagram) from the command line arguments                                   |      |       |     | B(F24) |
+| F26 | Add a seed to all of the randomness to be able to reproduce the island                                               |      |       |     | P      |
+| F27 | Implement ability to specify a seed from the command line arguments                                                  |      |       |     | B(F26) |
