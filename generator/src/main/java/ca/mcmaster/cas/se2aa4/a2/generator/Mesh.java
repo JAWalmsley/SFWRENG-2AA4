@@ -21,7 +21,7 @@ public class Mesh {
     public int rows;
     public int columns;
 
-    private int precision;
+    public int precision;
 
     /**
      * Creates a new Mesh object
@@ -35,6 +35,29 @@ public class Mesh {
         this.width = width;
         this.height = height;
         this.precision = precision;
+    }
+
+    public Mesh(Structs.Mesh mesh) {
+        ArrayList<Segment> segs = new ArrayList<>();
+        for (Structs.Vertex v : mesh.getVerticesList()) {
+            this.vertices.add(new Vertex((float) v.getX(), (float) v.getY()));
+        }
+
+        for(Structs.Segment seg : mesh.getSegmentsList()) {
+            Vertex v1 = this.vertices.get(seg.getV1Idx());
+            Vertex v2 = this.vertices.get(seg.getV2Idx());
+            segs.add(new Segment(v1, v2));
+        }
+
+        for(Structs.Polygon p : mesh.getPolygonsList()) {
+            Vertex centroid = this.vertices.get(p.getCentroidIdx());
+            Polygon newPoly = new Polygon(centroid);
+
+            for(int segIdx : p.getSegmentIdxsList()) {
+                newPoly.addSegment(segs.get(segIdx));
+            }
+            this.polygons.add(newPoly);
+        }
     }
 
     /**
@@ -54,19 +77,19 @@ public class Mesh {
     public Vertex getVertex(int index) {
         return this.vertices.get(index);
     }
-    
+
     public ArrayList<Vertex> getVertices() {
         return this.vertices;
     }
 
-    public void createCords(){ 
-        for(Vertex v : this.vertices){
+    public void createCords() {
+        for (Vertex v : this.vertices) {
             Coordinate c = new Coordinate(v.getX(), v.getY());
             this.coordinates.add(c);
         }
     }
 
-    public ArrayList<Coordinate> getCoordinates(){
+    public ArrayList<Coordinate> getCoordinates() {
         return this.coordinates;
     }
 
@@ -111,13 +134,12 @@ public class Mesh {
                         .build());
                 segmentIdxs.add(IOSegments.size() - 1);
             }
-            
+
             ArrayList<Integer> neighbourIdxs = new ArrayList<>();
-            for(Polygon n : p.getNeighbours()) {
+            for (Polygon n : p.getNeighbours()) {
                 neighbourIdxs.add(polygons.indexOf(n));
             }
 
-            
             IOVertices.add(Structs.Vertex.newBuilder()
                     .setX(p.getCentroid().getX())
                     .setY(p.getCentroid().getY())
@@ -152,7 +174,7 @@ public class Mesh {
         GeometryCollection edgeCollection = (GeometryCollection) edges;
         for (int i = 0; i < edgeCollection.getNumGeometries(); i++) {
             Coordinate[] edgeCoords = edgeCollection.getGeometryN(i).getCoordinates();
-            Vertex c1 = new Vertex( (float)edgeCoords[0].x, (float) edgeCoords[0].y);
+            Vertex c1 = new Vertex((float) edgeCoords[0].x, (float) edgeCoords[0].y);
             Vertex c2 = new Vertex((float) edgeCoords[1].x, (float) edgeCoords[1].y);
             getPolyByCentroid(c1).addNeighbour(getPolyByCentroid(c2));
             getPolyByCentroid(c2).addNeighbour(getPolyByCentroid(c1));

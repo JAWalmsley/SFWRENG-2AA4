@@ -93,7 +93,7 @@ When you develop features and enrich the product, remember that you have first t
 | Id  | Feature title                                                                                                        | Who?          | Start      | End        | Status |
 | :-: | -------------------------------------------------------------------------------------------------------------------- | ------------- | ---------- | ---------- | ------ |
 | F21 | Create island sub-project with maven setup                                                                           | Jack Walmsley | 2023-03-08 | 2023-03-08 | D      |
-| F22 | Define land types (water, beach, lagoon and land)                                                                    |               |            |            | P      |
+| F22 | Define land types (water, beach, lagoon and land)                                                                    | Jack Walmsley | 2023-03-08 | 2023-03-08 | D      |
 | F23 | Determine land type of polygon from function.                                                                        |               |            |            | B(F22) |
 | F24 | Colour in land types.                                                                                                |               |            |            | B(F23) |
 | F25 | Implement shape generator interface and implement circle                                                             |               |            |            | P      |
