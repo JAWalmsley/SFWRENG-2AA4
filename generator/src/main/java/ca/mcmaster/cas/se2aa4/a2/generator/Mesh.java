@@ -38,6 +38,16 @@ public class Mesh {
     }
 
     public Mesh(Structs.Mesh mesh) {
+        double max_x = Double.MIN_VALUE;
+        double max_y = Double.MIN_VALUE;
+        for (Structs.Vertex v : mesh.getVerticesList()) {
+            max_x = (Double.compare(max_x, v.getX()) < 0 ? v.getX() : max_x);
+            max_y = (Double.compare(max_y, v.getY()) < 0 ? v.getY() : max_y);
+        }
+        this.width = (int) max_x;
+        this.height = (int) max_y;
+        this.precision = 0;
+
         ArrayList<Segment> segs = new ArrayList<>();
         for (Structs.Vertex v : mesh.getVerticesList()) {
             this.vertices.add(new Vertex((float) v.getX(), (float) v.getY()));
@@ -58,6 +68,12 @@ public class Mesh {
             }
             this.polygons.add(newPoly);
         }
+        for(int i = 0; i < mesh.getPolygonsList().size(); i++) {
+            for(int idx : mesh.getPolygons(i).getNeighborIdxsList()) {
+                this.polygons.get(i).addNeighbour(this.polygons.get(idx));
+            }
+        }
+
     }
 
     /**

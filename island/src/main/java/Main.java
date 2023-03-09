@@ -1,7 +1,8 @@
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
-
+import ca.mcmcaster.cas.se2aa4.a2.island.shape.Circle;
+import ca.mcmcaster.cas.se2aa4.a2.island.shape.Shape;
 import ca.mcmaster.cas.se2aa4.a2.generator.Mesh;
 
 import java.io.IOException;
@@ -17,7 +18,8 @@ public class Main {
         Structs.Mesh aMesh = new MeshFactory().read(input);
         Mesh m = new Mesh(aMesh);
         Board board = new Board(m);
-        
+        Shape shape = new Circle(900);
+        shape.draw(board);
         board.export(output);
     }
 }
