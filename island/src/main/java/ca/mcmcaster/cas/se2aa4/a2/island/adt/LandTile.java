@@ -5,6 +5,6 @@ import ca.mcmaster.cas.se2aa4.a2.generator.Polygon;
 public class LandTile extends Tile {
     public LandTile(Tile t) {
         super(t);
-        this.polygon.setColour(new int[] {0, 255, 0, 255});
+        this.polygon.setColour(new int[] {180, 180, 0, 255});
     }
 }

@@ -102,7 +102,7 @@ Finally, the function adds the polygon to the mesh's list of polygons.
     }
 
     public Mesh generateMesh(int numPolygons) {
-        Mesh mesh = new Mesh(2000, 2000, -2);
+        Mesh mesh = new Mesh(2000, 2000, -1);
 
         makeRandomVertices(mesh, numPolygons);
         lloydRelaxation(mesh, relaxLevel);

@@ -25,14 +25,6 @@ public class Board {
             Tile t = new Tile(p);
             tiles.add(t);
         }
-        for(Tile t : tiles) {
-            for(Polygon p : t.polygon.getNeighbours()) {
-                for(Tile t2 : tiles) {
-                    if(t2.polygon == p)
-                        t.addNeighbour(t2);
-                }
-            }
-        }
     }
 
     public void addTile(Tile tile) {
@@ -49,6 +41,17 @@ public class Board {
 
     public int getHeight(){
         return this.height;
+    }
+
+    public List<Tile> getNeighbours(Tile t) {
+        ArrayList<Tile> n = new ArrayList<Tile>();
+        for(Polygon p : t.polygon.getNeighbours()) {
+            for(Tile t2 : tiles) {
+                if(t2.polygon == p)
+                    n.add(t2);
+            }
+        }
+        return n;
     }
 
     public void export(String output) throws IOException {

@@ -30,7 +30,7 @@ public class Circle implements Shape {
         for(int i = 0; i < board.getTiles().size(); i++) {
             Tile t = board.getTiles().get(i);
             if(t instanceof LandTile) {
-                for(Tile n : t.getNeighbours()) {
+                for(Tile n : board.getNeighbours(t)) {
                     if(n instanceof OceanTile) {
                         board.getTiles().set(i, new BeachTile(t));
                     }
