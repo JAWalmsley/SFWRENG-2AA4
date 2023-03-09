@@ -22,24 +22,33 @@ public class Board {
         this.precision = m.precision;
 
         for (Polygon p : m.polygons) {
-            Tile t;
-            float x = p.getCentroid().getX();
-            if (x < 500) {
-                t = new OceanTile(p);
-            } else if (x < 1000) {
-                t = new BeachTile(p);
-            } else if (x > 1300 && x < 1500) {
-                t = new LakeTile(p);
-            } 
-            else {
-                t = new LandTile(p);
-            }
+            Tile t = new Tile(p);
             tiles.add(t);
+        }
+        for(Tile t : tiles) {
+            for(Polygon p : t.polygon.getNeighbours()) {
+                for(Tile t2 : tiles) {
+                    if(t2.polygon == p)
+                        t.addNeighbour(t2);
+                }
+            }
         }
     }
 
     public void addTile(Tile tile) {
         tiles.add(tile);
+    }
+
+    public List<Tile> getTiles(){
+        return this.tiles;
+    }
+
+    public int getWidth(){
+        return this.width;
+    }
+
+    public int getHeight(){
+        return this.height;
     }
 
     public void export(String output) throws IOException {

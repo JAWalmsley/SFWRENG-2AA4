@@ -4,9 +4,9 @@ import ca.mcmaster.cas.se2aa4.a2.generator.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 
 public class OceanTile extends Tile {
-    public OceanTile(Polygon p) {
-        super(p);
-        this.polygon.setColour(new int[] {0, 0, 130, 255});
+    public OceanTile(Tile t) {
+        super(t);
+        this.polygon.setColour(new int[] {235, 255, 0, 255});
     }
 
 }
