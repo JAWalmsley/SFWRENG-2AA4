@@ -8,14 +8,14 @@ public class Colour {
     int blue;
     int alpha;
 
-    public Colour(int red, int blue, int green, int alpha) {
+    public Colour(int red, int green, int blue, int alpha) {
         this.red = red;
         this.green = green;
         this.blue = blue;
         this.alpha = alpha;
     }
 
-    public Colour (int red, int blue, int green) {
+    public Colour(int red, int green, int blue) {
         this.red = red;
         this.green = green;
         this.blue = blue;

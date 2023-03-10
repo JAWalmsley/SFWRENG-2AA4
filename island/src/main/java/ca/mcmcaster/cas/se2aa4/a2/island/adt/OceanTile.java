@@ -3,6 +3,6 @@ package ca.mcmcaster.cas.se2aa4.a2.island.adt;
 public class OceanTile extends Tile {
     public OceanTile(Tile t) {
         super(t);
-        this.colour = new Colour(80, 255, 80);
+        this.colour = new Colour(20, 20, 230);
     }
 }

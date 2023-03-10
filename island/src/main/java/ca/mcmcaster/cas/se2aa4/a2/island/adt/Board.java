@@ -16,11 +16,26 @@ public class Board {
     public Board(Structs.Mesh m) {
         this.mesh = m;
         this.tiles = new ArrayList<Tile>();
+        this.createTiles();
+        this.setDimensions();
+    }
 
-        for (Structs.Polygon p : m.getPolygonsList()) {
-            Structs.Vertex centroid = m.getVerticesList().get(p.getCentroidIdx());
+    private void createTiles(){
+        for (Structs.Polygon p : this.mesh.getPolygonsList()) {
+            Structs.Vertex centroid = this.mesh.getVerticesList().get(p.getCentroidIdx());
             this.tiles.add(new Tile(p, (float) centroid.getX(), (float) centroid.getY()));
         }
+    }
+
+    private void setDimensions(){
+        double max_x = Double.MIN_VALUE;
+        double max_y = Double.MIN_VALUE;
+        for (Structs.Vertex v : this.mesh.getVerticesList()) {
+            max_x = (Double.compare(max_x, v.getX()) < 0 ? v.getX() : max_x);
+            max_y = (Double.compare(max_y, v.getY()) < 0 ? v.getY() : max_y);
+        }
+        this.width = (int) Math.ceil(max_x);
+        this.height = (int) Math.ceil(max_y);
     }
 
     public void addTile(Tile tile) {
@@ -51,7 +66,7 @@ public class Board {
         Structs.Mesh.Builder meshBuilder = Structs.Mesh.newBuilder(this.mesh);
         // Remove all polygons so we can readd our coloured versions (the datastructure
         // is immutable)
-        for (int i = 0; i < this.mesh.getPolygonsCount(); i++) {
+        for (int i = this.mesh.getPolygonsCount() - 1; i >= 0; i--) {
             meshBuilder.removePolygons(i);
         }
         for (Tile t : this.tiles) {
