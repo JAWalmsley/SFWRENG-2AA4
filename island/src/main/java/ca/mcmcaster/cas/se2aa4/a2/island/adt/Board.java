@@ -4,26 +4,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.mcmaster.cas.se2aa4.a2.generator.Mesh;
-import ca.mcmaster.cas.se2aa4.a2.generator.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 
 public class Board {
     private List<Tile> tiles;
+    private Structs.Mesh mesh;
     private int width;
     private int height;
-    private int precision;
 
-    public Board(Mesh m) {
+    public Board(Structs.Mesh m) {
+        this.mesh = m;
         this.tiles = new ArrayList<Tile>();
-        this.width = m.width;
-        this.height = m.height;
-        this.precision = m.precision;
 
-        for (Polygon p : m.polygons) {
-            Tile t = new Tile(p);
-            tiles.add(t);
+        for (Structs.Polygon p : m.getPolygonsList()) {
+            Structs.Vertex centroid = m.getVerticesList().get(p.getCentroidIdx());
+            this.tiles.add(new Tile(p, (float) centroid.getX(), (float) centroid.getY()));
         }
     }
 
@@ -31,37 +27,37 @@ public class Board {
         tiles.add(tile);
     }
 
-    public List<Tile> getTiles(){
+    public List<Tile> getTiles() {
         return this.tiles;
     }
 
-    public int getWidth(){
+    public int getWidth() {
         return this.width;
     }
 
-    public int getHeight(){
+    public int getHeight() {
         return this.height;
     }
 
     public List<Tile> getNeighbours(Tile t) {
         ArrayList<Tile> n = new ArrayList<Tile>();
-        for(Polygon p : t.polygon.getNeighbours()) {
-            for(Tile t2 : tiles) {
-                if(t2.polygon == p)
-                    n.add(t2);
-            }
+        for (int idx : t.getPolygon().getNeighborIdxsList()) {
+            n.add(this.tiles.get(idx));
         }
         return n;
     }
 
     public void export(String output) throws IOException {
-        Mesh newMesh = new Mesh(this.width, this.height, this.precision);
-        for (Tile t : tiles) {
-            Polygon p = t.getPolygon();
-            newMesh.polygons.add(p);
+        Structs.Mesh.Builder meshBuilder = Structs.Mesh.newBuilder(this.mesh);
+        // Remove all polygons so we can readd our coloured versions (the datastructure
+        // is immutable)
+        for (int i = 0; i < this.mesh.getPolygonsCount(); i++) {
+            meshBuilder.removePolygons(i);
         }
-        Structs.Mesh myMesh = newMesh.getIOMesh();
+        for (Tile t : this.tiles) {
+            meshBuilder.addPolygons(t.getPolygon());
+        }
         MeshFactory factory = new MeshFactory();
-        factory.write(myMesh, output);
+        factory.write(meshBuilder.build(), output);
     }
 }

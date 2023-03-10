@@ -3,7 +3,6 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.Circle;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.Shape;
-import ca.mcmaster.cas.se2aa4.a2.generator.Mesh;
 
 import java.io.IOException;
 
@@ -16,8 +15,7 @@ public class Main {
 
         // Getting width and height for the canvas
         Structs.Mesh aMesh = new MeshFactory().read(input);
-        Mesh m = new Mesh(aMesh);
-        Board board = new Board(m);
+        Board board = new Board(aMesh);
         Shape shape = new Circle(900);
         shape.draw(board);
         board.export(output);
