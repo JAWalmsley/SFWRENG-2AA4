@@ -97,8 +97,8 @@ When you develop features and enrich the product, remember that you have first t
 | F23 | Determine land type of polygon from function.                                                                        |               |            |            | P      |
 | F24 | Colour in land types.                                                                                                | Jack Walmsley | 2023-03-08 | 2023-03-08 | D      |
 | F25 | Implement shape generator interface and implement circle                                                             | Jack Walmsley | 2023-03-08 | 2023-03-09 | D      |
-| F26 | Implement other shapes such as square                                                                                |               |            |            | B(F25) |
-| F27 | Implement selection of the shapes from the command line arguments                                                    |               |            |            | B(F26) |
+| F26 | Implement other shapes such as square                                                                                | Jack Walmsley | 2023-03-10 | 2023-03-11 | D      |
+| F27 | Implement selection of the shapes from the command line arguments                                                    |               |            |            | P      |
 | F28 | Implement elevation generator interface and implement volcano                                                        |               |            |            | P      |
 | F29 | Implement heat map to verify elevation                                                                               |               |            |            | B(F28) |
 | F30 | Implement other land types such as mountain ridge                                                                    |               |            |            | B(F28) |
