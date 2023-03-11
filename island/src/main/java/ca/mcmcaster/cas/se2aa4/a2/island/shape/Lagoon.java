@@ -2,18 +2,19 @@ package ca.mcmcaster.cas.se2aa4.a2.island.shape;
 
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.BeachTile;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.LakeTile;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.LandTile;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.OceanTile;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tile;
 
-public class Circle implements Shape {
-    int radius;
-
-    public Circle(int radius) {
-        this.radius = radius;
+public class Lagoon implements Shape {
+    private int landRadius;
+    private int lakeRadius;
+    public Lagoon(int landRadius, int lakeRadius) {
+        this.landRadius = landRadius;
+        this.lakeRadius = lakeRadius;
     }
 
-    @Override
     public void draw(Board board) {
         float centerX = board.getWidth() / 2;
         float centery = board.getHeight() / 2;
@@ -21,17 +22,20 @@ public class Circle implements Shape {
             Tile t = board.getTile(i);
             float x2 = (t.getX() - centerX) * (t.getX() - centerX);
             float y2 = (t.getY() - centery) * (t.getY() - centery);
-            float r2 = this.radius * this.radius;
-            if((x2 + y2) < r2)
+            float landr2 = this.landRadius * this.landRadius;
+            float laker2 = this.lakeRadius * this.lakeRadius;
+            if((x2 + y2) > landr2)
+                board.setTile(i, new OceanTile(t));
+            else if((x2+y2) > laker2)
                 board.setTile(i, new LandTile(t));
             else
-                board.setTile(i, new OceanTile(t));
+                board.setTile(i, new LakeTile(t));
         }
         for(int i = 0; i < board.getNumTiles(); i++) {
             Tile t = board.getTile(i);
             if(t instanceof LandTile) {
                 for(Tile n : board.getNeighbours(t)) {
-                    if(n instanceof OceanTile) {
+                    if(n instanceof OceanTile || n instanceof LakeTile) {
                         board.setTile(i, new BeachTile(t));
                     }
                 }

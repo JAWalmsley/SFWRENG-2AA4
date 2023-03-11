@@ -42,8 +42,16 @@ public class Board {
         tiles.add(tile);
     }
 
-    public List<Tile> getTiles() {
-        return this.tiles;
+    public void setTile(int index, Tile tile) {
+        tiles.set(index, tile);
+    }
+
+    public Tile getTile(int index) {
+        return this.tiles.get(index);
+    }
+
+    public int getNumTiles() {
+        return this.tiles.size();
     }
 
     public int getWidth() {
