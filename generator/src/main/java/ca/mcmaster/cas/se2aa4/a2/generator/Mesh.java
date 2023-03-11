@@ -53,23 +53,23 @@ public class Mesh {
             this.vertices.add(new Vertex((float) v.getX(), (float) v.getY()));
         }
 
-        for(Structs.Segment seg : mesh.getSegmentsList()) {
+        for (Structs.Segment seg : mesh.getSegmentsList()) {
             Vertex v1 = this.vertices.get(seg.getV1Idx());
             Vertex v2 = this.vertices.get(seg.getV2Idx());
             segs.add(new Segment(v1, v2));
         }
 
-        for(Structs.Polygon p : mesh.getPolygonsList()) {
+        for (Structs.Polygon p : mesh.getPolygonsList()) {
             Vertex centroid = this.vertices.get(p.getCentroidIdx());
             Polygon newPoly = new Polygon(centroid);
 
-            for(int segIdx : p.getSegmentIdxsList()) {
+            for (int segIdx : p.getSegmentIdxsList()) {
                 newPoly.addSegment(segs.get(segIdx));
             }
             this.polygons.add(newPoly);
         }
-        for(int i = 0; i < mesh.getPolygonsList().size(); i++) {
-            for(int idx : mesh.getPolygons(i).getNeighborIdxsList()) {
+        for (int i = 0; i < mesh.getPolygonsList().size(); i++) {
+            for (int idx : mesh.getPolygons(i).getNeighborIdxsList()) {
                 this.polygons.get(i).addNeighbour(this.polygons.get(idx));
             }
         }
@@ -99,10 +99,15 @@ public class Mesh {
     }
 
     public void createCords() {
-        for (Vertex v : this.vertices) {
-            Coordinate c = new Coordinate(v.getX(), v.getY());
+        this.coordinates.clear();
+        for (Polygon p : this.polygons) {
+            Coordinate c = new Coordinate(p.getCentroid().getX(), p.getCentroid().getY());
             this.coordinates.add(c);
         }
+        // for (Vertex v : this.vertices) {
+        // Coordinate c = new Coordinate(v.getX(), v.getY());
+        // this.coordinates.add(c);
+        // }
     }
 
     public ArrayList<Coordinate> getCoordinates() {

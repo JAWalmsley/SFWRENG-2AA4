@@ -20,7 +20,8 @@ public class GenerateIrregularMesh implements MeshType {
             float x = bag.nextFloat() * mesh.width;
             float y = bag.nextFloat() * mesh.height;
             Vertex v = new Vertex(x, y);
-            mesh.addVertex(v);
+            // mesh.addVertex(v);
+            mesh.polygons.add(new Polygon(v));
         }
     }
 /*
@@ -39,7 +40,6 @@ and a random color is generated for the polygon using the Random class.
 Finally, the function adds the polygon to the mesh's list of polygons.
  */
     public void calculateVoronoi(Mesh mesh) {
-        mesh.polygons.clear();
         mesh.createCords();
 
         GeometryFactory fact = new GeometryFactory();
@@ -51,15 +51,13 @@ Finally, the function adds the polygon to the mesh's list of polygons.
         VoronoiDiagramBuilder voronoiBuilder = new VoronoiDiagramBuilder();
         voronoiBuilder.setSites(mesh.getCoordinates());
         Geometry voronoiDiagram = voronoiBuilder.getDiagram(fact);
-
         for (int i = 0; i < voronoiDiagram.getNumGeometries(); i++) {
-            Polygon poly = new Polygon(mesh.getVertices().get(i));
+            Polygon poly = mesh.polygons.get(i);
             poly.convertGeometry(voronoiDiagram.getGeometryN(i));
 
             Random bag = new Random();
             int[] colour = { bag.nextInt(255), bag.nextInt(255), bag.nextInt(255), 130 };
             poly.setColour(colour);
-            mesh.polygons.add(poly);
         }
     }
     /*

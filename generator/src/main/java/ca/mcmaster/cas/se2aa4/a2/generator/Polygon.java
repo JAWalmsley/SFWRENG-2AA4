@@ -78,6 +78,8 @@ public class Polygon {
     }
 
     public void convertGeometry(Geometry geometry) {
+        this.verticies.clear();
+        this.segments.clear();
         Coordinate[] coords = geometry.getCoordinates();
         for (int i = 0; i < coords.length-1; i++) {
             Vertex v1 =
