@@ -4,6 +4,8 @@ import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.Circle;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.Lagoon;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.Shape;
+import ca.mcmcaster.cas.se2aa4.a2.island.shape.Square;
+import ca.mcmcaster.cas.se2aa4.a2.island.shape.Triangle;
 
 import java.io.IOException;
 
@@ -17,7 +19,7 @@ public class Main {
         // Getting width and height for the canvas
         Structs.Mesh aMesh = new MeshFactory().read(input);
         Board board = new Board(aMesh);
-        Shape shape = new Lagoon(900, 600);
+        Shape shape = new Triangle(700);
         shape.draw(board);
         board.export(output);
     }
