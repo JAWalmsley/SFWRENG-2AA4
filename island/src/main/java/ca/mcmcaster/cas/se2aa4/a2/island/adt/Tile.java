@@ -2,7 +2,7 @@ package ca.mcmcaster.cas.se2aa4.a2.island.adt;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 
-public class Tile {
+public class z Tile {
     Structs.Polygon polygon;
     Colour colour;
     float x;

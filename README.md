@@ -104,23 +104,23 @@ When you develop features and enrich the product, remember that you have first t
 | F25 | Implement shape generator interface and implement circle                    | Jack Walmsley | 2023-03-08 | 2023-03-09 | D      |
 | F26 | Implement other shapes such as square                                       | Jack Walmsley | 2023-03-10 | 2023-03-11 | D      |
 | F27 | Implement selection of the shapes from the command line arguments           |Graham Morrison| 2023-03-12 |            | P      |
-| F28 | Implement elevation generator interface and implement volcano               |               |            |            | P      |
-| F29 | Implement heat map to verify elevation                                      |               |            |            | B(F28) |
-| F30 | Implement other land types such as mountain ridge                           |               |            |            | B(F28) |
-| F31 | Implement selection of the land types from the command line arguments       |               |            |            | B(F30) |
-| F32 | Place x random one tile lakes on land tiles                                 |               |            |            | P      |
-| F33 | Implement lakes larger than one tile                                        |               |            |            | B(F32) |
-| F34 | Implement user inputted number of lakes from the command line arguments     |               |            |            | B(F34) |
-| F35 | Implement randomly placed rivers that flow downhill to water or new lake    |               |            |            | B(F32) |
-| F36 | Line segment width randomly generated                                       |               |            |            | B(F35) |
-| F37 | River flow: connecting ones add their widths                                |               |            |            | B(F35) |
-| F38 | Implement user inputted number of rivers from the command line arguments    |               |            |            | B(F35) |
-| F39 | Generate random aquifers that increase humidity to surrounding areas.       |               |            |            | P      |
-| F40 | Implement a humidity heat map to test how moisture affects nearby areas.    |               |            |            | B(F39) |
-| F41 | Implement moisture for lakes.                                               |               |            |            | B(F32) |
-| F42 | Implement moisture for rivers.                                              |               |            |            | B(F37) |
-| F43 | Assign biome based on humidity and elevation. Assign Colour based on biome. |               |            |            | B(F42) |
-| F44 | Decide what biomes are available (Whittaker diagram)                        |               |            |            | B(F43) |
-| F45 | Implement selection of climate (Whittaker diagram) from the CLI             |               |            |            | B(F44) |
-| F46 | Add a seed to all of the randomness to be able to reproduce the island      |               |            |            | P      |
-| F47 | Implement ability to specify a seed from the command line arguments         |               |            |            | B(F46) |
+| F28 | Implement elevation generator interface and implement volcano               |Graham Morrison|            |            | P      |
+| F29 | Implement heat map to verify elevation                                      | Mathieu Gaudet|            |            | B(F28) |
+| F30 | Implement other land types such as mountain ridge                           |Graham Morrison|            |            | B(F28) |
+| F31 | Implement selection of the land types from the command line arguments       |Graham Morrison|            |            | B(F30) |
+| F32 | Place x random one tile lakes on land tiles                                 | Mathieu Gaudet|            |            | P      |
+| F33 | Implement lakes larger than one tile                                        | Mathieu Gaudet|            |            | B(F32) |
+| F34 | Implement user inputted number of lakes from the command line arguments     | Mathieu Gaudet|            |            | B(F34) |
+| F35 | Implement randomly placed rivers that flow downhill to water or new lake    | Jack Walmsley |            |            | B(F32) |
+| F36 | Line segment width randomly generated                                       | Jack Walmsley |            |            | B(F35) |
+| F37 | River flow: connecting ones add their widths                                | Jack Walmsley |            |            | B(F35) |
+| F38 | Implement user inputted number of rivers from the command line arguments    | Jack Walmsley |            |            | B(F35) |
+| F39 | Generate random aquifers that increase humidity to surrounding areas.       |Graham Morrison|            |            | P      |
+| F40 | Implement a humidity heat map to test how moisture affects nearby areas.    | Mathieu Gaudet|            |            | B(F39) |
+| F41 | Implement moisture for lakes.                                               |Graham Morrison|            |            | B(F32) |
+| F42 | Implement moisture for rivers.                                              | Jack Walmsley |            |            | B(F37) |
+| F43 | Assign biome based on humidity and elevation. Assign Colour based on biome. | Mathieu Gaudet|            |            | B(F42) |
+| F44 | Decide what biomes are available (Whittaker diagram)                        | Mathieu Gaudet|            |            | B(F43) |
+| F45 | Implement selection of climate (Whittaker diagram) from the CLI             | Mathieu Gaudet|            |            | B(F44) |
+| F46 | Add a seed to all of the randomness to be able to reproduce the island      | Jack Walmsley |            |            | P      |
+| F47 | Implement ability to specify a seed from the command line arguments         |Graham Morrison|            |            | B(F46) |
