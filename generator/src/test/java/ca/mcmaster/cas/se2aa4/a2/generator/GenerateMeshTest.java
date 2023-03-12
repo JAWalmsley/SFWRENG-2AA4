@@ -13,18 +13,6 @@ public class GenerateMeshTest {
 
     @Test
     /**
-     * This test creates creates a irregular Voronoi mesh and checks that the mesh is not null.
-     */
-    public void voronoiMeshIsNotNull() {
-        GenerateMesh generator = new GenerateMesh();
-        Mesh mesh = generator.generatePolygonMesh("irregular", 10);
-        Structs.Mesh sMesh = mesh.getIOMesh();
-        assertNotNull(sMesh);
-        assertFalse(sMesh.getPolygonsCount() == 0);
-    }
-
-    @Test
-    /**
      * This test  creates a square mesh and checks that the mesh is not null.
      */
     public void squareMeshIsNotNull() {

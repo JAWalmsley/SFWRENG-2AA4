@@ -47,6 +47,7 @@ To visualize an existing mesh, go the the `visualizer` directory, and use `java 
 ```
 mosser@azrael A2 % cd visualizer
 mosser@azrael visualizer % java -jar visualizer.jar ../generator/sample.mesh sample.svg
+mosser@azrael visualizer % java -jar visualizer.jar ../island/island.mesh sample.svg
 
 ... (lots of debug information printed to stdout) ...
 
@@ -59,6 +60,10 @@ To viualize the SVG file:
 
 -   Open it with a web browser
 -   Convert it into something else with tool slike `rsvg-convert`
+
+### Island
+
+
 
 ## How to contribute to the project
 
@@ -94,11 +99,11 @@ When you develop features and enrich the product, remember that you have first t
 | :-: | --------------------------------------------------------------------------- | ------------- | ---------- | ---------- | ------ |
 | F21 | Create island sub-project with maven setup                                  | Jack Walmsley | 2023-03-08 | 2023-03-08 | D      |
 | F22 | Define land types (water, beach, lagoon and land)                           | Jack Walmsley | 2023-03-08 | 2023-03-08 | D      |
-| F23 | Determine land type of polygon from function.                               |               |            |            | P      |
+| F23 | Determine land type of polygon from function.                               |Graham Morrsion| 2023-03-12 |            | P      |
 | F24 | Colour in land types.                                                       | Jack Walmsley | 2023-03-08 | 2023-03-08 | D      |
 | F25 | Implement shape generator interface and implement circle                    | Jack Walmsley | 2023-03-08 | 2023-03-09 | D      |
 | F26 | Implement other shapes such as square                                       | Jack Walmsley | 2023-03-10 | 2023-03-11 | D      |
-| F27 | Implement selection of the shapes from the command line arguments           |               |            |            | P      |
+| F27 | Implement selection of the shapes from the command line arguments           |Graham Morrison| 2023-03-12 |            | P      |
 | F28 | Implement elevation generator interface and implement volcano               |               |            |            | P      |
 | F29 | Implement heat map to verify elevation                                      |               |            |            | B(F28) |
 | F30 | Implement other land types such as mountain ridge                           |               |            |            | B(F28) |
