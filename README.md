@@ -108,9 +108,9 @@ When you develop features and enrich the product, remember that you have first t
 | F29 | Implement heat map to verify elevation                                      | Mathieu Gaudet|            |            | B(F28) |
 | F30 | Implement other land types such as mountain ridge                           |Graham Morrison|            |            | B(F28) |
 | F31 | Implement selection of the land types from the command line arguments       |Graham Morrison|            |            | B(F30) |
-| F32 | Place x random one tile lakes on land tiles                                 | Mathieu Gaudet|            |            | P      |
-| F33 | Implement lakes larger than one tile                                        | Mathieu Gaudet|            |            | B(F32) |
-| F34 | Implement user inputted number of lakes from the command line arguments     | Mathieu Gaudet|            |            | B(F34) |
+| F32 | Place x random one tile lakes on land tiles                                 | Mathieu Gaudet| 2023-03-22 | 2023-03-22 | D      |
+| F33 | Implement lakes larger than one tile                                        | Mathieu Gaudet| 2023-03-22 |            | S      |
+| F34 | Implement user inputted number of lakes from the command line arguments     | Mathieu Gaudet|            |            | P      |
 | F35 | Implement randomly placed rivers that flow downhill to water or new lake    | Jack Walmsley |            |            | B(F32) |
 | F36 | Line segment width randomly generated                                       | Jack Walmsley |            |            | B(F35) |
 | F37 | River flow: connecting ones add their widths                                | Jack Walmsley |            |            | B(F35) |
