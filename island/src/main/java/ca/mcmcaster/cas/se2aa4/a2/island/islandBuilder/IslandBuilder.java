@@ -1,28 +1,28 @@
 package ca.mcmcaster.cas.se2aa4.a2.island.islandBuilder;
 
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
-import ca.mcmcaster.cas.se2aa4.a2.island.moisture.setMoisture;
+import ca.mcmcaster.cas.se2aa4.a2.island.moisture.SetMoisture;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.Shape;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.ShapeFactory;
-import ca.mcmcaster.cas.se2aa4.a2.island.lakes.placeLakes;
-import ca.mcmcaster.cas.se2aa4.a2.island.heatmaps.moistureHeatmap;
+import ca.mcmcaster.cas.se2aa4.a2.island.lakes.PlaceLakes;
+import ca.mcmcaster.cas.se2aa4.a2.island.heatmaps.MoistureHeatmap;
 
 import java.io.IOException;
 
-public class islandBuilder {
+public class IslandBuilder {
     Board board;
 
-    public islandBuilder(Board board) {
+    public IslandBuilder(Board board) {
         this.board = board;
     }
     public void generateIsland(String output, String shapeInput, int lakeInput) throws IOException {
         Shape shape = ShapeFactory.getShape(shapeInput, 700);
         shape.draw(board);
-        placeLakes lakes = new placeLakes();
+        PlaceLakes lakes = new PlaceLakes();
         lakes.drawLakes(board, lakeInput);
-        setMoisture moisture = new setMoisture();
+        SetMoisture moisture = new SetMoisture();
         moisture.setMoistureLevel(board);
-        moistureHeatmap heatmap = new moistureHeatmap();
+        MoistureHeatmap heatmap = new MoistureHeatmap();
         heatmap.drawHeatMap(board);
 
         board.export(output);

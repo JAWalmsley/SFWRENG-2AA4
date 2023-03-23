@@ -2,7 +2,7 @@ package ca.mcmcaster.cas.se2aa4.a2.island.lakes;
 
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.*;
 
-public class placeLakes {
+public class PlaceLakes {
 
     public void drawLakes(Board board, int numberOfLakes) {
         if(numberOfLakes>board.getNumTiles()) {

@@ -1,16 +1,8 @@
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
-import ca.mcmcaster.cas.se2aa4.a2.island.islandBuilder.islandBuilder;
-import ca.mcmcaster.cas.se2aa4.a2.island.shape.Circle;
-import ca.mcmcaster.cas.se2aa4.a2.island.shape.Lagoon;
-import ca.mcmcaster.cas.se2aa4.a2.island.shape.Shape;
-import ca.mcmcaster.cas.se2aa4.a2.island.shape.Square;
-import ca.mcmcaster.cas.se2aa4.a2.island.shape.Triangle;
+import ca.mcmcaster.cas.se2aa4.a2.island.islandBuilder.IslandBuilder;
 
-import ca.mcmcaster.cas.se2aa4.a2.island.shape.ShapeFactory;
-
-import java.text.ParseException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
@@ -49,7 +41,7 @@ public class Main {
         if(cli.hasOption("l")) {
             lakeInput = Integer.valueOf(cli.getOptionValue("l"));
         }
-        islandBuilder island = new islandBuilder(board);
+        IslandBuilder island = new IslandBuilder(board);
         island.generateIsland(output, shapeInput, lakeInput);
     }
 }
