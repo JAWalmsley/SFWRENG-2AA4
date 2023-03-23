@@ -25,7 +25,7 @@ public class placeLakes {
                     i++;
                     for(int nID : board.getNeighboursID(t)) {
                         Tile n = board.getTile(nID);
-                        if(n instanceof LandTile && board.rand.nextDouble() > 0.5) {
+                        if(n instanceof LandTile && board.rand.nextDouble() > 0.4) {
                             board.setTile(nID, new LakeTile(n));
                         }
                     }
