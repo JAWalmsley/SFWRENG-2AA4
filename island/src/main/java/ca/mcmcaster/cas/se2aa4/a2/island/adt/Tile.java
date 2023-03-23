@@ -7,6 +7,8 @@ public class Tile {
     Colour colour;
     float x;
     float y;
+
+    int moistureLevel = 0;
     public Tile(Structs.Polygon p, float x, float y) {
         this.polygon = p;
         this.colour = new Colour(0, 0, 0);
@@ -31,6 +33,10 @@ public class Tile {
 
     public void setColour(Colour colour) {
         this.colour = colour;
+    }
+
+    public void setMoistureLevel(int moistureLevel) {
+        this.moistureLevel = moistureLevel;
     }
 
     public Structs.Polygon getPolygon() {
