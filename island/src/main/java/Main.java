@@ -26,7 +26,9 @@ public class Main {
 
         options.addOption("h", "help", false, "Display help")
                 .addOption("s", "shape", true, "Island Shape")
-                .addOption("l","lakes", true, "Number of Lakes");
+                .addOption("l","lakes", true, "Number of Lakes")
+                .addOption("f", "format", true, "Elevation Heatmap \"e\", " +
+                        "Moisture Heatmap \"m\" or normal island \"i\"");
         CommandLine cli = cliParser.parse(options, args);
         if (cli.getArgs().length != 1 || cli.hasOption("help")) {
             HelpFormatter formatter = new HelpFormatter();
@@ -41,7 +43,13 @@ public class Main {
         if(cli.hasOption("l")) {
             lakeInput = Integer.valueOf(cli.getOptionValue("l"));
         }
+
+        String formatInput = "i";
+        if (cli.hasOption("f")) {
+            shapeInput = String.valueOf(cli.getOptionValue("f"));
+        }
+
         IslandBuilder island = new IslandBuilder(board);
-        island.generateIsland(output, shapeInput, lakeInput);
+        island.generateIsland(output, shapeInput, lakeInput, formatInput);
     }
 }
