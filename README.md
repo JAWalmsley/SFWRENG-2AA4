@@ -116,7 +116,7 @@ When you develop features and enrich the product, remember that you have first t
 | F37 | River flow: connecting ones add their widths                                | Jack Walmsley |            |            | B(F35) |
 | F38 | Implement user inputted number of rivers from the command line arguments    | Jack Walmsley |            |            | B(F35) |
 | F39 | Generate random aquifers that increase humidity to surrounding areas.       |Graham Morrison|            |            | P      |
-| F40 | Implement a humidity heat map to test how moisture affects nearby areas.    | Mathieu Gaudet|            |            | B(F39) |
+| F40 | Implement a humidity heat map to test how moisture affects nearby areas.    | Mathieu Gaudet| 2023-03-23 | 2023-03-23 | D      |
 | F41 | Implement moisture for lakes.                                               | Mathieu Gaudet| 2023-03-23 | 2023-03-23 | D      |
 | F42 | Implement moisture for rivers.                                              | Jack Walmsley |            |            | B(F37) |
 | F43 | Assign biome based on humidity and elevation. Assign Colour based on biome. | Mathieu Gaudet|            |            | B(F42) |

@@ -39,6 +39,13 @@ public class Tile {
         this.moistureLevel = moistureLevel;
     }
 
+    public int getMoistureLevel() {
+        if (this.moistureLevel>25) {
+            this.moistureLevel = 25;
+        }
+        return this.moistureLevel;
+    }
+
     public Structs.Polygon getPolygon() {
         return Structs.Polygon.newBuilder(this.polygon).removeProperties(0).addProperties(this.colour.toProperty()).build();
     }

@@ -22,7 +22,7 @@ public class setMoisture {
         }
         for (Tile n : board.getNeighbours(t)) {
             if(n instanceof LakeTile || n instanceof OceanTile) {
-                moistureLevel++;
+                moistureLevel+=4;
             }
         }
         return moistureLevel;
