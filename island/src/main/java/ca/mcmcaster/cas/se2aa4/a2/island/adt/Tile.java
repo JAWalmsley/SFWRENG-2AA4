@@ -29,6 +29,10 @@ public class Tile {
         return this.y;
     }
 
+    public void setColour(Colour colour) {
+        this.colour = colour;
+    }
+
     public Structs.Polygon getPolygon() {
         return Structs.Polygon.newBuilder(this.polygon).removeProperties(0).addProperties(this.colour.toProperty()).build();
     }
