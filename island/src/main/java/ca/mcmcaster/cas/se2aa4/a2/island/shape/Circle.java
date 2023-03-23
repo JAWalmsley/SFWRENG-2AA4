@@ -37,6 +37,5 @@ public class Circle implements Shape {
                 }
             }
         }
-        board.setLakes();
     }
 }

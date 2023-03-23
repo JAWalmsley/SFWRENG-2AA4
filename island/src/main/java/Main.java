@@ -1,6 +1,7 @@
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
+import ca.mcmcaster.cas.se2aa4.a2.island.islandBuilder.islandBuilder;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.Circle;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.Lagoon;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.Shape;
@@ -43,9 +44,7 @@ public class Main {
         if (cli.hasOption("s")) {
             shapeInput = String.valueOf(cli.getOptionValue("s"));
         }
-
-        Shape shape = ShapeFactory.getShape(shapeInput, 100);
-        shape.draw(board);
-        board.export(output);
+        islandBuilder island = new islandBuilder(board);
+        island.generateIsland(output, shapeInput);
     }
 }

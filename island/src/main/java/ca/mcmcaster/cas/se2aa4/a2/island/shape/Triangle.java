@@ -23,6 +23,7 @@ public class Triangle implements Shape {
             else
                 board.setTile(i, new OceanTile(board.getTile(i)));
         }
+
     }
 
 }

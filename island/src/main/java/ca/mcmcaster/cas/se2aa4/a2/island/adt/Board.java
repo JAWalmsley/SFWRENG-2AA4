@@ -13,7 +13,7 @@ public class Board {
     private Structs.Mesh mesh;
     private int width;
     private int height;
-    Random rand;
+    public Random rand = new Random();
 
     public Board(Structs.Mesh m) {
         this.mesh = m;
@@ -64,29 +64,7 @@ public class Board {
         return this.height;
     }
 
-    public void setLakes() {
-        int numberOfLakes = rand.nextInt(10);
 
-        if(numberOfLakes>getNumTiles()) {
-            for(int i = 0; i < getNumTiles(); i++) {
-                Tile t = getTile(i);
-                if (t instanceof LandTile) {
-                    setTile(i, new LakeTile(t));
-                }
-            }
-        } else {
-            int i = 0;
-            while (i < numberOfLakes) {
-                int index = rand.nextInt(getNumTiles());
-                Tile t = getTile(index);
-                if (t instanceof LandTile) {
-                    setTile(i, new LakeTile(t));
-                    i++;
-                }
-            }
-        }
-
-    }
     public List<Tile> getNeighbours(Tile t) {
         ArrayList<Tile> n = new ArrayList<Tile>();
         for (int idx : t.getPolygon().getNeighborIdxsList()) {
@@ -94,11 +72,18 @@ public class Board {
         }
         return n;
     }
+    public List<Integer> getNeighboursID(Tile t) {
+        ArrayList<Integer> n = new ArrayList<Integer>();
+        for (int idx : t.getPolygon().getNeighborIdxsList()) {
+            n.add(idx);
+        }
+        return n;
+    }
 
     public void export(String output) throws IOException {
         Structs.Mesh.Builder meshBuilder = Structs.Mesh.newBuilder(this.mesh);
-        // Remove all polygons so we can read our coloured versions (the datastructure
-        // is immutable)
+        // Remove all polygons so that we can read our coloured versions (the data structure
+        // is immutable )
         for (int i = this.mesh.getPolygonsCount() - 1; i >= 0; i--) {
             meshBuilder.removePolygons(i);
         }
