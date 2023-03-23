@@ -33,7 +33,8 @@ public class Main {
         Options options = new Options();
 
         options.addOption("h", "help", false, "Display help")
-                .addOption("s", "shape", true, "Island Shape");
+                .addOption("s", "shape", true, "Island Shape")
+                .addOption("l","lakes", true, "Number of Lakes");
         CommandLine cli = cliParser.parse(options, args);
         if (cli.getArgs().length != 1 || cli.hasOption("help")) {
             HelpFormatter formatter = new HelpFormatter();
@@ -44,7 +45,11 @@ public class Main {
         if (cli.hasOption("s")) {
             shapeInput = String.valueOf(cli.getOptionValue("s"));
         }
+        int lakeInput = 5;
+        if(cli.hasOption("l")) {
+            lakeInput = Integer.valueOf(cli.getOptionValue("l"));
+        }
         islandBuilder island = new islandBuilder(board);
-        island.generateIsland(output, shapeInput);
+        island.generateIsland(output, shapeInput, lakeInput);
     }
 }

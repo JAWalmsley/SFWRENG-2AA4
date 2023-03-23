@@ -4,9 +4,7 @@ import ca.mcmcaster.cas.se2aa4.a2.island.adt.*;
 
 public class placeLakes {
 
-    public void drawLakes(Board board) {
-        int numberOfLakes = board.rand.nextInt(10);
-        System.out.println("setLakes");
+    public void drawLakes(Board board, int numberOfLakes) {
         if(numberOfLakes>board.getNumTiles()) {
             for(int i = 0; i < board.getNumTiles(); i++) {
                 Tile t = board.getTile(i);

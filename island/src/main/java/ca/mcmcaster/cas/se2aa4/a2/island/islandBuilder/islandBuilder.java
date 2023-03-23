@@ -13,11 +13,11 @@ public class islandBuilder {
     public islandBuilder(Board board) {
         this.board = board;
     }
-    public void generateIsland(String output, String shapeInput) throws IOException {
+    public void generateIsland(String output, String shapeInput, int lakeInput) throws IOException {
         Shape shape = ShapeFactory.getShape(shapeInput, 700);
         shape.draw(board);
         placeLakes lakes = new placeLakes();
-        lakes.drawLakes(board);
+        lakes.drawLakes(board, lakeInput);
         board.export(output);
     }
 

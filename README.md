@@ -110,14 +110,14 @@ When you develop features and enrich the product, remember that you have first t
 | F31 | Implement selection of the land types from the command line arguments       |Graham Morrison|            |            | B(F30) |
 | F32 | Place x random one tile lakes on land tiles                                 | Mathieu Gaudet| 2023-03-22 | 2023-03-22 | D      |
 | F33 | Implement lakes larger than one tile                                        | Mathieu Gaudet| 2023-03-22 | 2023-03-23 | D      |
-| F34 | Implement user inputted number of lakes from the command line arguments     | Mathieu Gaudet| 2023-03-23 |            | S      |
-| F35 | Implement randomly placed rivers that flow downhill to water or new lake    | Jack Walmsley |            |            | B(F32) |
+| F34 | Implement user inputted number of lakes from the command line arguments     | Mathieu Gaudet| 2023-03-23 | 2023-03-23 | D      |
+| F35 | Implement randomly placed rivers that flow downhill to water or new lake    | Jack Walmsley |            |            | P |
 | F36 | Line segment width randomly generated                                       | Jack Walmsley |            |            | B(F35) |
 | F37 | River flow: connecting ones add their widths                                | Jack Walmsley |            |            | B(F35) |
 | F38 | Implement user inputted number of rivers from the command line arguments    | Jack Walmsley |            |            | B(F35) |
 | F39 | Generate random aquifers that increase humidity to surrounding areas.       |Graham Morrison|            |            | P      |
 | F40 | Implement a humidity heat map to test how moisture affects nearby areas.    | Mathieu Gaudet|            |            | B(F39) |
-| F41 | Implement moisture for lakes.                                               |Graham Morrison|            |            | B(F32) |
+| F41 | Implement moisture for lakes.                                               | Mathieu Gaudet| 2023-03-23 |            | S      |
 | F42 | Implement moisture for rivers.                                              | Jack Walmsley |            |            | B(F37) |
 | F43 | Assign biome based on humidity and elevation. Assign Colour based on biome. | Mathieu Gaudet|            |            | B(F42) |
 | F44 | Decide what biomes are available (Whittaker diagram)                        | Mathieu Gaudet|            |            | B(F43) |
