@@ -7,6 +7,7 @@ public class Tile {
     Colour colour;
     float x;
     float y;
+    Boolean isAquifier = false;
 
     int moistureLevel = 0;
     public Tile(Structs.Polygon p, float x, float y) {
@@ -44,6 +45,14 @@ public class Tile {
             this.moistureLevel = 25;
         }
         return this.moistureLevel;
+    }
+
+    public void setIsAquifier(Boolean isAquifier) {
+        this.isAquifier = isAquifier;
+    }
+
+    public Boolean getIsAquifier() {
+        return this.isAquifier;
     }
 
     public Structs.Polygon getPolygon() {
