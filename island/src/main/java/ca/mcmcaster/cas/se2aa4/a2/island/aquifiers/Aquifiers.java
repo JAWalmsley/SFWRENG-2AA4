@@ -1,8 +1,8 @@
 package ca.mcmcaster.cas.se2aa4.a2.island.aquifiers;
 
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
-import ca.mcmcaster.cas.se2aa4.a2.island.adt.LandTile;
-import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tile;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.LandTile;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.Tile;
 
 public class Aquifiers {
     public void placeAquifers(Board board, int numberOfAquifers) {

@@ -1,6 +1,9 @@
 package ca.mcmcaster.cas.se2aa4.a2.island.lakes;
 
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.*;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.LakeTile;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.LandTile;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.Tile;
 
 public class PlaceLakes {
 

@@ -25,10 +25,10 @@ public class IslandBuilder {
         aq.placeAquifers(board, 5);
         SetMoisture moisture = new SetMoisture();
         moisture.setMoistureLevel(board);
-        MoistureHeatmap heatmap = new MoistureHeatmap();
-        heatmap.drawHeatMap(board);
+        // MoistureHeatmap heatmap = new MoistureHeatmap();
+        // heatmap.drawHeatMap(board);
 
-        board.export(output);
+        
 
     }
 
