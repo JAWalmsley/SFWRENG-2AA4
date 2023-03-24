@@ -22,10 +22,10 @@ public class IslandBuilder {
         lakes.drawLakes(board, lakeInput);
         SetMoisture moisture = new SetMoisture();
         moisture.setMoistureLevel(board);
-        MoistureHeatmap heatmap = new MoistureHeatmap();
-        heatmap.drawHeatMap(board);
+        // MoistureHeatmap heatmap = new MoistureHeatmap();
+        // heatmap.drawHeatMap(board);
 
-        board.export(output);
+        
 
     }
 
