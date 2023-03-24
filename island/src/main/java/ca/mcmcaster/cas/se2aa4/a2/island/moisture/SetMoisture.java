@@ -2,6 +2,7 @@ package ca.mcmcaster.cas.se2aa4.a2.island.moisture;
 
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.*;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.LakeTile;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.LandTile;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.OceanTile;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.Tile;
 
@@ -23,9 +24,19 @@ public class SetMoisture {
         if (t instanceof LakeTile || t instanceof OceanTile) {
             return 25;
         }
+        else if (t instanceof LandTile) {
+            if (t.getIsAquifier()) {
+                moistureLevel+=8;
+            }
+        }
         for (Tile n : board.getNeighbourTiles(t)) {
             if(n instanceof LakeTile || n instanceof OceanTile) {
                 moistureLevel+=4;
+            }
+            else if(n instanceof LandTile) {
+                if (n.getIsAquifier()) {
+                    moistureLevel+=2;
+                }
             }
         }
         return moistureLevel;
