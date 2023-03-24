@@ -19,7 +19,6 @@ public class Main {
 
         // Getting width and height for the canvas
         Structs.Mesh aMesh = new MeshFactory().read(input);
-        Board board = new Board(aMesh);
 
         DefaultParser cliParser = new DefaultParser();
         Options options = new Options();
@@ -28,11 +27,13 @@ public class Main {
                 .addOption("s", "shape", true, "Island Shape")
                 .addOption("l","lakes", true, "Number of Lakes")
                 .addOption("f", "format", true, "Elevation Heatmap \"e\", " +
-                        "Moisture Heatmap \"m\" or normal island \"i\"");
+                        "Moisture Heatmap \"m\" or normal island \"i\"")
+                .addOption("d", "seed", true, "Generation Seed");
         CommandLine cli = cliParser.parse(options, args);
-        if (cli.getArgs().length != 1 || cli.hasOption("help")) {
+        if (cli.hasOption("help")) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("Island [OPTIONS]", options);
+            return;
         }
 
         String shapeInput = "triangle";
@@ -43,6 +44,17 @@ public class Main {
         if(cli.hasOption("l")) {
             lakeInput = Integer.valueOf(cli.getOptionValue("l"));
         }
+        long randomSeed = 0;
+        if(cli.hasOption("d")) {
+            randomSeed = Long.parseLong(cli.getOptionValue("d"));
+        } else {
+            long seed = System.currentTimeMillis();
+            randomSeed = seed;
+            System.out.println("No seed provided, using " + seed + " as seed.");
+        }
+
+        Board board = new Board(aMesh, randomSeed);
+
 
         String formatInput = "i";
         if (cli.hasOption("f")) {
@@ -50,6 +62,7 @@ public class Main {
         }
 
         IslandBuilder island = new IslandBuilder(board);
-        island.generateIsland(output, shapeInput, lakeInput, formatInput);
+        island.generateIsland(output, shapeInput, lakeInput);
+        board.export(output);
     }
 }
