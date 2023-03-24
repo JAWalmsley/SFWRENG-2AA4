@@ -7,6 +7,7 @@ import java.util.Random;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.Tile;
 
 public class Board {
     private List<Tile> tiles;

@@ -1,10 +1,10 @@
 package ca.mcmcaster.cas.se2aa4.a2.island.shape;
 
-import ca.mcmcaster.cas.se2aa4.a2.island.adt.BeachTile;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
-import ca.mcmcaster.cas.se2aa4.a2.island.adt.LandTile;
-import ca.mcmcaster.cas.se2aa4.a2.island.adt.OceanTile;
-import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tile;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.BeachTile;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.LandTile;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.OceanTile;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.Tile;
 
 public class Circle implements Shape {
     int radius;
