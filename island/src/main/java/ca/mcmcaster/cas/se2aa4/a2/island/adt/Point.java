@@ -1,5 +1,7 @@
 package ca.mcmcaster.cas.se2aa4.a2.island.adt;
 
+import java.util.Objects;
+
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 
 public class Point {
@@ -23,4 +25,22 @@ public class Point {
     public int getElevation() {
         return this.elevation;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Point)) {
+            return false;
+        }
+        Point point = (Point) o;
+        return Objects.equals(vertex, point.vertex) && elevation == point.elevation;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(vertex, elevation);
+    }
+    
 }
