@@ -19,18 +19,19 @@ public class Main {
 
         // Getting width and height for the canvas
         Structs.Mesh aMesh = new MeshFactory().read(input);
-        Board board = new Board(aMesh);
 
         DefaultParser cliParser = new DefaultParser();
         Options options = new Options();
 
         options.addOption("h", "help", false, "Display help")
                 .addOption("s", "shape", true, "Island Shape")
-                .addOption("l","lakes", true, "Number of Lakes");
+                .addOption("l", "lakes", true, "Number of Lakes")
+                .addOption("d", "seed", true, "Generation Seed");
         CommandLine cli = cliParser.parse(options, args);
-        if (cli.getArgs().length != 1 || cli.hasOption("help")) {
+        if (cli.hasOption("help")) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("Island [OPTIONS]", options);
+            return;
         }
 
         String shapeInput = "triangle";
@@ -41,7 +42,19 @@ public class Main {
         if(cli.hasOption("l")) {
             lakeInput = Integer.valueOf(cli.getOptionValue("l"));
         }
+        long randomSeed = 0;
+        if(cli.hasOption("d")) {
+            randomSeed = Long.parseLong(cli.getOptionValue("d"));
+        } else {
+            long seed = System.currentTimeMillis();
+            randomSeed = seed;
+            System.out.println("No seed provided, using " + seed + " as seed.");
+        }
+
+        Board board = new Board(aMesh, randomSeed);
+
         IslandBuilder island = new IslandBuilder(board);
         island.generateIsland(output, shapeInput, lakeInput);
+        board.export(output);
     }
 }
