@@ -13,13 +13,14 @@ public class Board {
     private Structs.Mesh mesh;
     private int width;
     private int height;
-    public Random rand = new Random();
+    public Random rand;
 
-    public Board(Structs.Mesh m) {
+    public Board(Structs.Mesh m, long seed) {
         this.mesh = m;
         this.tiles = new ArrayList<Tile>();
         this.createTiles();
         this.setDimensions();
+        this.rand = new Random(seed);
     }
 
     private void createTiles(){
