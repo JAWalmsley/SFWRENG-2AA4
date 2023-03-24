@@ -81,6 +81,11 @@ public class Board {
         return this.height;
     }
 
+    /**
+     * Get tiles bordering the given tile
+     * @param t: Tile
+     * @return List<Tile>
+     */
     public List<Tile> getNeighbourTiles(Tile t) {
         ArrayList<Tile> n = new ArrayList<Tile>();
         for (int idx : t.getPolygon().getNeighborIdxsList()) {
@@ -89,12 +94,57 @@ public class Board {
         return n;
     }
 
+    /**
+     * Get tiles touching the given point
+     * @param p: Point
+     * @return List<Tile>
+     */
+    public List<Tile> getNeighbourTiles(Point p) {
+        int pIndex = this.points.indexOf(p);
+        HashSet<Tile> n = new HashSet<Tile>();
+        for(Tile t: this.tiles) {
+            for(int idx: t.getPolygon().getSegmentIdxsList()) {
+                Structs.Segment s = this.mesh.getSegmentsList().get(idx);
+                if(s.getV1Idx() ==  pIndex || s.getV2Idx() == pIndex) {
+                    n.add(t);
+                }
+            }
+        }
+        return new ArrayList<>(n);
+    }
+
+    /**
+     * Get points that are adjacent to the given tile (tile's vertices)
+     * @param t: Tile
+     * @return List<Point>
+     */
     public List<Point> getNeighbourPoints(Tile t) {
         Set<Point> n = new HashSet<Point>();
         for (int idx : t.getPolygon().getSegmentIdxsList()) {
             Structs.Segment s = this.mesh.getSegmentsList().get(idx);
             n.add(this.points.get(s.getV1Idx()));
             n.add(this.points.get(s.getV2Idx()));
+        }
+        return new ArrayList<>(n);
+    }
+
+    /**
+     * Get points connected to this point by edges
+     * @param p: Point
+     * @return List<Point>
+     */
+    public List<Point> getNeighbourPoints(Point p) {
+        int pIndex = this.points.indexOf(p);
+        Set<Point> n = new HashSet<Point>();
+        for(Tile t: this.tiles) {
+            for(int idx: t.getPolygon().getSegmentIdxsList()) {
+                Structs.Segment s = this.mesh.getSegmentsList().get(idx);
+                if(s.getV1Idx() ==  pIndex) {
+                    n.add(this.points.get(s.getV2Idx()));
+                } else if(s.getV2Idx() == pIndex) {
+                    n.add(this.points.get(s.getV1Idx()));
+                }
+            }
         }
         return new ArrayList<>(n);
     }
@@ -109,8 +159,6 @@ public class Board {
 
     public void export(String output) throws IOException {
         Structs.Mesh.Builder meshBuilder = Structs.Mesh.newBuilder(this.mesh);
-        List<Point> zz = this.getNeighbourPoints(this.tiles.get(0));
-        System.out.println(zz);
         // Remove all polygons so that we can read our coloured versions (the data
         // structure
         // is immutable )
