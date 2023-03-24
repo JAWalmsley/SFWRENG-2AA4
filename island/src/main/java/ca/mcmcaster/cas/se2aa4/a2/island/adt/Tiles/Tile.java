@@ -1,6 +1,7 @@
-package ca.mcmcaster.cas.se2aa4.a2.island.adt;
+package ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Colour;
 
 public class Tile {
     Structs.Polygon polygon;

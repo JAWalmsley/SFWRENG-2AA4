@@ -1,6 +1,9 @@
 package ca.mcmcaster.cas.se2aa4.a2.island.moisture;
 
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.*;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.LakeTile;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.OceanTile;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.Tile;
 
 public class SetMoisture {
 
