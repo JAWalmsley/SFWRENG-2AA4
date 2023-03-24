@@ -6,7 +6,6 @@ public class ShapeFactory {
         case "square":
             return new Square(border);
         case "circle":
-            System.out.println("Circle");
             return new Circle(border);
         case "triangle":
             return new Triangle(border);
