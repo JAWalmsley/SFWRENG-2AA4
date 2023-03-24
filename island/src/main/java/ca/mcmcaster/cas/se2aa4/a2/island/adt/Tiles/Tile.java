@@ -1,6 +1,7 @@
 package ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Colour;
 
 public class Tile {
@@ -48,6 +49,10 @@ public class Tile {
     }
 
     public Structs.Polygon getPolygon() {
-        return Structs.Polygon.newBuilder(this.polygon).removeProperties(0).addProperties(this.colour.toProperty()).build();
+        Polygon.Builder builder = Structs.Polygon.newBuilder(this.polygon);
+        if(builder.getPropertiesCount() > 0) {
+            builder.removeProperties(0);
+        }
+        return builder.addProperties(this.colour.toProperty()).build();
     }
 }
