@@ -9,6 +9,7 @@ import java.util.Set;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.Tile;
 
 public class Board {
@@ -82,6 +83,10 @@ public class Board {
         return this.points;
     }
 
+    public List<Edge> getEdges() {
+        return this.edges;
+    }
+
     public int getWidth() {
         return this.width;
     }
@@ -145,14 +150,12 @@ public class Board {
     public List<Point> getNeighbourPoints(Point p) {
         int pIndex = this.points.indexOf(p);
         Set<Point> n = new HashSet<Point>();
-        for(Tile t: this.tiles) {
-            for(int idx: t.getPolygon().getSegmentIdxsList()) {
-                Structs.Segment s = this.mesh.getSegmentsList().get(idx);
-                if(s.getV1Idx() == pIndex) {
-                    n.add(this.points.get(s.getV2Idx()));
-                } else if(s.getV2Idx() == pIndex) {
-                    n.add(this.points.get(s.getV1Idx()));
-                }
+        for(Edge e : this.edges) {
+            Segment s = e.getSegment();
+            if(s.getV1Idx() == pIndex) {
+                n.add(this.points.get(s.getV2Idx()));
+            } else if(s.getV2Idx() == pIndex) {
+                n.add(this.points.get(s.getV1Idx()));
             }
         }
         return new ArrayList<>(n);
@@ -164,6 +167,18 @@ public class Board {
             n.add(idx);
         }
         return n;
+    }
+
+    public Edge getEdge(Point p1, Point p2) {
+        int idx1 = this.points.indexOf(p1);
+        int idx2 = this.points.indexOf(p2);
+        for(Edge e : this.edges) {
+            Segment s = e.getSegment();
+            if(s.getV1Idx() == idx1 && s.getV2Idx() == idx2 || s.getV1Idx() == idx2 && s.getV2Idx() == idx1) {
+                return e;
+            }
+        }
+        throw new IllegalArgumentException("No edge found between " + p1 + " and " + p2);
     }
 
     public void export(String output) throws IOException {
