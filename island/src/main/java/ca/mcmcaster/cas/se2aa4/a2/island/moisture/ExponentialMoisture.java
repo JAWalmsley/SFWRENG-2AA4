@@ -8,8 +8,9 @@ import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.LandTile;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.OceanTile;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.Tile;
 
-public class LinearMoisture extends MoistureProfile {
+public class ExponentialMoisture extends MoistureProfile {
 
+    @Override
     public int calculateMoisture(Board board, Tile t) {
         int moistureLevel = 0;
         // If tile is water, set moisture level to max
@@ -18,13 +19,13 @@ public class LinearMoisture extends MoistureProfile {
         }
         // If tile is an aquifer
         else if (t instanceof LandTile && t.getIsAquifier()) {
-            moistureLevel += 8;
+            moistureLevel += 4;
         }
 
         // Add moisture from rivers bordering this tile
         for (Point p : board.getNeighbourPoints(t)) {
             if (p instanceof RiverPoint) {
-                moistureLevel += ((RiverPoint) p).getThickness();
+                moistureLevel += ((RiverPoint) p).getThickness()/2;
             }
         }
 
@@ -33,8 +34,8 @@ public class LinearMoisture extends MoistureProfile {
         for (Tile n : board.getNeighbourTiles(t)) {
             avgMoisture += n.getMoistureLevel();
         }
-        moistureLevel += avgMoisture / board.getNeighbourTiles(t).size();
+        moistureLevel += (avgMoisture / board.getNeighbourTiles(t).size())/2;
         return moistureLevel;
     }
-
+    
 }
