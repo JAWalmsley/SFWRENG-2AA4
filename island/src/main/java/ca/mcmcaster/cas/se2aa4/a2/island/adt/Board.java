@@ -9,10 +9,12 @@ import java.util.Set;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.Tile;
 
 public class Board {
     private List<Tile> tiles;
+    private List<Edge> edges;
     private List<Point> points;
     private Structs.Mesh mesh;
     private int width;
@@ -22,9 +24,11 @@ public class Board {
     public Board(Structs.Mesh m, long seed) {
         this.mesh = m;
         this.tiles = new ArrayList<Tile>();
+        this.edges = new ArrayList<Edge>();
         this.points = new ArrayList<Point>();
         this.createTiles();
         this.createPoints();
+        this.createEdges();
         this.setDimensions();
         this.rand = new Random(seed);
     }
@@ -33,6 +37,12 @@ public class Board {
         for (Structs.Polygon p : this.mesh.getPolygonsList()) {
             Structs.Vertex centroid = this.mesh.getVerticesList().get(p.getCentroidIdx());
             this.tiles.add(new Tile(p, (float) centroid.getX(), (float) centroid.getY()));
+        }
+    }
+
+    private void createEdges() {
+        for (Structs.Segment s : this.mesh.getSegmentsList()) {
+            this.edges.add(new Edge(s));
         }
     }
 
@@ -77,12 +87,28 @@ public class Board {
         return this.points;
     }
 
+    public List<Edge> getEdges() {
+        return this.edges;
+    }
+
     public int getWidth() {
         return this.width;
     }
 
     public int getHeight() {
         return this.height;
+    }
+
+    public List<Edge> getNeighbourEdges(Point p) {
+        HashSet<Edge> n = new HashSet<Edge>();
+        int pIdx = this.points.indexOf(p);
+        for(Edge e: this.edges) {
+            Segment s = e.getSegment();
+            if(s.getV1Idx() == pIdx || s.getV2Idx() == pIdx) {
+                n.add(e);
+            }
+        }
+        return new ArrayList<>(n);
     }
 
     /**
@@ -140,14 +166,12 @@ public class Board {
     public List<Point> getNeighbourPoints(Point p) {
         int pIndex = this.points.indexOf(p);
         Set<Point> n = new HashSet<Point>();
-        for(Tile t: this.tiles) {
-            for(int idx: t.getPolygon().getSegmentIdxsList()) {
-                Structs.Segment s = this.mesh.getSegmentsList().get(idx);
-                if(s.getV1Idx() ==  pIndex) {
-                    n.add(this.points.get(s.getV2Idx()));
-                } else if(s.getV2Idx() == pIndex) {
-                    n.add(this.points.get(s.getV1Idx()));
-                }
+        for(Edge e : this.edges) {
+            Segment s = e.getSegment();
+            if(s.getV1Idx() == pIndex) {
+                n.add(this.points.get(s.getV2Idx()));
+            } else if(s.getV2Idx() == pIndex) {
+                n.add(this.points.get(s.getV1Idx()));
             }
         }
         return new ArrayList<>(n);
@@ -161,6 +185,18 @@ public class Board {
         return n;
     }
 
+    public Edge getEdge(Point p1, Point p2) {
+        int idx1 = this.points.indexOf(p1);
+        int idx2 = this.points.indexOf(p2);
+        for(Edge e : this.edges) {
+            Segment s = e.getSegment();
+            if(s.getV1Idx() == idx1 && s.getV2Idx() == idx2 || s.getV1Idx() == idx2 && s.getV2Idx() == idx1) {
+                return e;
+            }
+        }
+        throw new IllegalArgumentException("No edge found between " + p1 + " and " + p2);
+    }
+
     public void export(String output) throws IOException {
         Structs.Mesh.Builder meshBuilder = Structs.Mesh.newBuilder(this.mesh);
         // Remove all polygons so that we can read our coloured versions (the data
@@ -171,6 +207,22 @@ public class Board {
         }
         for (Tile t : this.tiles) {
             meshBuilder.addPolygons(t.getPolygon());
+        }
+
+        // Replace all vertices
+        for(int i = this.mesh.getVerticesCount() - 1; i >= 0; i--) {
+            meshBuilder.removeVertices(i);
+        }
+        for(Point p: this.points) {
+            meshBuilder.addVertices(p.getVertex());
+        }
+
+        //Replace all segments
+        for(int i = this.mesh.getSegmentsCount() - 1; i >= 0; i--) {
+            meshBuilder.removeSegments(i);
+        }
+        for(Edge e: this.edges) {
+            meshBuilder.addSegments(e.getSegment());
         }
         MeshFactory factory = new MeshFactory();
         factory.write(meshBuilder.build(), output);

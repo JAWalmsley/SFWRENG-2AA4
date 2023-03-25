@@ -4,6 +4,7 @@ import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
 import ca.mcmcaster.cas.se2aa4.a2.island.aquifiers.Aquifiers;
 import ca.mcmcaster.cas.se2aa4.a2.island.elevation.ElevationFactory;
 import ca.mcmcaster.cas.se2aa4.a2.island.moisture.SetMoisture;
+import ca.mcmcaster.cas.se2aa4.a2.island.rivers.RiverGenerator;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.Shape;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.ShapeFactory;
 import ca.mcmcaster.cas.se2aa4.a2.island.lakes.PlaceLakes;
@@ -29,7 +30,8 @@ public class IslandBuilder {
 
         Aquifiers aq = new Aquifiers();
         aq.placeAquifers(board, 5);
-        
+        RiverGenerator rg = new RiverGenerator();
+        rg.placeRivers(board, 10);
         SetMoisture moisture = new SetMoisture();
         moisture.setMoistureLevel(board);
         

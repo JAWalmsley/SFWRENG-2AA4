@@ -1,27 +1,34 @@
 package ca.mcmcaster.cas.se2aa4.a2.island.adt;
 
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
+
 public class Edge {
-    private Point p1;
-    private Point p2;
+    Segment segment;
+    Colour colour;
+    int thickness;
 
-    public Edge(Point p1, Point p2) {
-        this.p1 = p1;
-        this.p2 = p2;
+    public Edge(Segment s) {
+        this.segment = s;
+        this.colour = new Colour(0, 255, 0);
+        this.thickness = 0;
     }
 
-    public void setP1(Point p1) {
-        this.p1 = p1;
+    public Edge(Edge e) {
+        this.segment = e.segment;
+        this.colour = e.colour;
+        this.thickness = e.thickness;
     }
 
-    public void setP2(Point p2) {
-        this.p2 = p2;
+    public Property thicknessProperty() {
+        return Property.newBuilder().setKey("thickness").setValue(String.valueOf(this.thickness)).build();
     }
 
-    public Point getP1() {
-        return this.p1;
-    }
-
-    public Point getP2() {
-        return this.p2;
+    public Segment getSegment() {
+        Segment.Builder builder = Segment.newBuilder(this.segment);
+        // Remove colour and thickness properties
+        while(builder.getPropertiesCount() > 0)
+            builder.removeProperties(0);
+        return builder.addProperties(this.colour.toProperty()).addProperties(this.thicknessProperty()).build();
     }
 }
