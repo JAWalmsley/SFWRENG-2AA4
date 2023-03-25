@@ -29,7 +29,9 @@ public class Main {
                 .addOption("l","lakes", true, "Number of Lakes")
                 .addOption("f", "format", true, "Elevation Heatmap \"e\", " +
                         "Moisture Heatmap \"m\" or normal island \"i\"")
+                .addOption("b", "biome", true, "Whittaker Biome")
                 .addOption("d", "seed", true, "Generation Seed");
+
         CommandLine cli = cliParser.parse(options, args);
         if (cli.hasOption("help")) {
             HelpFormatter formatter = new HelpFormatter();
@@ -46,11 +48,16 @@ public class Main {
             elevationInput = String.valueOf(cli.getOptionValue("e"));
         }
         int lakeInput = 5;
-        if(cli.hasOption("l")) {
+        if (cli.hasOption("l")) {
             lakeInput = Integer.valueOf(cli.getOptionValue("l"));
         }
+        String biome = "grassland";
+        if (cli.hasOption("b")) {
+            biome = String.valueOf(cli.getOptionValue("b"));
+        }
+
         long randomSeed = 0;
-        if(cli.hasOption("d")) {
+        if (cli.hasOption("d")) {
             randomSeed = Long.parseLong(cli.getOptionValue("d"));
         } else {
             long seed = System.currentTimeMillis();
@@ -67,7 +74,7 @@ public class Main {
         }
 
         IslandBuilder island = new IslandBuilder(board);
-        island.generateIsland(output, shapeInput, elevationInput, lakeInput, formatInput);
+        island.generateIsland(output, shapeInput, elevationInput, lakeInput, formatInput, biome);
         board.export(output);
     }
 }

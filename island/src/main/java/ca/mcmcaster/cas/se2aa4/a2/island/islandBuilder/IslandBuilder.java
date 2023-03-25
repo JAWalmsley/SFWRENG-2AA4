@@ -20,7 +20,7 @@ public class IslandBuilder {
     public IslandBuilder(Board board) {
         this.board = board;
     }
-    public void generateIsland(String output, String shapeInput,  String elevationString, int lakeInput, String formatInput) throws IOException {
+    public void generateIsland(String output, String shapeInput,  String elevationString, int lakeInput, String formatInput, String biome) throws IOException {
         Shape shape = ShapeFactory.getShape(shapeInput, 700);
         shape.draw(board);
 
@@ -47,7 +47,7 @@ public class IslandBuilder {
                 break;
             case "i":
                 SetBiomes biomes = new SetBiomes();
-                biomes.setBiomes(board);
+                biomes.setBiomes(board, biome);
         }
     }
 

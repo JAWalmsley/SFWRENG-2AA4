@@ -7,13 +7,13 @@ public class HighMoistureHighElev extends LandTile {
         super(t);
 
         switch (biome) {
-            case "Grassland":
+            case "grassland":
                 this.colour = new Colour(144, 137, 53);
                 break;
-            case "Tundra":
+            case "tundra":
                 this.colour = new Colour(70, 160, 240);
                 break;
-            case "Desert":
+            case "desert":
                 this.colour = new Colour(200, 100, 15);
                 break;
         }
