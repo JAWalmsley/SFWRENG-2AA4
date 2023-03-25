@@ -10,6 +10,7 @@ import ca.mcmcaster.cas.se2aa4.a2.island.shape.ShapeFactory;
 import ca.mcmcaster.cas.se2aa4.a2.island.lakes.PlaceLakes;
 import ca.mcmcaster.cas.se2aa4.a2.island.heatmaps.ElevationHeatmap;
 import ca.mcmcaster.cas.se2aa4.a2.island.heatmaps.MoistureHeatmap;
+import ca.mcmcaster.cas.se2aa4.a2.island.biomes.SetBiomes;
 
 import java.io.IOException;
 
@@ -43,6 +44,10 @@ public class IslandBuilder {
             case "e":
                 ElevationHeatmap EHeatmap = new ElevationHeatmap();
                 EHeatmap.drawHeatMap(board);
+                break;
+            case "i":
+                SetBiomes biomes = new SetBiomes();
+                biomes.setBiomes(board);
         }
     }
 
