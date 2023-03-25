@@ -99,6 +99,18 @@ public class Board {
         return this.height;
     }
 
+    public List<Edge> getNeighbourEdges(Point p) {
+        HashSet<Edge> n = new HashSet<Edge>();
+        int pIdx = this.points.indexOf(p);
+        for(Edge e: this.edges) {
+            Segment s = e.getSegment();
+            if(s.getV1Idx() == pIdx || s.getV2Idx() == pIdx) {
+                n.add(e);
+            }
+        }
+        return new ArrayList<>(n);
+    }
+
     /**
      * Get tiles bordering the given tile
      * @param t: Tile
