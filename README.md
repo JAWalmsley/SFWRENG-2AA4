@@ -101,10 +101,10 @@ When you develop features and enrich the product, remember that you have first t
 | F24 | Colour in land types.                                                       | Jack Walmsley | 2023-03-08 | 2023-03-08 | D      |
 | F25 | Implement shape generator interface and implement circle                    | Jack Walmsley | 2023-03-08 | 2023-03-09 | D      |
 | F26 | Implement other shapes such as square                                       | Jack Walmsley | 2023-03-10 | 2023-03-11 | D      |
-| F27 | Implement selection of the shapes from the command line arguments           |Graham Morrison| 2023-03-12 |            | P      |
-| F28 | Implement elevation generator interface and implement volcano               |Graham Morrison|            |            | P      |
+| F27 | Implement selection of the shapes from the command line arguments           |Graham Morrison| 2023-03-12 | 2023-03-24 | P      |
+| F28 | Implement elevation generator interface and implement volcano               |Graham Morrison| 2023-03-24 | 2023-03-24 | P      |
 | F29 | Implement heat map to verify elevation                                      | Mathieu Gaudet| 2023-03-23 | 	      | S      |
-| F30 | Implement other land types such as mountain ridge                           |Graham Morrison|            |            | B(F28) |
+| F30 | Implement other land types such as mountain ridge                           |Graham Morrison| 2023-03-24 | 2023-03-24 | B(F28) |
 | F31 | Implement selection of the land types from the command line arguments       |Graham Morrison|            |            | B(F30) |
 | F32 | Place x random one tile lakes on land tiles                                 | Mathieu Gaudet| 2023-03-22 | 2023-03-22 | D      |
 | F33 | Implement lakes larger than one tile                                        | Mathieu Gaudet| 2023-03-22 | 2023-03-23 | D      |

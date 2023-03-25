@@ -9,6 +9,7 @@ public class Tile {
     Colour colour;
     float x;
     float y;
+    float elevation;
     Boolean isAquifier = false;
 
     int moistureLevel = 0;
@@ -63,5 +64,13 @@ public class Tile {
             builder.removeProperties(0);
         }
         return builder.addProperties(this.colour.toProperty()).build();
+    }
+
+    public void setElevation(int elevation) {
+        this.elevation = elevation;
+    }
+
+    public float getElevation() {
+        return this.elevation;
     }
 }

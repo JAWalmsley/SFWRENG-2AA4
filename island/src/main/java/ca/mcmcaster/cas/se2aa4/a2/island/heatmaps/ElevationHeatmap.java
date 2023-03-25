@@ -10,10 +10,10 @@ public class ElevationHeatmap {
         int numTiles = board.getNumTiles();
         for (int i = 0; i < numTiles; i++) {
             Tile t = board.getTile(i);
-//            int elevationLevel = t.getElevationLevel();
-//            int colourGreyscale = (25 - elevationLevel)*10;
-//            Colour colour = new Colour(colourGreyscale,colourGreyscale,colourGreyscale);
-//            t.setColour(colour);
+            int elevationLevel = (int) t.getElevation();
+            int colourGreyscale = (25 - elevationLevel)*10;
+            Colour colour = new Colour(colourGreyscale,colourGreyscale,colourGreyscale);
+            t.setColour(colour);
         }
     }
 }

@@ -21,8 +21,16 @@ public class Point {
         this.colour = p.colour;
     }
 
-    public void setElevation(int elevation) {
-        this.elevation = elevation;
+    public float getX() {
+        return (float) this.vertex.getX();
+    }
+
+    public float getY() {
+        return (float) this.vertex.getY();
+    }
+
+    public void setElevation(int f) {
+        this.elevation = f;
     }
 
     public int getElevation() {
