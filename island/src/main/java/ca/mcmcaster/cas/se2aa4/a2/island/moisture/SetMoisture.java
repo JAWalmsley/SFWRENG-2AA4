@@ -35,8 +35,13 @@ public class SetMoisture {
             }
             else if(n instanceof LandTile) {
                 if (n.getIsAquifier()) {
-                    moistureLevel+=2;
+                    moistureLevel+=3;
                 }
+            }
+        }
+        for (Point p : board.getNeighbourPoints(t)) {
+            if (p instanceof RiverPoint) {
+                moistureLevel += p.getRiverWidth();
             }
         }
         return moistureLevel;
