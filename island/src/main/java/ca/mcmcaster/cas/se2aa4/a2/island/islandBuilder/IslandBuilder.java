@@ -18,11 +18,11 @@ public class IslandBuilder {
     public IslandBuilder(Board board) {
         this.board = board;
     }
-    public void generateIsland(String output, String shapeInput, int lakeInput, String formatInput) throws IOException {
+    public void generateIsland(String output, String shapeInput,  String elevationString, int lakeInput, String formatInput) throws IOException {
         Shape shape = ShapeFactory.getShape(shapeInput, 700);
         shape.draw(board);
 
-        ElevationFactory.setElevation("mountain", board);
+        ElevationFactory.setElevation(elevationString, board);
 
         PlaceLakes lakes = new PlaceLakes();
         lakes.drawLakes(board, lakeInput);
