@@ -81,7 +81,14 @@ public class RiverGenerator {
             RiverPoint p = new RiverPoint(nextPoint);
             board.getPoints().set(nextIdx, p);
             p.setThickness(thickness);
-            Edge e = board.getEdge(seed, nextPoint);
+            Edge e;
+            try {
+                e = board.getEdge(seed, nextPoint);
+            } catch (IllegalArgumentException ex) {
+                // Edge can't be found for some reason, so we stop here
+                break outerloop;
+            }
+            
             board.getEdges().set(board.getEdges().indexOf(e), new RiverEdge(e, thickness));
             
             visited.add(nextPoint);

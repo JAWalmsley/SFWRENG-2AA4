@@ -3,7 +3,10 @@ package ca.mcmcaster.cas.se2aa4.a2.island.islandBuilder;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
 import ca.mcmcaster.cas.se2aa4.a2.island.aquifiers.Aquifiers;
 import ca.mcmcaster.cas.se2aa4.a2.island.elevation.ElevationFactory;
-import ca.mcmcaster.cas.se2aa4.a2.island.moisture.SetMoisture;
+import ca.mcmcaster.cas.se2aa4.a2.island.moisture.ExponentialMoisture;
+import ca.mcmcaster.cas.se2aa4.a2.island.moisture.LinearMoisture;
+import ca.mcmcaster.cas.se2aa4.a2.island.moisture.MoistureFactory;
+import ca.mcmcaster.cas.se2aa4.a2.island.moisture.MoistureProfile;
 import ca.mcmcaster.cas.se2aa4.a2.island.rivers.RiverGenerator;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.Shape;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.ShapeFactory;
@@ -11,15 +14,22 @@ import ca.mcmcaster.cas.se2aa4.a2.island.lakes.PlaceLakes;
 import ca.mcmcaster.cas.se2aa4.a2.island.heatmaps.ElevationHeatmap;
 import ca.mcmcaster.cas.se2aa4.a2.island.heatmaps.MoistureHeatmap;
 
-import java.io.IOException;
-
 public class IslandBuilder {
     Board board;
 
     public IslandBuilder(Board board) {
         this.board = board;
     }
-    public void generateIsland(String output, String shapeInput,  String elevationString, int lakeInput, String formatInput) throws IOException {
+    /**
+     * Generate all features of the island
+     * @param output output filename
+     * @param shapeInput shape type, see --help for info
+     * @param elevationString elevation profile, see --help for info
+     * @param lakeInput maximum number of lakes
+     * @param heatmapType what heatmap to draw, "m" for moisture, "e" for elevation, "i" for none (island)
+     * @param soilProfile soil moisture absorption profile, see --help for info
+     */
+    public void generateIsland(String output, String shapeInput,  String elevationString, int lakeInput, String heatmapType, String soilProfile, int numAquifers, int numRivers) {
         Shape shape = ShapeFactory.getShape(shapeInput, 700);
         shape.draw(board);
 
@@ -29,13 +39,15 @@ public class IslandBuilder {
         lakes.drawLakes(board, lakeInput);
 
         Aquifiers aq = new Aquifiers();
-        aq.placeAquifers(board, 5);
+        aq.placeAquifers(board, numAquifers);
+
         RiverGenerator rg = new RiverGenerator();
-        rg.placeRivers(board, 10);
-        SetMoisture moisture = new SetMoisture();
-        moisture.setMoistureLevel(board);
+        rg.placeRivers(board, numRivers);
+
+        MoistureProfile mp = MoistureFactory.getMoistureProfile(soilProfile);
+        mp.drawMoisture(board);
         
-        switch (formatInput) {
+        switch (heatmapType) {
             case "m":
                 MoistureHeatmap MHeatmap = new MoistureHeatmap();
                 MHeatmap.drawHeatMap(board);
