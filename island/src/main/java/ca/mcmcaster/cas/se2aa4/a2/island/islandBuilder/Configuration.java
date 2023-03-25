@@ -27,7 +27,7 @@ public class Configuration {
         this.options.addOption("h", "help", false, "Display help")
                 .addOption("i", "input", true, "Input mesh file")
                 .addOption("o", "output", true, "Output mesh file")
-                .addOption("s", "shape", true, "Island Shape, default circle")
+                .addOption("s", "shape", true, "Island Shape (circle, square, triangle), default circle")
                 .addOption("e", "elevation", true, "Elevation Land Type, default volcano")
                 .addOption("l", "lakes", true, "Maximum number of Lakes, default 2")
                 .addOption("h", "heatmap", true, "Elevation Heatmap \"e\", " +
