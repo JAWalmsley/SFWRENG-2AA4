@@ -78,9 +78,12 @@ public class RiverGenerator {
             
 
             int nextIdx = board.getPoints().indexOf(nextPoint);
-            board.getPoints().set(nextIdx, new RiverPoint(nextPoint));
+            RiverPoint p = new RiverPoint(nextPoint);
+            board.getPoints().set(nextIdx, p);
+            p.setThickness(thickness);
             Edge e = board.getEdge(seed, nextPoint);
             board.getEdges().set(board.getEdges().indexOf(e), new RiverEdge(e, thickness));
+            
             visited.add(nextPoint);
             // If the next point is already a river, increase thickness
             if (nextPoint instanceof RiverPoint) {
