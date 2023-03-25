@@ -31,7 +31,7 @@ public class IslandBuilder {
         Aquifiers aq = new Aquifiers();
         aq.placeAquifers(board, 5);
         RiverGenerator rg = new RiverGenerator();
-        rg.placeRivers(board, 5);
+        rg.placeRivers(board, 10);
         SetMoisture moisture = new SetMoisture();
         moisture.setMoistureLevel(board);
         
