@@ -2,7 +2,7 @@ package ca.mcmcaster.cas.se2aa4.a2.island.heatmaps;
 
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Colour;
-import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tile;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.Tile;
 
 public class ElevationHeatmap {
 

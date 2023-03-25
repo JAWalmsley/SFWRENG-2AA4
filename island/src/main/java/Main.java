@@ -58,11 +58,11 @@ public class Main {
 
         String formatInput = "i";
         if (cli.hasOption("f")) {
-            shapeInput = String.valueOf(cli.getOptionValue("f"));
+            formatInput = String.valueOf(cli.getOptionValue("f"));
         }
 
         IslandBuilder island = new IslandBuilder(board);
-        island.generateIsland(output, shapeInput, lakeInput);
+        island.generateIsland(output, shapeInput, lakeInput, formatInput);
         board.export(output);
     }
 }

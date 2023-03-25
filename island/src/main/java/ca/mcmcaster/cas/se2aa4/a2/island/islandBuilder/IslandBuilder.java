@@ -6,6 +6,7 @@ import ca.mcmcaster.cas.se2aa4.a2.island.moisture.SetMoisture;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.Shape;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.ShapeFactory;
 import ca.mcmcaster.cas.se2aa4.a2.island.lakes.PlaceLakes;
+import ca.mcmcaster.cas.se2aa4.a2.island.heatmaps.ElevationHeatmap;
 import ca.mcmcaster.cas.se2aa4.a2.island.heatmaps.MoistureHeatmap;
 
 import java.io.IOException;
@@ -26,17 +27,14 @@ public class IslandBuilder {
         SetMoisture moisture = new SetMoisture();
         moisture.setMoistureLevel(board);
         switch (formatInput) {
-            case "e":
+            case "m":
                 MoistureHeatmap MHeatmap = new MoistureHeatmap();
                 MHeatmap.drawHeatMap(board);
                 break;
-            case "m":
+            case "e":
                 ElevationHeatmap EHeatmap = new ElevationHeatmap();
                 EHeatmap.drawHeatMap(board);
         }
-
-        board.export(output);
-
     }
 
 }
