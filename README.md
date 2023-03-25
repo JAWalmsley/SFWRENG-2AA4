@@ -103,7 +103,7 @@ When you develop features and enrich the product, remember that you have first t
 | F26 | Implement other shapes such as square                                       | Jack Walmsley | 2023-03-10 | 2023-03-11 | D      |
 | F27 | Implement selection of the shapes from the command line arguments           |Graham Morrison| 2023-03-12 |            | P      |
 | F28 | Implement elevation generator interface and implement volcano               |Graham Morrison|            |            | P      |
-| F29 | Implement heat map to verify elevation                                      | Mathieu Gaudet|            |            | B(F28) |
+| F29 | Implement heat map to verify elevation                                      | Mathieu Gaudet| 2023-03-23 | 	      | S      |
 | F30 | Implement other land types such as mountain ridge                           |Graham Morrison|            |            | B(F28) |
 | F31 | Implement selection of the land types from the command line arguments       |Graham Morrison|            |            | B(F30) |
 | F32 | Place x random one tile lakes on land tiles                                 | Mathieu Gaudet| 2023-03-22 | 2023-03-22 | D      |
@@ -122,3 +122,4 @@ When you develop features and enrich the product, remember that you have first t
 | F46 | Add a seed to all of the randomness to be able to reproduce the island      | Jack Walmsley |            |            | P      |
 | F47 | Implement ability to specify a seed from the command line arguments         |Graham Morrison|            |            | B(F46) |
 | F48 | Create an Island builder to do everything to create the board in one place  | Mathieu Gaudet| 2023-03-23 | 2023-03-23 | D      |
+| F49 | Implement user choice for output of map (heatmap or not)		    | Mathieu Gaudet| 2023-03-23 | 2023-03-23 | D      |

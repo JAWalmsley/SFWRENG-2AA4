@@ -25,7 +25,9 @@ public class Main {
 
         options.addOption("h", "help", false, "Display help")
                 .addOption("s", "shape", true, "Island Shape")
-                .addOption("l", "lakes", true, "Number of Lakes")
+                .addOption("l","lakes", true, "Number of Lakes")
+                .addOption("f", "format", true, "Elevation Heatmap \"e\", " +
+                        "Moisture Heatmap \"m\" or normal island \"i\"")
                 .addOption("d", "seed", true, "Generation Seed");
         CommandLine cli = cliParser.parse(options, args);
         if (cli.hasOption("help")) {
@@ -53,8 +55,14 @@ public class Main {
 
         Board board = new Board(aMesh, randomSeed);
 
+
+        String formatInput = "i";
+        if (cli.hasOption("f")) {
+            formatInput = String.valueOf(cli.getOptionValue("f"));
+        }
+
         IslandBuilder island = new IslandBuilder(board);
-        island.generateIsland(output, shapeInput, lakeInput);
+        island.generateIsland(output, shapeInput, lakeInput, formatInput);
         board.export(output);
     }
 }
