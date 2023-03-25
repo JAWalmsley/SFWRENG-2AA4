@@ -1,27 +1,26 @@
 package ca.mcmcaster.cas.se2aa4.a2.island.adt;
 
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
+
 public class Edge {
-    private Point p1;
-    private Point p2;
+    private Segment segment;
+    private Colour colour;
 
-    public Edge(Point p1, Point p2) {
-        this.p1 = p1;
-        this.p2 = p2;
+    public Edge(Segment s) {
+        this.segment = s;
+        this.colour = new Colour(0, 255, 0);
     }
 
-    public void setP1(Point p1) {
-        this.p1 = p1;
+    public Edge(Edge e) {
+        this.segment = e.segment;
+        this.colour = e.colour;
     }
 
-    public void setP2(Point p2) {
-        this.p2 = p2;
-    }
-
-    public Point getP1() {
-        return this.p1;
-    }
-
-    public Point getP2() {
-        return this.p2;
+    public Segment getSegment(){
+        Segment.Builder builder = Segment.newBuilder(this.segment);
+        if (builder.getPropertiesCount() > 0) {
+            builder.removeProperties(0);
+        }
+        return builder.addProperties(this.colour.toProperty()).build();
     }
 }

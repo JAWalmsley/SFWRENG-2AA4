@@ -13,6 +13,7 @@ import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.Tile;
 
 public class Board {
     private List<Tile> tiles;
+    private List<Edge> edges;
     private List<Point> points;
     private Structs.Mesh mesh;
     private int width;
@@ -22,9 +23,11 @@ public class Board {
     public Board(Structs.Mesh m, long seed) {
         this.mesh = m;
         this.tiles = new ArrayList<Tile>();
+        this.edges = new ArrayList<Edge>();
         this.points = new ArrayList<Point>();
         this.createTiles();
         this.createPoints();
+        this.createEdges();
         this.setDimensions();
         this.rand = new Random(seed);
     }
@@ -33,6 +36,12 @@ public class Board {
         for (Structs.Polygon p : this.mesh.getPolygonsList()) {
             Structs.Vertex centroid = this.mesh.getVerticesList().get(p.getCentroidIdx());
             this.tiles.add(new Tile(p, (float) centroid.getX(), (float) centroid.getY()));
+        }
+    }
+
+    private void createEdges() {
+        for (Structs.Segment s : this.mesh.getSegmentsList()) {
+            this.edges.add(new Edge(s));
         }
     }
 
@@ -139,7 +148,7 @@ public class Board {
         for(Tile t: this.tiles) {
             for(int idx: t.getPolygon().getSegmentIdxsList()) {
                 Structs.Segment s = this.mesh.getSegmentsList().get(idx);
-                if(s.getV1Idx() ==  pIndex) {
+                if(s.getV1Idx() == pIndex) {
                     n.add(this.points.get(s.getV2Idx()));
                 } else if(s.getV2Idx() == pIndex) {
                     n.add(this.points.get(s.getV1Idx()));
@@ -167,6 +176,22 @@ public class Board {
         }
         for (Tile t : this.tiles) {
             meshBuilder.addPolygons(t.getPolygon());
+        }
+
+        // Replace all vertices
+        for(int i = this.mesh.getVerticesCount() - 1; i >= 0; i--) {
+            meshBuilder.removeVertices(i);
+        }
+        for(Point p: this.points) {
+            meshBuilder.addVertices(p.getVertex());
+        }
+
+        //Replace all segments
+        for(int i = this.mesh.getSegmentsCount() - 1; i >= 0; i--) {
+            meshBuilder.removeSegments(i);
+        }
+        for(Edge e: this.edges) {
+            meshBuilder.addSegments(e.getSegment());
         }
         MeshFactory factory = new MeshFactory();
         factory.write(meshBuilder.build(), output);
