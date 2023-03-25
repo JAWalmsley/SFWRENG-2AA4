@@ -2,6 +2,7 @@ package ca.mcmcaster.cas.se2aa4.a2.island.islandBuilder;
 
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
 import ca.mcmcaster.cas.se2aa4.a2.island.aquifiers.Aquifiers;
+import ca.mcmcaster.cas.se2aa4.a2.island.elevation.ElevationFactory;
 import ca.mcmcaster.cas.se2aa4.a2.island.moisture.SetMoisture;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.Shape;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.ShapeFactory;
@@ -20,12 +21,18 @@ public class IslandBuilder {
     public void generateIsland(String output, String shapeInput, int lakeInput, String formatInput) throws IOException {
         Shape shape = ShapeFactory.getShape(shapeInput, 700);
         shape.draw(board);
+
+        ElevationFactory.setElevation("mountain", board);
+
         PlaceLakes lakes = new PlaceLakes();
         lakes.drawLakes(board, lakeInput);
+
         Aquifiers aq = new Aquifiers();
         aq.placeAquifers(board, 5);
+        
         SetMoisture moisture = new SetMoisture();
         moisture.setMoistureLevel(board);
+        
         switch (formatInput) {
             case "m":
                 MoistureHeatmap MHeatmap = new MoistureHeatmap();

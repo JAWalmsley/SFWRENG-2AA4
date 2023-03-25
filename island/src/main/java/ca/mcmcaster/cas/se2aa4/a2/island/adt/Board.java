@@ -65,6 +65,10 @@ public class Board {
         return this.tiles.get(index);
     }
 
+    public List<Tile> getTiles() {
+        return this.tiles;
+    }
+
     public int getNumTiles() {
         return this.tiles.size();
     }
