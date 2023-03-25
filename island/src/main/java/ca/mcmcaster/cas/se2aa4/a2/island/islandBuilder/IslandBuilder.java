@@ -36,7 +36,7 @@ public class IslandBuilder {
         RiverGenerator rg = new RiverGenerator();
         rg.placeRivers(board, 10);
 
-        MoistureProfile mp = new LinearMoisture(5);
+        MoistureProfile mp = new LinearMoisture();
         mp.drawMoisture(board);
         
         switch (formatInput) {
