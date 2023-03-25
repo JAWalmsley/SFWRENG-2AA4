@@ -5,17 +5,20 @@ import java.util.Objects;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 
 public class Point {
-    private Structs.Vertex vertex;
-    
-    private int elevation;
+    Structs.Vertex vertex;
+    int elevation;
+    Colour colour;
+
     public Point(Structs.Vertex v) {
         this.vertex = v;
         this.elevation = 0;
+        this.colour = new Colour(0, 0, 0);
     }
 
     public Point(Point p) {
         this.vertex = p.vertex;
         this.elevation = p.elevation;
+        this.colour = p.colour;
     }
 
     public void setElevation(int elevation) {
@@ -26,6 +29,21 @@ public class Point {
         return this.elevation;
     }
 
+    public Colour getColour() {
+        return this.colour;
+    }
+
+    public void setColour(Colour colour) {
+        this.colour = colour;
+    }
+
+    public Structs.Vertex getVertex() {
+        Structs.Vertex.Builder builder = Structs.Vertex.newBuilder(this.vertex);
+        if (builder.getPropertiesCount() > 0) {
+            builder.removeProperties(0);
+        }
+        return builder.addProperties(this.colour.toProperty()).build();
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -42,5 +60,5 @@ public class Point {
     public int hashCode() {
         return Objects.hash(vertex, elevation);
     }
-    
+
 }
