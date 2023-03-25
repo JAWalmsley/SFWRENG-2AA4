@@ -11,17 +11,19 @@ public class SetBiomes {
             Tile t = board.getTile(i);
             if (t instanceof LandTile) {
                 int moistureLevel = t.getMoistureLevel();
+                float elevation = t.getElevation();
                 if (moistureLevel <= 8){
-                    board.setTile(i, new LowMoistureTile(t,biome));
-                } else if (moistureLevel <= 17) {
-                    float elevation = t.getElevation();
-                    if(elevation<=12.5) {
-                        board.setTile(i, new MidMoistureLowElev(t,biome));
+                    if(elevation<=18) {
+                        board.setTile(i, new LowMoistureLowElev(t,biome));
                     } else {
-                        board.setTile(i, new MidMoistureHighElev(t,biome));
+                        board.setTile(i, new LowMoistureHighElev(t,biome));
                     }
                 } else {
-                    board.setTile(i, new HighMoisture(t,biome));
+                    if(elevation<=18) {
+                        board.setTile(i, new HighMoistureLowElev(t,biome));
+                    } else {
+                        board.setTile(i, new HighMoistureHighElev(t,biome));
+                    }
                 }
             }
         }
