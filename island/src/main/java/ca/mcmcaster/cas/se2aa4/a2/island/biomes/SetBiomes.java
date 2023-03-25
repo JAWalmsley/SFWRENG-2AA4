@@ -6,7 +6,7 @@ import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.*;
 public class SetBiomes {
     public void setBiomes(Board board) {
         int numTiles = board.getNumTiles();
-        String biome = "test";
+        String biome = "Desert";
         for (int i = 0; i < numTiles; i++) {
             Tile t = board.getTile(i);
             if (t instanceof LandTile) {
