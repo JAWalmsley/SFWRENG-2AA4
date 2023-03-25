@@ -7,17 +7,21 @@ import ca.mcmcaster.cas.se2aa4.a2.island.islandBuilder.IslandBuilder;
 import java.io.IOException;
 
 public class Main {
-
+    
     public static void main(String[] args) throws IOException, org.apache.commons.cli.ParseException {
-        // TODO: command line parameters
-        String input = "sample.mesh";
-        String output = "island.mesh";
-
-        // Getting width and height for the canvas
-        Structs.Mesh aMesh = new MeshFactory().read(input);
-
+        
         Configuration config = new Configuration(args);
-        config.parse();
+        boolean parsedCorrectly = config.parse();
+        if(!parsedCorrectly) {
+            return;
+        }
+
+        String input = config.getOption("i", "");
+        String output = config.getOption("o", "");
+
+        String mode = config.getOption("mode", "normal");
+
+        Structs.Mesh aMesh = new MeshFactory().read(input);
 
         String shapeType = config.getOption("s", "circle");
 
@@ -39,7 +43,7 @@ public class Main {
 
         Board board = new Board(aMesh, randomSeed);
         IslandBuilder island = new IslandBuilder(board);
-        island.generateIsland(output, shapeType, elevationType, numLakes, heatmapInput, soilProfile, numAquifers, numRivers);
+        island.generateIsland(output, shapeType, elevationType, numLakes, heatmapInput, soilProfile, numAquifers, numRivers, mode);
         board.export(output);
     }
 }

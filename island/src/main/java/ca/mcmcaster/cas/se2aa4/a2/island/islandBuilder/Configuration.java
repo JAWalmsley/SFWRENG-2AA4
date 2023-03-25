@@ -9,44 +9,58 @@ import org.apache.commons.cli.ParseException;
 public class Configuration {
     String[] args;
     CommandLine cli;
+    Options options;
 
     public Configuration(String[] args) {
         this.args = args;
     }
 
-    public void parse() throws ParseException{
+    /**
+     * Parse the CLI options
+     * @return true if parsing went correctly, false if help was displayed/missing args
+     * @throws ParseException
+     */
+    public boolean parse() throws ParseException {
         DefaultParser cliParser = new DefaultParser();
-        Options options = new Options();
+        this.options = new Options();
 
-        options.addOption("h", "help", false, "Display help")
+        this.options.addOption("h", "help", false, "Display help")
+                .addOption("i", "input", true, "Input mesh file")
+                .addOption("o", "output", true, "Output mesh file")
                 .addOption("s", "shape", true, "Island Shape, default circle")
                 .addOption("e", "elevation", true, "Elevation Land Type, default volcano")
-                .addOption("l","lakes", true, "Maximum number of Lakes, default 2")
+                .addOption("l", "lakes", true, "Maximum number of Lakes, default 2")
                 .addOption("h", "heatmap", true, "Elevation Heatmap \"e\", " +
                         "Moisture Heatmap \"m\" or normal island \"i\", default i")
                 .addOption("a", "absorption", true, "Soil absorption profile (linear, expoential), default linear")
                 .addOption("q", "aquifers", true, "Maximum number of aquifers, default 3")
                 .addOption("r", "rivers", true, "Maximum number of rivers, default 5")
+                .addOption("m", "mode", true, "Generation mode (lagoon, normal), default normal")
                 .addOption("d", "seed", true, "Generation Seed, default system time");
 
         this.cli = cliParser.parse(options, this.args);
 
-        if (this.cli.hasOption("help")) {
-            HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("Island [OPTIONS]", options);
-            return;
+        if (this.cli.hasOption("help") || !this.cli.hasOption("i") || !this.cli.hasOption("o")) {
+            this.showHelp();
+            return false;
         }
+        return true;
+    }
+
+    public void showHelp() {
+        HelpFormatter formatter = new HelpFormatter();
+        formatter.printHelp("Island [OPTIONS]", this.options);
     }
 
     /**
      * Get an option from the commandline
+     * 
      * @param opt the option to get
      * @param def the default if no option is present
      * @return the value of the option
      */
-    public String getOption(String opt, String def)
-    {
-        if(cli.hasOption(opt)) {
+    public String getOption(String opt, String def) {
+        if (cli.hasOption(opt)) {
             return cli.getOptionValue(opt);
         }
         return def;
