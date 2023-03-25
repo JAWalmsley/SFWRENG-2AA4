@@ -126,4 +126,4 @@ When you develop features and enrich the product, remember that you have first t
 | F50 | Soil absorption profile system                                              | Jack Walmsley   | 2023-03-25 | 2023-03-25 | D      |
 | F51 | Soil absorption profile - linear                                            | Jack Walmsley   | 2023-03-25 | 2023-03-25 | D      |
 | F52 | Soil absorption profile - exponential                                       | Jack Walmsley   | 2023-03-25 | 2023-03-25 | D      |
-| F53 | CLI choice between lagoon demo and normal operation                         | Jack Walmsley   |            |            | P      |
+| F53 | CLI choice between lagoon demo and normal operation                         | Jack Walmsley   | 2023-03-25 | 2023-03-25 | D      |
