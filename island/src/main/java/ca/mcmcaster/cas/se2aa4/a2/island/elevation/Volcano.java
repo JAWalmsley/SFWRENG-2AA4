@@ -1,9 +1,7 @@
 package ca.mcmcaster.cas.se2aa4.a2.island.elevation;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Point;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.OceanTile;

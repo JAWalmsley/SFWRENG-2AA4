@@ -25,6 +25,7 @@ public class Main {
 
         options.addOption("h", "help", false, "Display help")
                 .addOption("s", "shape", true, "Island Shape")
+                .addOption("e", "elevation", true, "Elevation Land Type")
                 .addOption("l","lakes", true, "Number of Lakes")
                 .addOption("f", "format", true, "Elevation Heatmap \"e\", " +
                         "Moisture Heatmap \"m\" or normal island \"i\"")
@@ -39,6 +40,10 @@ public class Main {
         String shapeInput = "triangle";
         if (cli.hasOption("s")) {
             shapeInput = String.valueOf(cli.getOptionValue("s"));
+        }
+        String elevationInput = "mountain";
+        if (cli.hasOption("e")) {
+            elevationInput = String.valueOf(cli.getOptionValue("e"));
         }
         int lakeInput = 5;
         if(cli.hasOption("l")) {
@@ -62,7 +67,7 @@ public class Main {
         }
 
         IslandBuilder island = new IslandBuilder(board);
-        island.generateIsland(output, shapeInput, lakeInput, formatInput);
+        island.generateIsland(output, shapeInput, elevationInput, lakeInput, formatInput);
         board.export(output);
     }
 }

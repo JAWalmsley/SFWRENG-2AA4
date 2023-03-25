@@ -39,11 +39,11 @@ public class SetMoisture {
                 }
             }
         }
-        for (Point p : board.getNeighbourPoints(t)) {
-            if (p instanceof RiverPoint) {
-                moistureLevel += p.getRiverWidth();
-            }
-        }
+        //for (Point p : board.getNeighbourPoints(t)) {
+        //    if (p instanceof RiverPoint) {
+        //        moistureLevel += p.getRiverWidth();
+        //    }
+        //}
         return moistureLevel;
     }
 
