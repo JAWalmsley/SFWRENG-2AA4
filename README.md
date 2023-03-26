@@ -124,7 +124,7 @@ When you develop features and enrich the product, remember that you have first t
 | F47 | Implement ability to specify a seed from the command line arguments         | Graham Morrison | 2023-03-25 | 2023-03-25 | D      |
 | F48 | Create an Island builder to do everything to create the board in one place  | Mathieu Gaudet  | 2023-03-23 | 2023-03-23 | D      |
 | F49 | Implement user choice for output of map (heatmap or not)                    | Mathieu Gaudet  | 2023-03-23 | 2023-03-23 | D      |
-| F50 | Soil absorption profile system                                              | Jack Walmsley   |            |            | P      |
-| F51 | Soil absorption profile - linear                                            | Jack Walmsley   |            |            | B(F50) |
-| F52 | Soil absorption profile - exponential                                       | Jack Walmsley   |            |            | B(F50) |
-| F53 | CLI choice between lagoon demo and normal operation                         | Jack Walmsley   |            |            | P      |
+| F50 | Soil absorption profile system                                              | Jack Walmsley   | 2023-03-25 | 2023-03-25 | D      |
+| F51 | Soil absorption profile - linear                                            | Jack Walmsley   | 2023-03-25 | 2023-03-25 | D      |
+| F52 | Soil absorption profile - exponential                                       | Jack Walmsley   | 2023-03-25 | 2023-03-25 | D      |
+| F53 | CLI choice between lagoon demo and normal operation                         | Jack Walmsley   | 2023-03-25 | 2023-03-25 | D      |
