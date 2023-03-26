@@ -33,12 +33,13 @@ import ca.mcmcaster.cas.se2aa4.a2.island.shape.Shape;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BoardTest {
     Board board;
+    Mesh aMesh;
 
     @BeforeAll
     public void setUp() throws IOException {
         // Test relies on an existing file, this is tehcnical debt but creating sample
         // data is outside time constraints right now
-        Mesh aMesh = new MeshFactory().read("../sample.mesh");
+        aMesh = new MeshFactory().read("../sample.mesh");
         board = new Board(aMesh, 0);
     }
 
@@ -48,6 +49,7 @@ public class BoardTest {
         assertFalse(board.getTiles().size() == 0);
         assertFalse(board.getEdges().size() == 0);
         assertFalse(board.getPoints().size() == 0);
+        assertTrue(board.getTiles().size() == aMesh.getPolygonsCount());
     }
 
     @Test
