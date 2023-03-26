@@ -14,6 +14,7 @@ import ca.mcmcaster.cas.se2aa4.a2.island.shape.ShapeFactory;
 import ca.mcmcaster.cas.se2aa4.a2.island.lakes.PlaceLakes;
 import ca.mcmcaster.cas.se2aa4.a2.island.heatmaps.ElevationHeatmap;
 import ca.mcmcaster.cas.se2aa4.a2.island.heatmaps.MoistureHeatmap;
+import ca.mcmcaster.cas.se2aa4.a2.island.biomes.SetBiomes;
 
 public class IslandBuilder {
     Board board;
@@ -35,7 +36,7 @@ public class IslandBuilder {
      * @param mode            the mode of generation, lagoon or normal
      */
     public void generateIsland(String output, String shapeInput, String elevationString, int lakeInput,
-            String heatmapType, String soilProfile, int numAquifers, int numRivers, String mode) {
+            String heatmapType, String soilProfile, int numAquifers, int numRivers, String mode, String biome) {
         if (mode.equals("lagoon")) {
             int dimension = Math.min(board.getWidth(), board.getHeight());
             int outerRadius = dimension/2 - (int)(dimension*0.1); 
@@ -68,6 +69,10 @@ public class IslandBuilder {
             case "e":
                 ElevationHeatmap EHeatmap = new ElevationHeatmap();
                 EHeatmap.drawHeatMap(board);
+                break;
+            case "i":
+                SetBiomes biomes = new SetBiomes();
+                biomes.setBiomes(board, biome);
         }
     }
 

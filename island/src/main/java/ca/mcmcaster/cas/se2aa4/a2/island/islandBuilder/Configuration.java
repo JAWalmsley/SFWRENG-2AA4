@@ -36,6 +36,7 @@ public class Configuration {
                 .addOption("q", "aquifers", true, "Maximum number of aquifers, default 3")
                 .addOption("r", "rivers", true, "Maximum number of rivers, default 5")
                 .addOption("m", "mode", true, "Generation mode (lagoon, normal), default normal")
+                .addOption("b", "biome", true, "Whittaker Biome (grassland, tundra, desert), default grassland")
                 .addOption("d", "seed", true, "Generation Seed, default system time");
 
         this.cli = cliParser.parse(options, this.args);

@@ -1,3 +1,4 @@
+
 # Assignment A2: Mesh Generator
 
 -   Author #1 [walmsj1@mcmaster.ca]
@@ -116,9 +117,9 @@ When you develop features and enrich the product, remember that you have first t
 | F39 | Generate random aquifers that increase humidity to surrounding areas.       | Graham Morrison | 2023-03-24 | 2023-03-23 | D      |
 | F41 | Implement moisture for lakes.                                               | Mathieu Gaudet  | 2023-03-23 | 2023-03-23 | D      |
 | F42 | Implement moisture for rivers.                                              | Jack Walmsley   | 2023-03-25 | 2023-03-25 | D      |
-| F43 | Assign biome based on humidity and elevation. Assign Colour based on biome. | Mathieu Gaudet  |            |            | P      |
-| F44 | Decide what biomes are available (Whittaker diagram)                        | Mathieu Gaudet  |            |            | P      |
-| F45 | Implement selection of climate (Whittaker diagram) from the CLI             | Mathieu Gaudet  |            |            | B(F44) |
+| F43 | Assign biome based on humidity and elevation. Assign Colour based on biome. | Mathieu Gaudet  | 2023-03-25 | 2023-03-25 | D      |
+| F44 | Decide what biomes are available (Whittaker diagram)                        | Mathieu Gaudet  | 2023-03-25 | 2023-03-25 | D      |
+| F45 | Implement selection of climate (Whittaker diagram) from the CLI             | Mathieu Gaudet  | 2023-03-25 | 2023-03-25 | D      |
 | F46 | Add a seed to all of the randomness to be able to reproduce the island      | Jack Walmsley   | 2023-03-24 | 2023-03-24 | D      |
 | F47 | Implement ability to specify a seed from the command line arguments         | Graham Morrison | 2023-03-25 | 2023-03-25 | D      |
 | F48 | Create an Island builder to do everything to create the board in one place  | Mathieu Gaudet  | 2023-03-23 | 2023-03-23 | D      |

@@ -7,12 +7,12 @@ import ca.mcmcaster.cas.se2aa4.a2.island.islandBuilder.IslandBuilder;
 import java.io.IOException;
 
 public class Main {
-    
+
     public static void main(String[] args) throws IOException, org.apache.commons.cli.ParseException {
-        
+
         Configuration config = new Configuration(args);
         boolean parsedCorrectly = config.parse();
-        if(!parsedCorrectly) {
+        if (!parsedCorrectly) {
             return;
         }
 
@@ -37,13 +37,15 @@ public class Main {
 
         int numRivers = Integer.valueOf(config.getOption("r", "5"));
 
+        String biome = config.getOption("b", "grassland");
+
         long randomSeed = Long.valueOf(config.getOption("d", String.valueOf(System.currentTimeMillis())));
         System.out.println("Using " + randomSeed + " as seed.");
-    
 
         Board board = new Board(aMesh, randomSeed);
         IslandBuilder island = new IslandBuilder(board);
-        island.generateIsland(output, shapeType, elevationType, numLakes, heatmapInput, soilProfile, numAquifers, numRivers, mode);
+        island.generateIsland(output, shapeType, elevationType, numLakes, heatmapInput, soilProfile, numAquifers,
+                numRivers, mode, biome);
         board.export(output);
     }
 }
