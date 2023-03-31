@@ -1,3 +1,5 @@
+package ca.mcmcaster.cas.se2aa4.a4.pathfinder;
+
 public class Edge {
     public Node node1;
     public Node node2;
@@ -9,7 +11,7 @@ public class Edge {
         this.weight = weight;
     }
 
-    public Node getNodes() {
+    public Node[] getNodes() {
         return new Node[] {this.node1, this.node2};
     }
 
