@@ -43,7 +43,20 @@ public class Graph {
         return new ArrayList<>(this.nodes);
     }
 
-    public List<Node> getNeighbours() {
-        
+    public List<Node> getNeighbours(Node s) {
+        List<Node> neighbours = new ArrayList<>();
+        for(Edge e : this.adjacency.get(s)) {
+            neighbours.add(e.getOtherNode(s));
+        }
+        return neighbours;
+    }
+
+    public float getWeight(Node n1, Node n2) {
+        for(Edge e : this.adjacency.get(n1)) {
+            if(e.getOtherNode(n1) == n2){
+                return e.getWeight();
+            }
+        }
+        throw new IllegalArgumentException("Nodes are not connected");
     }
 }

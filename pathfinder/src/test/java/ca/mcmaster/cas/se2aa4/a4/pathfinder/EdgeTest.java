@@ -15,10 +15,10 @@ public class EdgeTest {
 
     @BeforeEach
     public void setUp() {
-        Node n1 = new Node("City1");
-        Node n2 = new Node("City2");
+        n1 = new Node("City1");
+        n2 = new Node("City2");
     }
-    
+
     @Test
     public void testGetNodes() {
         Edge e = new Edge(n1, n2, 100);
