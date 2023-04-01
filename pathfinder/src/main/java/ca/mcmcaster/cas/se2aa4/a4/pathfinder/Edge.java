@@ -1,8 +1,8 @@
 package ca.mcmcaster.cas.se2aa4.a4.pathfinder;
 
 public class Edge {
-    public Node node1;
-    public Node node2;
+    Node node1;
+    Node node2;
     float weight;
 
     public Edge(Node node1, Node node2, float weight) {
@@ -17,5 +17,20 @@ public class Edge {
 
     public float getWeight() {
         return this.weight;
+    }
+
+    /**
+     * Get the node that isn't the one passed in, useful for finding neighbours and such
+     * @param n the node to exclude
+     * @return the other node
+     */
+    public Node getOtherNode(Node n) {
+        if(n == this.node1) {
+            return this.node2;
+        } else if(n == this.node2) {
+            return this.node1;
+        } else {
+            throw new IllegalArgumentException("Node is not in this edge");
+        }
     }
 }
