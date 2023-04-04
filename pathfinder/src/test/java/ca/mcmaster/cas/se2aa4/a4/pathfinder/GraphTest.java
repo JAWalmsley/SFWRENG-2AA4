@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import ca.mcmcaster.cas.se2aa4.a4.pathfinder.Edge;
-import ca.mcmcaster.cas.se2aa4.a4.pathfinder.Graph;
-import ca.mcmcaster.cas.se2aa4.a4.pathfinder.Node;
+import ca.mcmaster.cas.se2aa4.a4.pathfinder.Edge;
+import ca.mcmaster.cas.se2aa4.a4.pathfinder.Graph;
+import ca.mcmaster.cas.se2aa4.a4.pathfinder.Node;
 
 public class GraphTest {
     @Test

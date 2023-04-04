@@ -1,4 +1,4 @@
-package ca.mcmcaster.cas.se2aa4.a4.pathfinder;
+package ca.mcmaster.cas.se2aa4.a4.pathfinder;
 
 import java.util.Comparator;
 import java.util.Map;

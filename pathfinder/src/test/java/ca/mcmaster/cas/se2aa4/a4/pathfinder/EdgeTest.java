@@ -6,8 +6,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ca.mcmcaster.cas.se2aa4.a4.pathfinder.Edge;
-import ca.mcmcaster.cas.se2aa4.a4.pathfinder.Node;
+import ca.mcmaster.cas.se2aa4.a4.pathfinder.Edge;
+import ca.mcmaster.cas.se2aa4.a4.pathfinder.Node;
 
 public class EdgeTest {
     Node n1;
