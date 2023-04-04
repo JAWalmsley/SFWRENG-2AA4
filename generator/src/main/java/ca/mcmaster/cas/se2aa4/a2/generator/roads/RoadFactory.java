@@ -7,6 +7,6 @@ import ca.mcmaster.cas.se2aa4.a2.generator.configuration.Configuration;
 public class RoadFactory {
     public static RoadGenerator create(Configuration config) {
         Map<String, String> options = config.export();
-        return new DefaultRoads();
+        return new DefaultRoads(5);
     }
 }

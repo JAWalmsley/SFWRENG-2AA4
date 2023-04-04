@@ -57,7 +57,7 @@ public class Exporter {
         Structs.Vertex[] exported = new Structs.Vertex[vertices.size()];
         for(Vertex key: vertices.keySet()){
             Structs.Vertex.Builder vb = Structs.Vertex.newBuilder().setX(key.x()).setY(key.y());
-            if(key.isCity) {
+            if(key.isCity()) {
                 Structs.Property p = Structs.Property.newBuilder().setKey("cityType").setValue("capital").build();
                 vb.addProperties(p);
             }
