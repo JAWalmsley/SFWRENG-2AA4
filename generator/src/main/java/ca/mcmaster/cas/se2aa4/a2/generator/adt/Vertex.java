@@ -6,6 +6,7 @@ public class Vertex implements Cropable<Vertex> {
 
     private static final int PRECISION = 2;
     private final int x, y;
+    public boolean isCity;
 
     public Vertex(float x, float y) {
         this.x = convert(x);

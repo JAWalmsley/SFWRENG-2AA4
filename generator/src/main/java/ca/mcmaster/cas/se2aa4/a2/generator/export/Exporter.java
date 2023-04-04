@@ -56,8 +56,13 @@ public class Exporter {
         Map<Vertex, Integer> vertices = buildVertexRegistry(mesh);
         Structs.Vertex[] exported = new Structs.Vertex[vertices.size()];
         for(Vertex key: vertices.keySet()){
-            Structs.Vertex v = Structs.Vertex.newBuilder().setX(key.x()).setY(key.y()).build();
-            exported[vertices.get(key)] = v;
+            Structs.Vertex.Builder vb = Structs.Vertex.newBuilder().setX(key.x()).setY(key.y());
+            if(key.isCity) {
+                Structs.Property p = Structs.Property.newBuilder().setKey("cityType").setValue("capital").build();
+                vb.addProperties(p);
+            }
+            
+            exported[vertices.get(key)] = vb.build();
         }
         result.addAllVertices(List.of(exported));
         return vertices;
