@@ -1,6 +1,7 @@
 package ca.mcmaster.cas.se2aa4.a4.pathfinder;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class PathfindTest {
         DijkstraPathfinder dj = new DijkstraPathfinder();
         List<Node> path = dj.findShortestPath(g, n1, n2);
 
-        assertTrue(path.size() == 2);
+        assertEquals(path.size(), 2);
     }
 
     @Test
@@ -43,7 +44,27 @@ public class PathfindTest {
         DijkstraPathfinder dj = new DijkstraPathfinder();
         List<Node> path = dj.findShortestPath(g, n1, n3);
 
-        assertTrue(path.get(2) == n1);
-        assertTrue(path.get(0) == n3);
+        assertEquals(path.get(2), n1);
+        assertEquals(path.get(0), n3);
+    }
+
+    @Test
+    public void testErrors() {
+        Graph g = new Graph();
+
+        Node n1 = new Node("City1");
+        Node n2 = new Node("City2");
+        Node n3 = new Node("City3");
+        Edge e1 = new Edge(n1, n2, 1);
+        g.addEdge(e1);
+
+        DijkstraPathfinder dj = new DijkstraPathfinder();
+
+        assertThrows(IllegalArgumentException.class, () -> dj.findShortestPath(g, n1, n3));
+        assertThrows(IllegalArgumentException.class, () -> dj.findShortestPath(g, n3, n1));
+
+        g.addNode(n3);
+        assertThrows(IllegalArgumentException.class, () -> dj.findShortestPath(g, n3, n1));
+
     }
 }
