@@ -4,13 +4,16 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
+import ca.mcmaster.cas.se2aa4.a2.visualizer.renderer.properties.CityProperty;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.renderer.properties.ColorProperty;
+import ca.mcmaster.cas.se2aa4.a2.visualizer.renderer.properties.RoadProperty;
 
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.geom.Line2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.util.Iterator;
 import java.util.Optional;
@@ -23,6 +26,7 @@ public class GraphicRenderer implements Renderer {
         canvas.setStroke(stroke);
         drawPolygons(aMesh, canvas);
         drawSegments(aMesh, canvas);
+        drawVertices(aMesh, canvas);
     }
 
     private void drawPolygons(Mesh aMesh, Graphics2D canvas) {
@@ -34,6 +38,12 @@ public class GraphicRenderer implements Renderer {
     private void drawSegments(Mesh aMesh, Graphics2D canvas) {
         for (Structs.Segment s : aMesh.getSegmentsList()) {
             drawASegment(s, aMesh, canvas);
+        }
+    }
+
+    private void drawVertices(Mesh aMesh, Graphics2D canvas) {
+        for(Structs.Vertex v: aMesh.getVerticesList()){
+            drawAVertex(v, aMesh, canvas);
         }
     }
 
@@ -67,7 +77,11 @@ public class GraphicRenderer implements Renderer {
 
         Color old = canvas.getColor();
         Optional<Color> fill = new ColorProperty().extract(s.getPropertiesList());
-        if (fill.isPresent()) {
+        Optional<Boolean> road = new RoadProperty().extract(s.getPropertiesList());
+        if(road.isPresent() && road.get()) {
+            canvas.setColor(Color.RED);
+        }
+        else if (fill.isPresent()) {
             canvas.setColor(fill.get());
         }
         for(Property p: s.getPropertiesList()) {
@@ -75,10 +89,26 @@ public class GraphicRenderer implements Renderer {
                 canvas.setStroke(new BasicStroke(Integer.valueOf(p.getValue())));
             }
         }
-        Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
-        canvas.draw(line);
-        canvas.setColor(old);
-        canvas.setStroke(new BasicStroke(0));
+        if(road.isPresent() && road.get()) {
+            canvas.setStroke(new BasicStroke(2));
+        }
+        // Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
+        // canvas.draw(line);
+        // canvas.setColor(old);
+        // canvas.setStroke(new BasicStroke(0));
+    }
+
+    private void drawAVertex(Structs.Vertex v, Mesh aMesh, Graphics2D canvas) {
+        Color old = canvas.getColor();
+
+        Optional<Boolean> city = new CityProperty().extract(v.getPropertiesList());
+        if(city.isPresent() && city.get()) { // 
+            canvas.setColor(Color.RED);
+            Ellipse2D circ = new Ellipse2D.Double(v.getX(),  v.getY(), 5, 5);
+            canvas.fill(circ);
+            canvas.setColor(old);
+        }
+        
     }
 
 }
