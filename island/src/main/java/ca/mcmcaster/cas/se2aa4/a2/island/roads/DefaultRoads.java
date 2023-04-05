@@ -1,13 +1,13 @@
 package ca.mcmcaster.cas.se2aa4.a2.island.roads;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import ca.mcmaster.cas.se2aa4.a4.pathfinder.DijkstraPathfinder;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.Graph;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.Node;
+import ca.mcmaster.cas.se2aa4.a4.pathfinder.Pathfinder;
 import ca.mcmcaster.cas.se2aa4.a2.island.BiMap;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Point;
@@ -24,9 +24,10 @@ public class DefaultRoads implements RoadGenerator {
 
     private void placeCities(Board board) {
         Random rand = new Random();
+        List<Point> points = board.getPoints();
         // Loop through all the polygons endlessly until we get enough cities
         while(this.cities.size() < this.numCities) {
-            
+            cities.add(points.get(rand.nextInt(0, points.size())));
         }
 
         for (Point p : cities) {
@@ -34,20 +35,20 @@ public class DefaultRoads implements RoadGenerator {
         }
     }
 
-    private void connectCities(Mesh mesh) {
+    private void connectCities(Board board) {
         Pathfinder pf = new DijkstraPathfinder();
         // TODO: Decide on a center node in a smart way
         Node center = this.nodes.get(this.cities.iterator().next());
-        for (Vertex v : cities) {
-            Node n = this.nodes.get(v);
+        for (Point p : cities) {
+            Node n = this.nodes.get(p);
             if (n != center) {
                 List<Node> path = pf.findShortestPath(this.graph, center, n);
                 for(int i = 0; i < path.size() - 1; i++) {
                     // Get the vertices that map to the nodes in the path
-                    Vertex v1 = this.nodes.invGet(path.get(i));
-                    Vertex v2 = this.nodes.invGet(path.get(i+1));
-                    PairOfVertex pathPair = mesh.getPairFromVertices(v1, v2);
-                    pathPair.setRoad(true);
+                    Point p1 = this.nodes.invGet(path.get(i));
+                    Point p2 = this.nodes.invGet(path.get(i+1));
+                    ca.mcmcaster.cas.se2aa4.a2.island.adt.Edge pathEdge = board.getEdge(p1, p2);
+                    pathEdge.setRoad(true);
                 }
             }
         }
@@ -61,9 +62,7 @@ public class DefaultRoads implements RoadGenerator {
         this.graph = mtg.getGraph();
         this.nodes = mtg.getNodeMap();
 
-        connectCities(mesh);
-        
-        return mesh;
+        connectCities(board);
     }
 
 }

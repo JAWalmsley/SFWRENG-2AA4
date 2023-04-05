@@ -7,6 +7,7 @@ public class Edge {
     Segment segment;
     Colour colour;
     int thickness;
+    boolean road;
 
     public Edge(Segment s) {
         this.segment = s;
@@ -20,6 +21,14 @@ public class Edge {
         this.thickness = e.thickness;
     }
 
+    public boolean isRoad() {
+        return road;
+    }
+
+    public void setRoad(boolean road) {
+        this.road = road;
+    }
+
     public Property thicknessProperty() {
         return Property.newBuilder().setKey("thickness").setValue(String.valueOf(this.thickness)).build();
     }
@@ -27,7 +36,7 @@ public class Edge {
     public Segment getSegment() {
         Segment.Builder builder = Segment.newBuilder(this.segment);
         // Remove colour and thickness properties
-        while(builder.getPropertiesCount() > 0)
+        while (builder.getPropertiesCount() > 0)
             builder.removeProperties(0);
         return builder.addProperties(this.colour.toProperty()).addProperties(this.thicknessProperty()).build();
     }
