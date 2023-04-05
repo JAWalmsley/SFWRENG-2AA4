@@ -40,9 +40,9 @@ public class Graph {
         return new ArrayList<>(this.edges);
     }
 
-    public List<Node> getNodes() {
+    public Set<Node> getNodes() {
         // Defensive copy
-        return new ArrayList<>(this.nodes);
+        return new HashSet<>(this.nodes);
     }
 
     public List<Node> getNeighbours(Node s) {

@@ -25,9 +25,9 @@ public class Edge {
      * @return the other node
      */
     public Node getOtherNode(Node n) {
-        if(n == this.node1) {
+        if(n.equals(this.node1)) {
             return this.node2;
-        } else if(n == this.node2) {
+        } else if(n.equals(this.node2)) {
             return this.node1;
         } else {
             throw new IllegalArgumentException("Node is not in this edge");
