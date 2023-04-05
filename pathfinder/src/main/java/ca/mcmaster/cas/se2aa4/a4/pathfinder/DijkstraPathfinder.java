@@ -29,6 +29,8 @@ public class DijkstraPathfinder implements Pathfinder {
             queue.add(n);
         }
         dist.put(start, 0f);
+        queue.remove(start);
+        queue.add(start);
 
         while (!queue.isEmpty()) {
             Node currNode = queue.poll();

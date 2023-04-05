@@ -10,6 +10,10 @@ public class Node {
         return this.name;
     }
 
+    public String toString() {
+        return this.name;
+    }
+
     @Override
     public int hashCode() {
         // Auto-generated hashCode
