@@ -44,14 +44,10 @@ public class Exporter {
         Structs.Segment[] exported = new Structs.Segment[segments.size()];
         for(PairOfVertex key: segments.keySet()){
             Vertex[] contents = key.contents();
-            Structs.Segment.Builder sb = Structs.Segment.newBuilder()
+            Structs.Segment s = Structs.Segment.newBuilder()
                     .setV1Idx(vertices.get(contents[0]))
-                    .setV2Idx(vertices.get(contents[1]));
-            if(key.isRoad()) {
-                Structs.Property p = Structs.Property.newBuilder().setKey("roadType").setValue("highway").build();
-                sb.addProperties(p);
-            }
-            exported[segments.get(key)] = sb.build();
+                    .setV2Idx(vertices.get(contents[1])).build();
+            exported[segments.get(key)] = s;
         }
         result.addAllSegments(List.of(exported));
         return segments;
@@ -60,13 +56,8 @@ public class Exporter {
         Map<Vertex, Integer> vertices = buildVertexRegistry(mesh);
         Structs.Vertex[] exported = new Structs.Vertex[vertices.size()];
         for(Vertex key: vertices.keySet()){
-            Structs.Vertex.Builder vb = Structs.Vertex.newBuilder().setX(key.x()).setY(key.y());
-            if(key.isCity()) {
-                Structs.Property p = Structs.Property.newBuilder().setKey("cityType").setValue("capital").build();
-                vb.addProperties(p);
-            }
-            
-            exported[vertices.get(key)] = vb.build();
+            Structs.Vertex v = Structs.Vertex.newBuilder().setX(key.x()).setY(key.y()).build();
+            exported[vertices.get(key)] = v;
         }
         result.addAllVertices(List.of(exported));
         return vertices;
