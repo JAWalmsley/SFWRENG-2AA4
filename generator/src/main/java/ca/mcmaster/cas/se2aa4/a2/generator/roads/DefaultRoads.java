@@ -75,6 +75,8 @@ public class DefaultRoads implements RoadGenerator {
         MeshToGraph mtg = new MeshToGraph(mesh);
         this.graph = mtg.getGraph();
         this.nodes = mtg.getNodeMap();
+
+        connectCities(mesh);
         
         return mesh;
     }
