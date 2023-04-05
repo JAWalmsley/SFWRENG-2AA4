@@ -14,6 +14,7 @@ public class Configuration {
     public static final String SIZE_SQUARES = "s";
     public static final String FILENAME = "o";
     public static final String RELAXATION = "r";
+    public static final String CITIES = "c";
     public static final String DEMO = "d";
     public static final String HELP = "help";
 
@@ -64,6 +65,8 @@ public class Configuration {
         // Irregular mesh
         options.addOption(new Option(NB_POLYGONS, true, "Numbers of polygons (if irregular mesh"));
         options.addOption(new Option(RELAXATION, true, "Relaxation coefficient"));
+        // Number of cities
+        options.addOption(new Option(CITIES, true, "Number of cities"));
         // Demo mode (filling the mesh with random properties
         options.addOption(new Option(DEMO, false, "activate DEMO mode"));
         // Global help
