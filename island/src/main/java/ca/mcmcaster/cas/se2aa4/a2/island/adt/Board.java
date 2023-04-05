@@ -197,6 +197,14 @@ public class Board {
         throw new IllegalArgumentException("No edge found between " + p1 + " and " + p2);
     }
 
+    public Point[] getPoints(Edge e) {
+        Segment seg = e.getSegment();
+        Point[] points = new Point[2];
+        points[0] = this.points.get(seg.getV1Idx());
+        points[1] = this.points.get(seg.getV2Idx());
+        return points;
+    }
+
     public void export(String output) throws IOException {
         Structs.Mesh.Builder meshBuilder = Structs.Mesh.newBuilder(this.mesh);
         // Remove all polygons so that we can read our coloured versions (the data

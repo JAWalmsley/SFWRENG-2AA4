@@ -8,6 +8,8 @@ import ca.mcmcaster.cas.se2aa4.a2.island.moisture.LinearMoisture;
 import ca.mcmcaster.cas.se2aa4.a2.island.moisture.MoistureFactory;
 import ca.mcmcaster.cas.se2aa4.a2.island.moisture.MoistureProfile;
 import ca.mcmcaster.cas.se2aa4.a2.island.rivers.RiverGenerator;
+import ca.mcmcaster.cas.se2aa4.a2.island.roads.RoadFactory;
+import ca.mcmcaster.cas.se2aa4.a2.island.roads.RoadGenerator;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.Lagoon;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.Shape;
 import ca.mcmcaster.cas.se2aa4.a2.island.shape.ShapeFactory;
@@ -36,7 +38,7 @@ public class IslandBuilder {
      * @param mode            the mode of generation, lagoon or normal
      */
     public void generateIsland(String output, String shapeInput, String elevationString, int lakeInput,
-            String heatmapType, String soilProfile, int numAquifers, int numRivers, String mode, String biome) {
+            String heatmapType, String soilProfile, int numAquifers, int numRivers, String mode, String biome, int numCities) {
         if (mode.equals("lagoon")) {
             int dimension = Math.min(board.getWidth(), board.getHeight());
             int outerRadius = dimension/2 - (int)(dimension*0.1); 
@@ -60,6 +62,9 @@ public class IslandBuilder {
 
             MoistureProfile mp = MoistureFactory.getMoistureProfile(soilProfile);
             mp.drawMoisture(board);
+
+            RoadGenerator rdg = RoadFactory.create(numCities);
+            rdg.drawRoads(board);
         }
         switch (heatmapType) {
             case "m":

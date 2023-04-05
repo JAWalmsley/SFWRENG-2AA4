@@ -8,17 +8,27 @@ public class Point {
     Structs.Vertex vertex;
     int elevation;
     Colour colour;
+    boolean city;
 
     public Point(Structs.Vertex v) {
         this.vertex = v;
         this.elevation = 0;
         this.colour = new Colour(0, 0, 0);
+        this.city = false;
     }
 
     public Point(Point p) {
         this.vertex = p.vertex;
         this.elevation = p.elevation;
         this.colour = p.colour;
+    }
+
+    public boolean isCity() {
+        return city;
+    }
+
+    public void setCity(boolean city) {
+        this.city = city;
     }
 
     public float getX() {
