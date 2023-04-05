@@ -1,6 +1,7 @@
 package ca.mcmaster.cas.se2aa4.a2.generator.roads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +16,8 @@ import ca.mcmaster.cas.se2aa4.a2.generator.adt.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.generator.configuration.Configuration;
 import ca.mcmaster.cas.se2aa4.a2.generator.specification.Buildable;
 import ca.mcmaster.cas.se2aa4.a2.generator.specification.SpecificationFactory;
+import ca.mcmcaster.cas.se2aa4.a2.island.roads.RoadFactory;
+import ca.mcmcaster.cas.se2aa4.a2.island.roads.RoadGenerator;
 
 public class DefaultRoadsTest {
     RoadGenerator rg;
@@ -32,7 +35,6 @@ public class DefaultRoadsTest {
     @Test
     void testNumCities() {
         Mesh withRoads = rg.addRoads(theMesh);
-        System.out.println(withRoads);
         HashSet<Vertex> foundCities = new HashSet<>();
         for(Polygon p : withRoads) {
             for(PairOfVertex vp : p.hull()) {
@@ -44,5 +46,19 @@ public class DefaultRoadsTest {
             }
         }
         assertEquals(numCities, foundCities.size());
+    }
+
+    @Test
+    public void testRoadsSanity() {
+        Mesh withRoads = rg.addRoads(theMesh);
+        HashSet<PairOfVertex> foundRoads = new HashSet<>();
+        for(Polygon p : withRoads) {
+            for(PairOfVertex vp : p.hull()) {
+                if(vp.isRoad()) {
+                    foundRoads.add(vp);
+                }
+            }
+        }
+        assertTrue(foundRoads.size() > 0);
     }
 }

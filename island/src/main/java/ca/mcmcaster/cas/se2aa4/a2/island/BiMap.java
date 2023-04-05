@@ -1,4 +1,4 @@
-package ca.mcmaster.cas.se2aa4.a2.generator;
+package ca.mcmcaster.cas.se2aa4.a2.island;
 
 import java.util.HashMap;
 import java.util.Map;

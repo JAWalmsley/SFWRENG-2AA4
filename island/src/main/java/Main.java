@@ -39,13 +39,15 @@ public class Main {
 
         String biome = config.getOption("b", "grassland");
 
+        int numCities = Integer.valueOf(config.getOption("c", "3"));
+
         long randomSeed = Long.valueOf(config.getOption("d", String.valueOf(System.currentTimeMillis())));
         System.out.println("Using " + randomSeed + " as seed.");
 
         Board board = new Board(aMesh, randomSeed);
         IslandBuilder island = new IslandBuilder(board);
         island.generateIsland(output, shapeType, elevationType, numLakes, heatmapInput, soilProfile, numAquifers,
-                numRivers, mode, biome);
+                numRivers, mode, biome, numCities);
         board.export(output);
     }
 }

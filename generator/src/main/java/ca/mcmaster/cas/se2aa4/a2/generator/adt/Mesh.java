@@ -34,7 +34,7 @@ public class Mesh implements Iterable<Polygon> {
         for(Polygon p: this) {
             for(PairOfVertex pv : p.hull()) {
                 Vertex[] vertices = pv.contents();
-                if((vertices[0] == v1 && vertices[0] == v2) || (vertices[1] == v1 && vertices[0] == v2)) {
+                if((vertices[0].equals(v1) && vertices[0].equals(v2)) || (vertices[1].equals(v1) && vertices[0].equals(v2))) {
                     return pv;
                 }
             }

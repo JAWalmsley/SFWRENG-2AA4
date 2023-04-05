@@ -1,4 +1,4 @@
-package ca.mcmaster.cas.se2aa4.a2.generator.roads;
+package ca.mcmcaster.cas.se2aa4.a2.island.roads;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,20 +6,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
-import ca.mcmaster.cas.se2aa4.a2.generator.BiMap;
-import ca.mcmaster.cas.se2aa4.a2.generator.adt.Mesh;
-import ca.mcmaster.cas.se2aa4.a2.generator.adt.PairOfVertex;
-import ca.mcmaster.cas.se2aa4.a2.generator.adt.Polygon;
-import ca.mcmaster.cas.se2aa4.a2.generator.adt.Vertex;
-import ca.mcmaster.cas.se2aa4.a4.pathfinder.DijkstraPathfinder;
-import ca.mcmaster.cas.se2aa4.a4.pathfinder.Edge;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.Graph;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.Node;
-import ca.mcmaster.cas.se2aa4.a4.pathfinder.Pathfinder;
+import ca.mcmcaster.cas.se2aa4.a2.island.BiMap;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Point;
 
 public class DefaultRoads implements RoadGenerator {
-    private HashSet<Vertex> cities = new HashSet<Vertex>();
-    private BiMap<Vertex, Node> nodes;
+    private HashSet<Point> cities = new HashSet<Point>();
+    private BiMap<Point, Node> nodes;
     private Graph graph;
     private int numCities;
 
@@ -27,25 +22,15 @@ public class DefaultRoads implements RoadGenerator {
         this.numCities = numCities;
     }
 
-    private void placeCities(Mesh mesh) {
+    private void placeCities(Board board) {
         Random rand = new Random();
         // Loop through all the polygons endlessly until we get enough cities
-        outer: while (true) {
-            for (Polygon p : mesh) {
-                // Take the first vertex in the polygon. It's random distribution, doesn't rly
-                // matter which one
-                Vertex v = p.hull().get(0).contents()[0];
-                if (cities.size() >= numCities) {
-                    break outer;
-                }
-                if (rand.nextInt(0, 100) < 10 && !cities.contains(v)) {
-                    this.cities.add(v);
-                }
-            }
+        while(this.cities.size() < this.numCities) {
+            
         }
 
-        for (Vertex v : cities) {
-            v.setCity(true);
+        for (Point p : cities) {
+            p.setCity(true);
         }
     }
 
@@ -69,10 +54,10 @@ public class DefaultRoads implements RoadGenerator {
     }
 
     @Override
-    public Mesh addRoads(Mesh mesh) {
-        placeCities(mesh);
+    public void drawRoads(Board board) {
+        placeCities(board);
 
-        MeshToGraph mtg = new MeshToGraph(mesh);
+        BoardToGraph mtg = new BoardToGraph(board);
         this.graph = mtg.getGraph();
         this.nodes = mtg.getNodeMap();
 
