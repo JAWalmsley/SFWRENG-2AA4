@@ -13,14 +13,13 @@ import ca.mcmaster.cas.se2aa4.a4.pathfinder.Graph;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.Node;
 
 public class DefaultRoads implements RoadGenerator {
-    HashSet<Vertex> cities = new HashSet<Vertex>();
-    HashMap<Vertex, Node> nodes = new HashMap<Vertex, Node>();
+    private HashSet<Vertex> cities = new HashSet<Vertex>();
+    private HashMap<Vertex, Node> nodes;
     private Graph graph;
     private int numCities;
 
     public DefaultRoads(int numCities) {
         this.numCities = numCities;
-        this.graph = new Graph();
     }
 
     private void placeCities(Mesh mesh) {
@@ -45,24 +44,16 @@ public class DefaultRoads implements RoadGenerator {
         }
     }
 
-    private void generateGraph(Mesh mesh) {
-        for (Polygon p : mesh) {
-            for (PairOfVertex pv : p.hull()) {
-                Vertex[] vertices = pv.contents();
-                for (Vertex v : vertices) {
-                    this.nodes.put(v, new Node(v.toString()));
-                }
-                // Edge weights are all 1 to simulate unweighted, will be changed based on
-                // elevation etc in bonus
-                graph.addEdge(new Edge(this.nodes.get(vertices[0]), this.nodes.get(vertices[1]), 1));
-            }
-        }
-    }
+    
 
     @Override
     public Mesh addRoads(Mesh mesh) {
         placeCities(mesh);
-        generateGraph(mesh);
+
+        MeshToGraph mtg = new MeshToGraph(mesh);
+        this.graph = mtg.getGraph();
+        this.nodes = mtg.getNodeMap();
+        
         return mesh;
     }
 
