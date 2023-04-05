@@ -9,8 +9,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.cli.ParseException;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
@@ -20,9 +22,9 @@ import ca.mcmcaster.cas.se2aa4.a2.island.adt.Point;
 import ca.mcmcaster.cas.se2aa4.a2.island.islandBuilder.Configuration;
 import ca.mcmcaster.cas.se2aa4.a2.island.islandBuilder.IslandBuilder;
 import ca.mcmcaster.cas.se2aa4.a2.island.roads.DefaultRoads;
-import ca.mcmcaster.cas.se2aa4.a2.island.roads.RoadFactory;
 import ca.mcmcaster.cas.se2aa4.a2.island.roads.RoadGenerator;
 
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class DefaultRoadsTest {
     RoadGenerator rg;
     Board board;
@@ -59,8 +61,6 @@ public class DefaultRoadsTest {
         IslandBuilder island = new IslandBuilder(board);
         island.generateIsland(output, shapeType, elevationType, numLakes, heatmapInput, soilProfile, numAquifers,
                 numRivers, mode, biome, numCities);
-        rg = new DefaultRoads(numCities);
-        rg.drawRoads(board);
     }
 
     @Test
