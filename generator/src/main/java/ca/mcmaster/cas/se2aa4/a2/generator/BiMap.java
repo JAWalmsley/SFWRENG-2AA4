@@ -7,7 +7,7 @@ import java.util.Map;
  * This is a map that allows you to get by key and by value.
  * Useful for a map from Vertex to graph Nodes, these are mutually unique.
  */
-public class BiMap<K, V>{
+public class BiMap<K, V> {
     private Map<K, V> forward;
     private Map<V, K> backward;
 
@@ -27,5 +27,9 @@ public class BiMap<K, V>{
 
     public K invGet(V value) {
         return this.backward.get(value);
+    }
+
+    public int size() {
+        return this.forward.size();
     }
 }

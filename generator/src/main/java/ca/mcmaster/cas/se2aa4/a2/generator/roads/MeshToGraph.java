@@ -2,6 +2,7 @@ package ca.mcmaster.cas.se2aa4.a2.generator.roads;
 
 import java.util.HashMap;
 
+import ca.mcmaster.cas.se2aa4.a2.generator.BiMap;
 import ca.mcmaster.cas.se2aa4.a2.generator.adt.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.generator.adt.PairOfVertex;
 import ca.mcmaster.cas.se2aa4.a2.generator.adt.Polygon;
@@ -11,7 +12,7 @@ import ca.mcmaster.cas.se2aa4.a4.pathfinder.Graph;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.Node;
 
 public class MeshToGraph {
-    HashMap<Vertex, Node> nodes = new HashMap<Vertex, Node>();
+    BiMap<Vertex, Node> nodes = new BiMap<Vertex, Node>();
     Mesh mesh;
     public MeshToGraph(Mesh mesh) {
         this.mesh = mesh;
@@ -33,7 +34,7 @@ public class MeshToGraph {
         return graph;
     }
 
-    public HashMap<Vertex, Node> getNodeMap() {
+    public BiMap<Vertex, Node> getNodeMap() {
         return this.nodes;
     }
 }

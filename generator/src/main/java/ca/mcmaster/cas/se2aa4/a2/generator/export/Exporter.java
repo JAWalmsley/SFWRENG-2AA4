@@ -44,10 +44,14 @@ public class Exporter {
         Structs.Segment[] exported = new Structs.Segment[segments.size()];
         for(PairOfVertex key: segments.keySet()){
             Vertex[] contents = key.contents();
-            Structs.Segment s = Structs.Segment.newBuilder()
+            Structs.Segment.Builder sb = Structs.Segment.newBuilder()
                     .setV1Idx(vertices.get(contents[0]))
-                    .setV2Idx(vertices.get(contents[1])).build();
-            exported[segments.get(key)] = s;
+                    .setV2Idx(vertices.get(contents[1]));
+            if(key.isRoad()) {
+                Structs.Property p = Structs.Property.newBuilder().setKey("roadType").setValue("highway").build();
+                sb.addProperties(p);
+            }
+            exported[segments.get(key)] = sb.build();
         }
         result.addAllSegments(List.of(exported));
         return segments;

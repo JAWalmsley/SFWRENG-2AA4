@@ -7,6 +7,15 @@ import java.util.Set;
 public class PairOfVertex {
 
     private final Set<Vertex> vertices;
+    private boolean road;
+
+    public boolean isRoad() {
+        return road;
+    }
+
+    public void setRoad(boolean road) {
+        this.road = road;
+    }
 
     public PairOfVertex(Vertex v1, Vertex v2) {
         this.vertices = new HashSet<>();

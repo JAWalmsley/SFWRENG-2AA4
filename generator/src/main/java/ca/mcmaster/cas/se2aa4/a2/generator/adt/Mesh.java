@@ -30,6 +30,18 @@ public class Mesh implements Iterable<Polygon> {
         return this.polygons.size();
     }
 
+    public PairOfVertex getPairFromVertices(Vertex v1, Vertex v2) {
+        for(Polygon p: this) {
+            for(PairOfVertex pv : p.hull()) {
+                Vertex[] vertices = pv.contents();
+                if((vertices[0] == v1 && vertices[0] == v2) || (vertices[1] == v1 && vertices[0] == v2)) {
+                    return pv;
+                }
+            }
+        }
+        return null;
+    }
+
     public void populateNeighbours(Neighborhood neighbourhood) {
         neighbourhood.build(this.polygons);
         for(Polygon p: this) {

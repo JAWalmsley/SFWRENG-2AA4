@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ca.mcmaster.cas.se2aa4.a2.generator.BiMap;
 import ca.mcmaster.cas.se2aa4.a2.generator.adt.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.generator.adt.PairOfVertex;
 import ca.mcmaster.cas.se2aa4.a2.generator.adt.Polygon;
@@ -24,7 +25,7 @@ public class MeshToGraphTest {
     MeshToGraph mtg;
     Mesh theMesh;
     Graph graph;
-    HashMap<Vertex, Node> nodeMap;
+    BiMap<Vertex, Node> nodeMap;
     int numVertices;
     @BeforeEach
     void setUp() {
