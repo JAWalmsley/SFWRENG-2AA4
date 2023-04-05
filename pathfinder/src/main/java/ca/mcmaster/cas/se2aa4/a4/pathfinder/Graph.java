@@ -2,18 +2,20 @@ package ca.mcmaster.cas.se2aa4.a4.pathfinder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Graph {
-    List<Edge> edges;
-    List<Node> nodes;
+    Set<Edge> edges;
+    Set<Node> nodes;
     // Map from each node to all the edges that contain that node
     Map<Node, List<Edge>> adjacency;
 
     public Graph() {
-        this.edges = new ArrayList<>();
-        this.nodes = new ArrayList<>();
+        this.edges = new HashSet<>();
+        this.nodes = new HashSet<>();
         this.adjacency = new HashMap<>();
     }
 
@@ -38,9 +40,9 @@ public class Graph {
         return new ArrayList<>(this.edges);
     }
 
-    public List<Node> getNodes() {
+    public Set<Node> getNodes() {
         // Defensive copy
-        return new ArrayList<>(this.nodes);
+        return new HashSet<>(this.nodes);
     }
 
     public List<Node> getNeighbours(Node s) {
