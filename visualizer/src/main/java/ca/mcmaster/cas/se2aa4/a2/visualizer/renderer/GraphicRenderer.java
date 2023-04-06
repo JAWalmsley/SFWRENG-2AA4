@@ -6,15 +6,18 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.renderer.properties.CityProperty;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.renderer.properties.ColorProperty;
+import ca.mcmaster.cas.se2aa4.a2.visualizer.renderer.properties.NameProperty;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.renderer.properties.RoadProperty;
 
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.geom.Line2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
+import java.awt.geom.Rectangle2D;
 import java.util.Iterator;
 import java.util.Optional;
 
@@ -124,11 +127,37 @@ public class GraphicRenderer implements Renderer {
                 radius = CITY_RADIUS + 4 * CITY_INCREMENT;
                 canvas.setColor(CAPITAL_COLOUR);
             }
+            
 
             Ellipse2D circ = new Ellipse2D.Double(v.getX() - radius / 2, v.getY() - radius / 2, radius, radius);
             canvas.fill(circ);
 
+            // Optional<String> name = new NameProperty().extract(v.getPropertiesList());
+            // if(name.isPresent())
+            //     drawBanner(name.get(), v.getX(), v.getY() - radius / 2, canvas);
+            drawBanner("cityNam", v.getX(), v.getY() - 20, canvas);
+
         }
         canvas.setColor(old);
+    }
+
+    private void drawBanner(String text, double x, double y, Graphics2D canvas) {
+        int FONT_SIZE = 20;
+        int border = 10;
+        Font f = new Font("Monospaced", Font.PLAIN, FONT_SIZE);
+        canvas.setFont(f);
+        int width = canvas.getFontMetrics().stringWidth(text);
+        Rectangle2D rect = new Rectangle2D.Double(x - width/2, y + (FONT_SIZE - border) / 2, width, FONT_SIZE + border);
+        Color old = canvas.getColor();
+        canvas.setColor(CITY_COLOUR);
+        canvas.fill(rect);
+        canvas.setColor(CAPITAL_COLOUR);
+        canvas.setStroke(new BasicStroke(2));
+        canvas.draw(rect);
+        canvas.setColor(new Color(0, 0, 0));
+        canvas.drawString(text, (int) x - width/2 + border, (int) y + FONT_SIZE + border/2);
+
+        canvas.setColor(old);
+        
     }
 }

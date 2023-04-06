@@ -22,14 +22,35 @@ public class City extends Point {
         this.city = city;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Structs.Vertex getVertex() {
         Structs.Vertex.Builder builder = Structs.Vertex.newBuilder(this.vertex);
         while (builder.getPropertiesCount() > 0)
             builder.removeProperties(0);
-        return builder.addProperties(this.colour.toProperty()).addProperties(this.cityProperty()).build();
+        return builder.addProperties(this.colour.toProperty())
+                .addProperties(this.cityProperty())
+                .addProperties(this.nameProperty())
+                .build();
     }
 
+    /**
+     * The type of city (CityType)
+     */
     public Property cityProperty() {
         return Property.newBuilder().setKey("city").setValue(this.city.name()).build();
+    }
+
+    /**
+     * The name of the city (String)
+     */
+    public Property nameProperty() {
+        return Property.newBuilder().setKey("name").setValue(this.name).build();
     }
 }
