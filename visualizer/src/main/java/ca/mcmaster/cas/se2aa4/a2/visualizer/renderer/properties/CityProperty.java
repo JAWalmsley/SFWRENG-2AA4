@@ -5,14 +5,14 @@ import java.util.Optional;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 
-public class CityProperty implements PropertyAccess<Boolean> {
+public class CityProperty implements PropertyAccess<String> {
 
     @Override
-    public Optional<Boolean> extract(List<Property> props) {
+    public Optional<String> extract(List<Property> props) {
         String value = new Reader(props).get("city");
         if (value == null)
             return Optional.empty();
-        return Optional.of(value.equals("true"));
+        return Optional.of(value);
     }
 
 }

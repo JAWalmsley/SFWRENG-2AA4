@@ -21,7 +21,15 @@ import java.util.Optional;
 public class GraphicRenderer implements Renderer {
 
     private static final int CITY_RADIUS = 40;
-    private static final int ROAD_WIDTH = 6;
+    private static final int CITY_INCREMENT = 10;
+    private static final int ROAD_WIDTH = 10;
+
+    private static final Color CITY_COLOUR;
+    private static final Color CAPITAL_COLOUR;
+    static {
+        CITY_COLOUR = new Color(120, 0, 1);
+        CAPITAL_COLOUR = new Color(201, 169, 22);
+    }
 
     public void render(Mesh aMesh, Graphics2D canvas) {
         canvas.setColor(Color.BLACK);
@@ -103,15 +111,24 @@ public class GraphicRenderer implements Renderer {
     private void drawAVertex(Structs.Vertex v, Mesh aMesh, Graphics2D canvas) {
         Color old = canvas.getColor();
 
-        Optional<Boolean> city = new CityProperty().extract(v.getPropertiesList());
-        if (city.isPresent() && city.get()) {
-            canvas.setColor(Color.RED);
-            Ellipse2D circ = new Ellipse2D.Double(v.getX() - CITY_RADIUS / 2, v.getY() - CITY_RADIUS / 2, CITY_RADIUS,
-                    CITY_RADIUS);
+        Optional<String> city = new CityProperty().extract(v.getPropertiesList());
+        if (city.isPresent() && !city.get().equals("NONE")) {
+            int radius = CITY_RADIUS;
+            canvas.setColor(CITY_COLOUR);
+            String c = city.get();
+            if (c.equals("TOWN"))
+                radius = CITY_RADIUS + CITY_INCREMENT;
+            else if (c.equals("CITY"))
+                radius = CITY_RADIUS + 2 * CITY_INCREMENT;
+            else if (c.equals("CAPITAL")) {
+                radius = CITY_RADIUS + 4 * CITY_INCREMENT;
+                canvas.setColor(CAPITAL_COLOUR);
+            }
+
+            Ellipse2D circ = new Ellipse2D.Double(v.getX() - radius / 2, v.getY() - radius / 2, radius, radius);
             canvas.fill(circ);
-            canvas.setColor(old);
+
         }
-
+        canvas.setColor(old);
     }
-
 }
