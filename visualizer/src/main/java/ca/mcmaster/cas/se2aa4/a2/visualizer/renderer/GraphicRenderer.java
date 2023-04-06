@@ -20,6 +20,9 @@ import java.util.Optional;
 
 public class GraphicRenderer implements Renderer {
 
+    private static final int CITY_RADIUS = 40;
+    private static final int ROAD_WIDTH = 6;
+
     public void render(Mesh aMesh, Graphics2D canvas) {
         canvas.setColor(Color.BLACK);
         Stroke stroke = new BasicStroke(0.2f);
@@ -42,7 +45,7 @@ public class GraphicRenderer implements Renderer {
     }
 
     private void drawVertices(Mesh aMesh, Graphics2D canvas) {
-        for(Structs.Vertex v: aMesh.getVerticesList()){
+        for (Structs.Vertex v : aMesh.getVerticesList()) {
             drawAVertex(v, aMesh, canvas);
         }
     }
@@ -78,37 +81,37 @@ public class GraphicRenderer implements Renderer {
         Color old = canvas.getColor();
         Optional<Color> fill = new ColorProperty().extract(s.getPropertiesList());
         Optional<Boolean> road = new RoadProperty().extract(s.getPropertiesList());
-        if(road.isPresent() && road.get()) {
-            canvas.setColor(Color.RED);
-        }
-        else if (fill.isPresent()) {
+        if (road.isPresent() && road.get()) {
+            canvas.setColor(Color.BLACK);
+        } else if (fill.isPresent()) {
             canvas.setColor(fill.get());
         }
-        for(Property p: s.getPropertiesList()) {
+        for (Property p : s.getPropertiesList()) {
             if (p.getKey().equals("thickness")) {
                 canvas.setStroke(new BasicStroke(Integer.valueOf(p.getValue())));
             }
         }
-        if(road.isPresent() && road.get()) {
-            canvas.setStroke(new BasicStroke(2));
+        if (road.isPresent() && road.get()) {
+            canvas.setStroke(new BasicStroke(ROAD_WIDTH));
         }
-        // Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
-        // canvas.draw(line);
-        // canvas.setColor(old);
-        // canvas.setStroke(new BasicStroke(0));
+        Line2D line = new Line2D.Double(v1.getX(), v1.getY(), v2.getX(), v2.getY());
+        canvas.draw(line);
+        canvas.setColor(old);
+        canvas.setStroke(new BasicStroke(0));
     }
 
     private void drawAVertex(Structs.Vertex v, Mesh aMesh, Graphics2D canvas) {
         Color old = canvas.getColor();
 
         Optional<Boolean> city = new CityProperty().extract(v.getPropertiesList());
-        if(city.isPresent() && city.get()) { // 
+        if (city.isPresent() && city.get()) {
             canvas.setColor(Color.RED);
-            Ellipse2D circ = new Ellipse2D.Double(v.getX(),  v.getY(), 5, 5);
+            Ellipse2D circ = new Ellipse2D.Double(v.getX() - CITY_RADIUS / 2, v.getY() - CITY_RADIUS / 2, CITY_RADIUS,
+                    CITY_RADIUS);
             canvas.fill(circ);
             canvas.setColor(old);
         }
-        
+
     }
 
 }
