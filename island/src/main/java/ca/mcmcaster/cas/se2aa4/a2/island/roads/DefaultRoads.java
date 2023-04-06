@@ -11,6 +11,8 @@ import ca.mcmaster.cas.se2aa4.a4.pathfinder.Pathfinder;
 import ca.mcmcaster.cas.se2aa4.a2.island.BiMap;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Point;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.LandTile;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.Tile;
 
 public class DefaultRoads implements RoadGenerator {
     private HashSet<Point> cities = new HashSet<Point>();
@@ -23,14 +25,23 @@ public class DefaultRoads implements RoadGenerator {
     }
 
     private void placeCities(Board board) {
-        Random rand = new Random();
         List<Point> points = board.getPoints();
         // Loop through all the polygons endlessly until we get enough cities
-        while(this.cities.size() < this.numCities) {
-            Point potential = points.get(rand.nextInt(0, points.size()));
+        while (this.cities.size() < this.numCities) {
+            Point potential = points.get(board.rand.nextInt(0, points.size()));
             // If it has no edges, it's a centroid and we don't use it
-            if(board.getNeighbourEdges(potential).size() > 0) {
-                this.cities.add(potential);
+            if (board.getNeighbourEdges(potential).size() > 0) {
+                // Only put cities on land tiles
+                boolean land = true;
+                for (Tile t : board.getNeighbourTiles(potential)) {
+                    if (!(t instanceof LandTile)) {
+                        land = false;
+                        break;
+                    }
+                }
+                if (land) {
+                    this.cities.add(potential);
+                }
             }
         }
 
@@ -47,10 +58,10 @@ public class DefaultRoads implements RoadGenerator {
             Node n = this.nodes.get(p);
             if (n != center) {
                 List<Node> path = pf.findShortestPath(this.graph, center, n);
-                for(int i = 0; i < path.size() - 1; i++) {
+                for (int i = 0; i < path.size() - 1; i++) {
                     // Get the vertices that map to the nodes in the path
                     Point p1 = this.nodes.invGet(path.get(i));
-                    Point p2 = this.nodes.invGet(path.get(i+1));
+                    Point p2 = this.nodes.invGet(path.get(i + 1));
                     ca.mcmcaster.cas.se2aa4.a2.island.adt.Edge pathEdge = board.getEdge(p1, p2);
                     pathEdge.setRoad(true);
                 }
