@@ -10,6 +10,7 @@ import ca.mcmaster.cas.se2aa4.a4.pathfinder.Pathfinder;
 import ca.mcmcaster.cas.se2aa4.a2.island.BiMap;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Point;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.RiverPoint;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.LandTile;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.Tile;
 
@@ -32,6 +33,9 @@ public class DefaultRoads implements RoadGenerator {
             if (board.getNeighbourEdges(potential).size() == 0)
                 continue outer;
 
+            // No cities in the middle of rivers
+            if(potential instanceof RiverPoint)
+                continue outer;
 
             // Only put cities on land tiles
             for (Tile t : board.getNeighbourTiles(potential)) {
@@ -50,17 +54,29 @@ public class DefaultRoads implements RoadGenerator {
             this.cities.add(potential);
         }
 
-        for (
+        for (Point p : cities) {
+            CityType ct = CityType.NONE;
+            // Choose city type based on random population
+            int pop = board.rand.nextInt(1, 200);
+            if (pop > 150) {
+                ct = CityType.CITY;
+            } else if (pop > 100) {
+                ct = CityType.TOWN;
+            } else {
+                ct = CityType.HAMLET;
+            }
 
-        Point p : cities) {
-            p.setCity(true);
+            p.setCity(ct);
         }
     }
 
     private void connectCities(Board board) {
         Pathfinder pf = new DijkstraPathfinder();
         // TODO: Decide on a center node in a smart way
-        Node center = this.nodes.get(this.cities.iterator().next());
+        Point capital = this.cities.iterator().next();
+        capital.setCity(CityType.CAPITAL);
+        Node center = this.nodes.get(capital);
+
         for (Point p : cities) {
             Node n = this.nodes.get(p);
             if (n != center) {

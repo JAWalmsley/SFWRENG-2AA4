@@ -4,31 +4,33 @@ import java.util.Objects;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
+import ca.mcmcaster.cas.se2aa4.a2.island.roads.CityType;
 
 public class Point {
     Structs.Vertex vertex;
     int elevation;
     Colour colour;
-    boolean city;
+    CityType city;
 
     public Point(Structs.Vertex v) {
         this.vertex = v;
         this.elevation = 0;
         this.colour = new Colour(0, 0, 0);
-        this.city = false;
+        this.city = CityType.NONE;
     }
 
     public Point(Point p) {
         this.vertex = p.vertex;
         this.elevation = p.elevation;
         this.colour = p.colour;
+        this.city = p.city;
     }
 
-    public boolean isCity() {
+    public CityType getCity() {
         return city;
     }
 
-    public void setCity(boolean city) {
+    public void setCity(CityType city) {
         this.city = city;
     }
 
@@ -57,7 +59,7 @@ public class Point {
     }
 
     public Property cityProperty() {
-        return Property.newBuilder().setKey("city").setValue(this.isCity() ? "true" : "false").build();
+        return Property.newBuilder().setKey("city").setValue(this.city.name()).build();
     }
 
     public Structs.Vertex getVertex() {
