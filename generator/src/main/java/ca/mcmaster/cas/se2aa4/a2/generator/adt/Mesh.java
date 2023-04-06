@@ -1,11 +1,10 @@
 package ca.mcmaster.cas.se2aa4.a2.generator.adt;
 
-import ca.mcmaster.cas.se2aa4.a2.generator.neighborhoud.DelaunayNeighbourhood;
-import ca.mcmaster.cas.se2aa4.a2.generator.neighborhoud.Neighborhood;
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
+import ca.mcmaster.cas.se2aa4.a2.generator.neighborhoud.Neighborhood;
 
 public class Mesh implements Iterable<Polygon> {
 

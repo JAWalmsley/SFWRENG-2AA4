@@ -13,6 +13,7 @@ public class Edge {
         this.segment = s;
         this.colour = new Colour(0, 255, 0);
         this.thickness = 0;
+        this.road = false;
     }
 
     public Edge(Edge e) {
@@ -33,11 +34,15 @@ public class Edge {
         return Property.newBuilder().setKey("thickness").setValue(String.valueOf(this.thickness)).build();
     }
 
+    public Property roadProperty() {
+        return Property.newBuilder().setKey("road").setValue(this.isRoad() ? "true" : "false").build();
+    }
+
     public Segment getSegment() {
         Segment.Builder builder = Segment.newBuilder(this.segment);
         // Remove colour and thickness properties
         while (builder.getPropertiesCount() > 0)
             builder.removeProperties(0);
-        return builder.addProperties(this.colour.toProperty()).addProperties(this.thicknessProperty()).build();
+        return builder.addProperties(this.colour.toProperty()).addProperties(this.thicknessProperty()).addProperties(this.roadProperty()).build();
     }
 }

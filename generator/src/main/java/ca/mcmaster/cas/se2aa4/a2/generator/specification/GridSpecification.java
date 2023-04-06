@@ -1,13 +1,12 @@
 package ca.mcmaster.cas.se2aa4.a2.generator.specification;
 
+import java.util.Map;
+
 import ca.mcmaster.cas.se2aa4.a2.generator.adt.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.generator.adt.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.generator.adt.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.generator.configuration.Configuration;
-import ca.mcmaster.cas.se2aa4.a2.generator.neighborhoud.DelaunayNeighbourhood;
 import ca.mcmaster.cas.se2aa4.a2.generator.neighborhoud.GridNeighborhood;
-
-import java.util.Map;
 
 public class GridSpecification implements Buildable {
 

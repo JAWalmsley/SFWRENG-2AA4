@@ -3,6 +3,7 @@ package ca.mcmcaster.cas.se2aa4.a2.island.adt;
 import java.util.Objects;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 
 public class Point {
     Structs.Vertex vertex;
@@ -55,12 +56,15 @@ public class Point {
         this.colour = colour;
     }
 
+    public Property cityProperty() {
+        return Property.newBuilder().setKey("city").setValue(this.isCity() ? "true" : "false").build();
+    }
+
     public Structs.Vertex getVertex() {
         Structs.Vertex.Builder builder = Structs.Vertex.newBuilder(this.vertex);
-        if (builder.getPropertiesCount() > 0) {
+        while (builder.getPropertiesCount() > 0)
             builder.removeProperties(0);
-        }
-        return builder.addProperties(this.colour.toProperty()).build();
+        return builder.addProperties(this.colour.toProperty()).addProperties(this.cityProperty()).build();
     }
 
     @Override
