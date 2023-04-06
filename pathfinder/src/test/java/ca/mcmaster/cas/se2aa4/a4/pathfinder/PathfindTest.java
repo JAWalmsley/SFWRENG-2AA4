@@ -12,9 +12,11 @@ public class PathfindTest {
     public void testDjikstraSanity() {
         Graph g = new Graph();
 
-        Node n1 = new Node("City1");
-        Node n2 = new Node("City2");
-        Edge e = new Edge(n1, n2, 0);
+        Node n1 = new Node();
+        n1.setProp("name", "c1");
+        Node n2 = new Node();
+        n2.setProp("name", "c2");
+        Edge e = new Edge(n1, n2, 1);
 
         g.addEdge(e);
 
@@ -28,9 +30,12 @@ public class PathfindTest {
     public void testDjikstra() {
         Graph g = new Graph();
 
-        Node n1 = new Node("City1");
-        Node n2 = new Node("City2");
-        Node n3 = new Node("City3");
+        Node n1 = new Node();
+        n1.setProp("name", "c1");
+        Node n2 = new Node();
+        n2.setProp("name", "c2");
+        Node n3 = new Node();
+        n3.setProp("name", "c3");
         Edge e1 = new Edge(n1, n2, 1);
         Edge e2 = new Edge(n2, n3, 2);
         g.addEdge(e1);
@@ -47,9 +52,9 @@ public class PathfindTest {
     public void testErrors() {
         Graph g = new Graph();
 
-        Node n1 = new Node("City1");
-        Node n2 = new Node("City2");
-        Node n3 = new Node("City3");
+        Node n1 = new Node();
+        Node n2 = new Node();
+        Node n3 = new Node();
         Edge e1 = new Edge(n1, n2, 1);
         g.addEdge(e1);
 

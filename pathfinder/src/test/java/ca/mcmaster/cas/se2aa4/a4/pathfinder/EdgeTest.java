@@ -11,8 +11,8 @@ public class EdgeTest {
 
     @BeforeEach
     public void setUp() {
-        n1 = new Node("City1");
-        n2 = new Node("City2");
+        n1 = new Node();
+        n2 = new Node();
     }
 
     @Test

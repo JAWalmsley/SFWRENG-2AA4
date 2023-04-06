@@ -6,8 +6,9 @@ import org.junit.jupiter.api.Test;
 
 public class NodeTest {
     @Test
-    public void testName() {
-        Node node = new Node("Toronto");
-        assertEquals("Toronto", node.getName());
+    public void testProps() {
+        Node node = new Node();
+        node.setProp("name", "Toronto");
+        assertEquals("Toronto", node.getProp("name"));
     }
 }

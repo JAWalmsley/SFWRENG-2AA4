@@ -20,7 +20,8 @@ public class BoardToGraph {
         for (Point p : board.getPoints()) {
             // If it has no edges, it's a centroid and not considered for paths
             if (board.getNeighbourEdges(p).size() > 0) {
-                Node n = new Node(String.valueOf(p.getX()) + " " + String.valueOf(p.getY()));
+                Node n = new Node();
+                n.setProp("name", String.valueOf(p.getX()) + " " + String.valueOf(p.getY()));
                 nodes.put(p, n);
             }
         }
