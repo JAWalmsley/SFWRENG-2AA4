@@ -132,10 +132,9 @@ public class GraphicRenderer implements Renderer {
             Ellipse2D circ = new Ellipse2D.Double(v.getX() - radius / 2, v.getY() - radius / 2, radius, radius);
             canvas.fill(circ);
 
-            // Optional<String> name = new NameProperty().extract(v.getPropertiesList());
-            // if(name.isPresent())
-            //     drawBanner(name.get(), v.getX(), v.getY() - radius / 2, canvas);
-            drawBanner("cityNam", v.getX(), v.getY() - 20, canvas);
+            Optional<String> name = new NameProperty().extract(v.getPropertiesList());
+            if(name.isPresent())
+                drawBanner(name.get(), v.getX(), v.getY() + radius / 4, canvas);
 
         }
         canvas.setColor(old);

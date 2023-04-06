@@ -69,7 +69,7 @@ public class DefaultRoads implements RoadGenerator {
             } else {
                 ct = CityType.HAMLET;
             }
-
+            p.setName("CityName");
             p.setCity(ct);
         }
     }
