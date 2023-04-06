@@ -2,7 +2,6 @@ package ca.mcmcaster.cas.se2aa4.a2.island.roads;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.DijkstraPathfinder;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.Graph;

@@ -14,5 +14,5 @@ public class CityProperty implements PropertyAccess<Boolean> {
             return Optional.empty();
         return Optional.of(value.equals("true"));
     }
-    
+
 }

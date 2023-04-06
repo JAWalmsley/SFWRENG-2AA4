@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
-import ca.mcmcaster.cas.se2aa4.a2.island.adt.Colour;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Edge;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Point;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.RiverEdge;

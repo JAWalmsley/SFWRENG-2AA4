@@ -3,8 +3,6 @@ package ca.mcmcaster.cas.se2aa4.a2.island.islandBuilder;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
 import ca.mcmcaster.cas.se2aa4.a2.island.aquifiers.Aquifiers;
 import ca.mcmcaster.cas.se2aa4.a2.island.elevation.ElevationFactory;
-import ca.mcmcaster.cas.se2aa4.a2.island.moisture.ExponentialMoisture;
-import ca.mcmcaster.cas.se2aa4.a2.island.moisture.LinearMoisture;
 import ca.mcmcaster.cas.se2aa4.a2.island.moisture.MoistureFactory;
 import ca.mcmcaster.cas.se2aa4.a2.island.moisture.MoistureProfile;
 import ca.mcmcaster.cas.se2aa4.a2.island.rivers.RiverGenerator;

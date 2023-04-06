@@ -7,11 +7,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import ca.mcmaster.cas.se2aa4.a4.pathfinder.DijkstraPathfinder;
-import ca.mcmaster.cas.se2aa4.a4.pathfinder.Edge;
-import ca.mcmaster.cas.se2aa4.a4.pathfinder.Graph;
-import ca.mcmaster.cas.se2aa4.a4.pathfinder.Node;
-
 public class PathfindTest {
     @Test
     public void testDjikstraSanity() {

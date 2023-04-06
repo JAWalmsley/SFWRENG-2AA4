@@ -1,7 +1,5 @@
 package ca.mcmcaster.cas.se2aa4.a2.island.roads;
 
-import java.util.HashMap;
-
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.Graph;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.Node;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.Edge;
