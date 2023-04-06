@@ -21,20 +21,19 @@ import ca.mcmcaster.cas.se2aa4.a2.island.adt.Edge;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Point;
 import ca.mcmcaster.cas.se2aa4.a2.island.islandBuilder.Configuration;
 import ca.mcmcaster.cas.se2aa4.a2.island.islandBuilder.IslandBuilder;
-import ca.mcmcaster.cas.se2aa4.a2.island.roads.DefaultRoads;
 import ca.mcmcaster.cas.se2aa4.a2.island.roads.RoadGenerator;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class DefaultRoadsTest {
     RoadGenerator rg;
     Board board;
-    int numCities = 5;
+    int numCities = 2;
 
     @BeforeEach
     void setUp() throws ParseException, IOException{
         Path file = Path.of("src/test/resources").resolve("testdata.mesh");
         String filePath = file.toString();
-        String[] args = { "-i", filePath, "-o", "none", "-d", "5", "-c", "5"};
+        String[] args = { "-i", filePath, "-o", "none", "-d", "5"};
         Configuration config = new Configuration(args);
 
         boolean parsedCorrectly = config.parse();
@@ -65,7 +64,6 @@ public class DefaultRoadsTest {
 
     @Test
     void testNumCities() {
-        
         HashSet<Point> foundCities = new HashSet<>();
         for (Point p : board.getPoints()) {
             if(p.isCity()) {

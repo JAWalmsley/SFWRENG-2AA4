@@ -27,25 +27,33 @@ public class DefaultRoads implements RoadGenerator {
     private void placeCities(Board board) {
         List<Point> points = board.getPoints();
         // Loop through all the polygons endlessly until we get enough cities
-        while (this.cities.size() < this.numCities) {
+        outer: while (this.cities.size() < this.numCities) {
             Point potential = points.get(board.rand.nextInt(0, points.size()));
             // If it has no edges, it's a centroid and we don't use it
-            if (board.getNeighbourEdges(potential).size() > 0) {
-                // Only put cities on land tiles
-                boolean land = true;
-                for (Tile t : board.getNeighbourTiles(potential)) {
-                    if (!(t instanceof LandTile)) {
-                        land = false;
-                        break;
-                    }
-                }
-                if (land) {
-                    this.cities.add(potential);
+            if (board.getNeighbourEdges(potential).size() == 0)
+                continue outer;
+
+
+            // Only put cities on land tiles
+            for (Tile t : board.getNeighbourTiles(potential)) {
+                if (!(t instanceof LandTile)) {
+                    continue outer;
                 }
             }
+
+            // No cities right next to each other
+            for (Point p : board.getNeighbourPoints(potential)) {
+                if (this.cities.contains(p)) {
+                    continue outer;
+                }
+            }
+
+            this.cities.add(potential);
         }
 
-        for (Point p : cities) {
+        for (
+
+        Point p : cities) {
             p.setCity(true);
         }
     }
