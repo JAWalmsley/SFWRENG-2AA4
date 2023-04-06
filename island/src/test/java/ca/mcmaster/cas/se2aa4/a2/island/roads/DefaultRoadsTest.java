@@ -15,6 +15,7 @@ import org.junit.jupiter.api.TestInstance;
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.City;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Edge;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Point;
 import ca.mcmcaster.cas.se2aa4.a2.island.islandBuilder.Configuration;
@@ -65,7 +66,7 @@ public class DefaultRoadsTest {
     void testNumCities() {
         HashSet<Point> foundCities = new HashSet<>();
         for (Point p : board.getPoints()) {
-            if(!(p.getCity() == CityType.NONE)) {
+            if(p instanceof City) {
                 foundCities.add(p);
             }
         }

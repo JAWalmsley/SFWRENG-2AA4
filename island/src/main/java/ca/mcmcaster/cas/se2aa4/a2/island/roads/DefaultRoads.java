@@ -9,13 +9,14 @@ import ca.mcmaster.cas.se2aa4.a4.pathfinder.Node;
 import ca.mcmaster.cas.se2aa4.a4.pathfinder.Pathfinder;
 import ca.mcmcaster.cas.se2aa4.a2.island.BiMap;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Board;
+import ca.mcmcaster.cas.se2aa4.a2.island.adt.City;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Point;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.RiverPoint;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.LandTile;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.Tile;
 
 public class DefaultRoads implements RoadGenerator {
-    private HashSet<Point> cities = new HashSet<Point>();
+    private HashSet<City> cities = new HashSet<City>();
     private BiMap<Point, Node> nodes;
     private Graph graph;
     private int numCities;
@@ -51,10 +52,13 @@ public class DefaultRoads implements RoadGenerator {
                 }
             }
 
-            this.cities.add(potential);
+            // Replace the point with a city
+            City c = new City(potential);
+            board.getPoints().set(board.getPoints().indexOf(potential), c);
+            this.cities.add(c);
         }
 
-        for (Point p : cities) {
+        for (City p : cities) {
             CityType ct = CityType.NONE;
             // Choose city type based on random population
             int pop = board.rand.nextInt(1, 200);
@@ -73,12 +77,12 @@ public class DefaultRoads implements RoadGenerator {
     private void connectCities(Board board) {
         Pathfinder pf = new DijkstraPathfinder();
         // TODO: Decide on a center node in a smart way
-        Point capital = this.cities.iterator().next();
+        City capital = this.cities.iterator().next();
         capital.setCity(CityType.CAPITAL);
         Node center = this.nodes.get(capital);
 
-        for (Point p : cities) {
-            Node n = this.nodes.get(p);
+        for (City c : cities) {
+            Node n = this.nodes.get(c);
             if (n != center) {
                 List<Node> path = pf.findShortestPath(this.graph, center, n);
                 for (int i = 0; i < path.size() - 1; i++) {

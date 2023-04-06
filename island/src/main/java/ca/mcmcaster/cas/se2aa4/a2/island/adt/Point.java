@@ -3,35 +3,23 @@ package ca.mcmcaster.cas.se2aa4.a2.island.adt;
 import java.util.Objects;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
-import ca.mcmcaster.cas.se2aa4.a2.island.roads.CityType;
 
 public class Point {
     Structs.Vertex vertex;
     int elevation;
     Colour colour;
-    CityType city;
+    
 
     public Point(Structs.Vertex v) {
         this.vertex = v;
         this.elevation = 0;
         this.colour = new Colour(0, 0, 0);
-        this.city = CityType.NONE;
     }
 
     public Point(Point p) {
         this.vertex = p.vertex;
         this.elevation = p.elevation;
         this.colour = p.colour;
-        this.city = p.city;
-    }
-
-    public CityType getCity() {
-        return city;
-    }
-
-    public void setCity(CityType city) {
-        this.city = city;
     }
 
     public float getX() {
@@ -58,15 +46,11 @@ public class Point {
         this.colour = colour;
     }
 
-    public Property cityProperty() {
-        return Property.newBuilder().setKey("city").setValue(this.city.name()).build();
-    }
-
     public Structs.Vertex getVertex() {
         Structs.Vertex.Builder builder = Structs.Vertex.newBuilder(this.vertex);
         while (builder.getPropertiesCount() > 0)
             builder.removeProperties(0);
-        return builder.addProperties(this.colour.toProperty()).addProperties(this.cityProperty()).build();
+        return builder.addProperties(this.colour.toProperty()).build();
     }
 
     @Override
