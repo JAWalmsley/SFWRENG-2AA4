@@ -15,30 +15,14 @@ public class MarkovProcessTest {
     private MarkovProcess mp;
     @BeforeEach
     public void setUp() {
-        List<String> data = new ArrayList<String>(Arrays.asList("abc", "abd", "ahe", "bass"));
-        this.mp = new MarkovProcess(data);
-    }
-
-    @Test
-    public void testProbabilities() {
-        assertEquals((double) 2/4, this.mp.getProbability('a', 'b'));
-        assertEquals((double) 1/3, this.mp.getProbability('b', 'c'));
-        assertEquals((double) 1, this.mp.getProbability('h', 'e'));
-        assertEquals((double) 1/4, this.mp.getProbability('a', 'h'));
-        assertEquals((double) 1/2, this.mp.getProbability('s', 's'));
+        List<String> data = new ArrayList<String>(Arrays.asList("abc", "abd", "ahe", "bass", "no"));
+        this.mp = new MarkovProcess(1, "abcdhesno", 0, data);
     }
 
     @Test
     public void testNext() {
-        assertEquals('b', this.mp.getExpectedNext('a'));
-        assertEquals('e', this.mp.getExpectedNext('h'));
-        assertEquals('a', this.mp.getExpectedNext('\n'));
-    }
-
-    @Test
-    public void testRandom() {
-        Random r = new Random();
-        char n = this.mp.getRandomNext('a', r);
-        assertTrue(n == 'b' || n == 'd' || n == 'h' || n == 's');
+        assertEquals("o", this.mp.generate("n", new Random()));
+        assertTrue(this.mp.generate("a", new Random()).matches("[bs]"));
+        assertTrue(this.mp.generate("b", new Random()).matches("[cd]"));
     }
 }

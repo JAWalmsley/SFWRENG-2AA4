@@ -6,89 +6,77 @@ import java.util.Map;
 import java.util.Random;
 
 public class MarkovProcess {
-    private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz\n";
-    private static final Map<Character, Double> emptyProbabilityMap;
-    private static final Map<Character, Integer> emptyOccurrencesMap;
-    static {
-        emptyProbabilityMap = new HashMap<>();
-        emptyOccurrencesMap = new HashMap<>();
-        for(char c : ALPHABET.toCharArray()) {
-            emptyProbabilityMap.put(c, 0.0);
-            emptyOccurrencesMap.put(c, 0);
-        }
-    }
-
+    private int order;
+    private double smoothing;
     private List<String> trainingData;
-    private Map<Character, Map<Character, Double>> probabilities;
-    private Map<Character, Map<Character, Integer>> occurrences = new HashMap<>();
-    
+    private Map<String, Counter> counters;
+    private String alphabet;
+    private String start, end;
 
-    public MarkovProcess(List<String> trainingData) {
+    public MarkovProcess(int order, String alphabet, double smoothing, List<String> trainingData) {
+        this.order = order;
+        this.smoothing = smoothing;
         this.trainingData = trainingData;
-        this.probabilities = new HashMap<>();
-        for (char c : ALPHABET.toCharArray()) {
-            probabilities.put(c, new HashMap<Character, Double>(emptyProbabilityMap));
-            occurrences.put(c, new HashMap<Character, Integer>(emptyOccurrencesMap));
-        }
+        this.alphabet = alphabet + "^";
+        this.counters = new HashMap<>();
+        this.start = "^".repeat(this.order);
+        this.end = "^";
 
-        this.createProbabilities();
-    }
-
-    private void createProbabilities() {
-        for(String str : this.trainingData) {
-            char[] strArr = str.toCharArray();
-            // Add the first char to the occurrences after a newline
-            int currStart = this.occurrences.get('\n').get(strArr[0]);
-            this.occurrences.get('\n').put(strArr[0], currStart + 1);
-
-            // Add all other characters in string's occurrences
-            for(int i = 0; i < strArr.length - 1; i++) {
-                int currCount = this.occurrences.get(strArr[i]).get(strArr[i+1]);
-                this.occurrences.get(strArr[i]).put(strArr[i+1], currCount + 1);
-            }
-
-            // Add the last char to the occurrences before a newline
-            int currEnd = this.occurrences.get(strArr[strArr.length - 1]).get('\n');
-            this.occurrences.get(strArr[strArr.length - 1]).put('\n', currEnd + 1);
-        }
-
-        for(Map.Entry<Character, Map<Character, Integer>> entry : this.occurrences.entrySet()) {
-            int total = 0;
-            for(Map.Entry<Character, Integer> innerEntry : entry.getValue().entrySet()) {
-                total += innerEntry.getValue();
-            }
-            for(Map.Entry<Character, Integer> innerEntry : entry.getValue().entrySet()) {
-                int occurrs = innerEntry.getValue();
-                this.probabilities.get(entry.getKey()).put(innerEntry.getKey(), (double) occurrs / total);
-            }
+        for(String s : this.trainingData) {
+            this.addData(s);
         }
     }
 
-    public Double getProbability(char c1, char c2) {
-        return this.probabilities.get(c1).get(c2);
+    private Counter getCounter(String data) {
+        if (!(counters.keySet().contains(data))) {
+            counters.put(data, new Counter(this.alphabet, this.smoothing));
+        }
+        return counters.get(data);
     }
 
-    public char getExpectedNext(char c1) {
-        double max = 0;
-        char maxChar = 'a';
-        for(Map.Entry<Character, Double> entry : this.probabilities.get(c1).entrySet()) {
-            if(entry.getValue() > max) {
-                max = entry.getValue();
-                maxChar = entry.getKey();
-            }
+    /**
+     * Katz backoff algorithm, used to tell which order chain to use in this context
+     * 
+     * @param data the string we are trying to predict the next character of
+     */
+    private String katzBackoff(String data) {
+        String result = data;
+
+        // Too long for this chain
+        if (data.length() > this.order) {
+            result = data.substring(data.length() - this.order);
+        } else if (data.length() < this.order) {
+            result = this.start.repeat(this.order - data.length()) + data;
         }
-        return maxChar;
+
+        // If we don't have any data for the last n characters, see if we have any for
+        // the last n-1 characters
+        while (!(counters.keySet().contains(result))) {
+            result = result.substring(1);
+        }
+        return result;
     }
 
-    public char getRandomNext(char c1, Random r) {
-        double rand = r.nextDouble(0, 1);
-        double sum = 0;
-        for(Map.Entry<Character, Double> entry : this.probabilities.get(c1).entrySet()) {
-            sum += entry.getValue();
-            if(sum >= rand) {
-                return entry.getKey();
+    public void addData(String data) {
+        String padded = this.start + data + this.end;
+        for (int i = this.order; i < padded.length(); i++) {
+            // Add all order-sized chunks of the string to the counters
+            String nextData = padded.substring(i - this.order, i);
+            String currData = String.valueOf(padded.charAt(i));
+            // Add the next j characters to the counter for the current character, up to
+            // current order
+            for (int j = 0; j < nextData.length(); j++) {
+                this.getCounter(nextData.substring(j)).addData(currData);
             }
         }
-        return 'a';
+    }
+
+    public String generate(String data, Random r) {
+        Counter c = this.getCounter(this.katzBackoff(data));
+        return c.generate(r);
+    }
+
+    public String generateFirst(Random r) {
+        return this.generate(this.start, r);
     }
 }

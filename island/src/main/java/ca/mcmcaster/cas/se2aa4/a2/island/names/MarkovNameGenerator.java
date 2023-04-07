@@ -1,18 +1,15 @@
 package ca.mcmcaster.cas.se2aa4.a2.island.names;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.MalformedInputException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class MarkovNameGenerator implements NameGenerator {
-    private BMarkovProcess mp;
+    private MarkovProcess mp;
     private Random rand;
 
     public MarkovNameGenerator(Random rand) throws MalformedURLException, IOException {
@@ -26,7 +23,7 @@ public class MarkovNameGenerator implements NameGenerator {
         }
         sc.close();
 
-        this.mp = new BMarkovProcess(3, "abcdefghijklmnopqrstuvwxyz", 0, names);
+        this.mp = new MarkovProcess(3, "abcdefghijklmnopqrstuvwxyz", 0, names);
     }
 
     @Override
