@@ -26,7 +26,7 @@ public class Counter {
         this.total += 1;
     }
 
-    public String sample(Random r) {
+    public String generate(Random r) {
         double rand = r.nextDouble() * this.total;
         for(Map.Entry<String, Double> entry : this.occurrences.entrySet()) {
             if(rand <= entry.getValue()) {
