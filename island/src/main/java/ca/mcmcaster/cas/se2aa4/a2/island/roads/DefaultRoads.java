@@ -1,5 +1,6 @@
 package ca.mcmcaster.cas.se2aa4.a2.island.roads;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import ca.mcmcaster.cas.se2aa4.a2.island.adt.Point;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.RiverPoint;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.LandTile;
 import ca.mcmcaster.cas.se2aa4.a2.island.adt.Tiles.Tile;
+import ca.mcmcaster.cas.se2aa4.a2.island.names.MarkovNameGenerator;
+import ca.mcmcaster.cas.se2aa4.a2.island.names.NameGenerator;
 
 public class DefaultRoads implements RoadGenerator {
     private HashSet<City> cities = new HashSet<City>();
@@ -25,7 +28,7 @@ public class DefaultRoads implements RoadGenerator {
         this.numCities = numCities;
     }
 
-    private void placeCities(Board board) {
+    private void placeCities(Board board, NameGenerator nameGen) {
         List<Point> points = board.getPoints();
         // Loop through all the polygons endlessly until we get enough cities
         outer: while (this.cities.size() < this.numCities) {
@@ -35,7 +38,7 @@ public class DefaultRoads implements RoadGenerator {
                 continue outer;
 
             // No cities in the middle of rivers
-            if(potential instanceof RiverPoint)
+            if (potential instanceof RiverPoint)
                 continue outer;
 
             // Only put cities on land tiles
@@ -69,7 +72,8 @@ public class DefaultRoads implements RoadGenerator {
             } else {
                 ct = CityType.HAMLET;
             }
-            p.setName("CityName");
+            String name = nameGen.generateName(10);
+            p.setName(name);
             p.setCity(ct);
         }
     }
@@ -98,7 +102,11 @@ public class DefaultRoads implements RoadGenerator {
 
     @Override
     public void drawRoads(Board board) {
-        placeCities(board);
+        try {
+            placeCities(board, new MarkovNameGenerator(board.rand));
+        } catch (IOException e) {
+            throw new RuntimeException("Could not load city name file");
+        }
 
         BoardToGraph mtg = new BoardToGraph(board);
         this.graph = mtg.getGraph();
