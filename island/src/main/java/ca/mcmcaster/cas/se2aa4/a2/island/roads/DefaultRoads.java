@@ -1,6 +1,7 @@
 package ca.mcmcaster.cas.se2aa4.a2.island.roads;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.List;
@@ -105,7 +106,7 @@ public class DefaultRoads implements RoadGenerator {
     public void drawRoads(Board board) {
         try {
             placeCities(board, new MarkovNameGenerator(board.rand));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new RuntimeException("Could not load city name file");
         }
 

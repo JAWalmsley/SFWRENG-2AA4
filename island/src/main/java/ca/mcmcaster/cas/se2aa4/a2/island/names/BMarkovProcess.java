@@ -18,10 +18,14 @@ public class BMarkovProcess {
         this.order = order;
         this.smoothing = smoothing;
         this.trainingData = trainingData;
-        this.alphabet = alphabet;
+        this.alphabet = alphabet + "^";
         this.counters = new HashMap<>();
         this.start = "^".repeat(this.order);
         this.end = "^";
+
+        for(String s : this.trainingData) {
+            this.addData(s);
+        }
     }
 
     private Counter getCounter(String data) {
@@ -58,8 +62,8 @@ public class BMarkovProcess {
         String padded = this.start + data + this.end;
         for (int i = this.order; i < padded.length(); i++) {
             // Add all order-sized chunks of the string to the counters
-            String nextData = data.substring(i - this.order, i);
-            String currData = String.valueOf(data.charAt(i));
+            String nextData = padded.substring(i - this.order, i);
+            String currData = String.valueOf(padded.charAt(i));
             // Add the next j characters to the counter for the current character, up to
             // current order
             for (int j = 0; j < nextData.length(); j++) {
@@ -71,5 +75,9 @@ public class BMarkovProcess {
     public String generate(String data, Random r) {
         Counter c = this.getCounter(this.katzBackoff(data));
         return c.generate(r);
+    }
+
+    public String generateFirst(Random r) {
+        return this.generate(this.start, r);
     }
 }

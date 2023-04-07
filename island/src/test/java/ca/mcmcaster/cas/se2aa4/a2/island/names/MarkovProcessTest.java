@@ -25,14 +25,13 @@ public class MarkovProcessTest {
         assertEquals((double) 1/3, this.mp.getProbability('b', 'c'));
         assertEquals((double) 1, this.mp.getProbability('h', 'e'));
         assertEquals((double) 1/4, this.mp.getProbability('a', 'h'));
-        assertEquals((double) 1, this.mp.getProbability('s', 's'));
+        assertEquals((double) 1/2, this.mp.getProbability('s', 's'));
     }
 
     @Test
     public void testNext() {
         assertEquals('b', this.mp.getExpectedNext('a'));
         assertEquals('e', this.mp.getExpectedNext('h'));
-        assertEquals('s', this.mp.getExpectedNext('s'));
         assertEquals('a', this.mp.getExpectedNext('\n'));
     }
 

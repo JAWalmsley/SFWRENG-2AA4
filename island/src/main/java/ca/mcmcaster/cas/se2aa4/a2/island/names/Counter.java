@@ -14,8 +14,8 @@ public class Counter {
         this.min = min;
         this.total = 0;
 
-        for(String c : this.alphabet.split("")) {
-            occurrences.put(c, min);
+        for(char c : this.alphabet.toCharArray()) {
+            occurrences.put(String.valueOf(c), min);
             this.total += min;
         }
     }
@@ -32,6 +32,7 @@ public class Counter {
             if(rand <= entry.getValue()) {
                 return entry.getKey();
             }
+            rand -= entry.getValue();
         }
         return "";
     }

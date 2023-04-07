@@ -12,7 +12,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class MarkovNameGenerator implements NameGenerator {
-    private MarkovProcess mp;
+    private BMarkovProcess mp;
     private Random rand;
 
     public MarkovNameGenerator(Random rand) throws MalformedURLException, IOException {
@@ -26,16 +26,21 @@ public class MarkovNameGenerator implements NameGenerator {
         }
         sc.close();
 
-        this.mp = new MarkovProcess(names);
+        this.mp = new BMarkovProcess(3, "abcdefghijklmnopqrstuvwxyz", 0, names);
     }
 
     @Override
     public String generateName(int length) {
         StringBuilder sb = new StringBuilder();
-        // Add first char to string, it comes after the previous line's \n
-        sb.append(mp.getRandomNext('\n', this.rand));
-        while (sb.charAt(sb.length() - 1) != '\n' && sb.length() < length) {
-            sb.append(mp.getRandomNext(sb.charAt(sb.length() - 1), this.rand));
+        // Add first char to string, it comes after the start char "^"
+        sb.append(mp.generateFirst(this.rand));
+
+        // Generate new chars until we get the suffix char or go over length
+        while (sb.length() < length) {
+            String newChar = mp.generate(sb.toString(), this.rand);
+            if(newChar.equals("^"))
+                break;
+            sb.append(newChar);
         }
         return sb.toString();
     }
