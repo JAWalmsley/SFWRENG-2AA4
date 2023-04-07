@@ -34,7 +34,7 @@ public class MarkovNameGenerator implements NameGenerator {
         StringBuilder sb = new StringBuilder();
         // Add first char to string, it comes after the previous line's \n
         sb.append(mp.getRandomNext('\n', this.rand));
-        while (sb.length() < length) {
+        while (sb.charAt(sb.length() - 1) != '\n' && sb.length() < length) {
             sb.append(mp.getRandomNext(sb.charAt(sb.length() - 1), this.rand));
         }
         return sb.toString();

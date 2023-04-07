@@ -46,6 +46,10 @@ public class MarkovProcess {
                 int currCount = this.occurrences.get(strArr[i]).get(strArr[i+1]);
                 this.occurrences.get(strArr[i]).put(strArr[i+1], currCount + 1);
             }
+
+            // Add the last char to the occurrences before a newline
+            int currEnd = this.occurrences.get(strArr[strArr.length - 1]).get('\n');
+            this.occurrences.get(strArr[strArr.length - 1]).put('\n', currEnd + 1);
         }
 
         for(Map.Entry<Character, Map<Character, Integer>> entry : this.occurrences.entrySet()) {
