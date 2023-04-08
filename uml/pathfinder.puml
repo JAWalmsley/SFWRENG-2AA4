@@ -1,0 +1,52 @@
+@startuml
+class Node {
+    - properties: Map<String, String>
+    + setProp(String, String)
+    + getProp(String): String
+}
+
+class Edge {
+    + getNodes(): Node[]
+    + getWeight(): float
+    + getOtherNode(Node): Node
+}
+
+class Graph {
+    - edges: Set<Edge>
+    - nodes: Set<Node>
+    - adjacency: Map<Node, List<Edge>>
+    + addNode(Node)
+    + addEdge(Edge)
+    + getEdges(): List<Edge>
+    + getNodes(): List<Node>
+    + getNeighbors(Node): List<Node>
+    + getWeight(Edge): float
+}
+
+interface Pathfinder{
+    + findShortestPath(Graph, Node, Node): List<Node>
+}
+
+
+class DjikstraPathfinder {
+    + findShortestPath(Graph, Node, Node): List<Node>
+}
+
+interface Comparator
+
+class MapKeyComparator {
+    - compareMap: Map<Node, float>
+    + compare(Node, Node): int
+}
+
+DjikstraPathfinder <|.. Pathfinder
+
+Graph *-- Node
+Graph *-- Edge
+
+Pathfinder <.. Graph
+
+DjikstraPathfinder <.. MapKeyComparator
+
+MapKeyComparator <|-- Comparator
+@enduml
