@@ -1,13 +1,26 @@
 
 # Assignment A2: Mesh Generator
 
--   Author #1 [walmsj1@mcmaster.ca]
--   Author #2 [gaudem5@mcmaster.ca]
--   Author #3 [morrig14@mcmaster.ca]
+-   Author #1 [walmsj1@mcmaster.ca] (A2 onward)
+-   Author #2 [gaudem5@mcmaster.ca] (A2-A3)
+-   Author #3 [morrig14@mcmaster.ca] (A2-A3)
 
 ## How to run the product
+This program requires an internet connection to collect the training data for the city name generation(`MarkovNameGenerator.java`).
+First, create the jarfiles (from the root directory)
+`mvn install`
 
-_This section needs to be edited to reflect how the user can interact with thefeature released in your project_
+Here's the recommended settings for creating a mesh of appropriate size and an island on that mesh (recommended, feel free to change parameters as in `--help`).
+`java -jar generator/generator.jar -o sample.mesh -h 2000 -k irregular -p 1200 -r 10 -w 2000`
+This will create a mesh file called `sample.mesh` with enough polygons to show the island properly.
+
+To turn this mesh into an island, use the following (recommended because I think it's pretty, feel free to change parameters as in `--help`).
+`java -jar island/island.jar -i sample.mesh -o island.mesh -a linear -e volcano -l 3 -q 3 -r 8 -s circle -m normal -b tundra -c 6`
+
+To visualize this island, use the following command.
+`java -jar visualizer/visualizer.jar -i island.mesh -o island.svg`
+
+Open `island.svg` in a picture viewer.
 
 ### Installation instructions
 
@@ -34,11 +47,16 @@ mosser@azrael generator %
 ```
 
 ```
-usage: Generator [OPTIONS] grid/irregular
- -h,--help               Display help
- -n,--polygons <arg>     Number of Polygons
- -o,--fileName <arg>     Output File Name
- -r,--relaxation <arg>   Relaxation Level
+usage: java -jar generator.jar
+ -d         activate DEMO mode
+ -h <arg>   Heigth of the Mesh
+ -help      print help message
+ -k <arg>   Kind: grid or irregular
+ -o <arg>   Output file name
+ -p <arg>   Numbers of polygons (if irregular mesh
+ -r <arg>   Relaxation coefficient
+ -s <arg>   Size of squares (if grid mesh)
+ -w <arg>   Width of the Mesh
 ```
 
 ### Visualizer
@@ -47,8 +65,8 @@ To visualize an existing mesh, go the the `visualizer` directory, and use `java 
 
 ```
 mosser@azrael A2 % cd visualizer
-mosser@azrael visualizer % java -jar visualizer.jar ../generator/sample.mesh sample.svg
-mosser@azrael visualizer % java -jar visualizer.jar ../island/island.mesh sample.svg
+mosser@azrael visualizer % java -jar visualizer.jar -i ../generator/sample.mesh -o sample.svg
+mosser@azrael visualizer % java -jar visualizer.jar -i ../island/island.mesh -o sample.svg
 
 ... (lots of debug information printed to stdout) ...
 
@@ -63,6 +81,32 @@ To viualize the SVG file:
 -   Convert it into something else with tool slike `rsvg-convert`
 
 ### Island
+You must have an existing generated mesh to create the island.
+To turn an existing mesh into an island mesh, use the following command from the root directory
+`java -jar island/island.jar -i [input.mesh file] -o [output.mesh file]`
+Here's an example (these settings look pretty nice)
+`java -jar island/isand.jar -i sample.mesh -o island.mesh -a linear -e volcano -l 3 -q 3 -r 8 -s circle -m normal -b tundra -c 6`
+For help, see `java -jar island/island.jar --help`
+
+```
+usage: Island [OPTIONS]
+ -a,--absorption <arg>   Soil absorption profile (linear, expoential),
+                         default linear
+ -b,--biome <arg>        Whittaker Biome (grassland, tundra, desert),
+                         default grassland
+ -c,--cities <arg>       Number of cities, default 3
+ -d,--seed <arg>         Generation Seed, default system time
+ -e,--elevation <arg>    Elevation Land Type, default volcano
+ -h,--heatmap <arg>      Elevation Heatmap "e", Moisture Heatmap "m" or
+                         normal island "i", default i
+ -i,--input <arg>        Input mesh file
+ -l,--lakes <arg>        Maximum number of Lakes, default 2
+ -m,--mode <arg>         Generation mode (lagoon, normal), default normal
+ -o,--output <arg>       Output mesh file
+ -q,--aquifers <arg>     Maximum number of aquifers, default 3
+ -r,--rivers <arg>       Maximum number of rivers, default 5
+ -s,--shape <arg>        Island Shape (circle, square, triangle), default
+ ```
 
 ## How to contribute to the project
 

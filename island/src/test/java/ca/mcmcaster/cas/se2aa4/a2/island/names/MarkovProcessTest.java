@@ -22,7 +22,7 @@ public class MarkovProcessTest {
     @Test
     public void testNext() {
         assertEquals("o", this.mp.generate("n", new Random()));
-        assertTrue(this.mp.generate("a", new Random()).matches("[bs]"));
+        assertTrue(this.mp.generate("a", new Random()).matches("[bsh]"));
         assertTrue(this.mp.generate("b", new Random()).matches("[acd]"));
     }
 }
