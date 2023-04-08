@@ -1,11 +1,41 @@
 @startuml
 activate IslandBuilder
-IslandBuilder -> RoadFactory: create(numCities)
+
+IslandBuilder -> Shape: draw()
+Shape -> IslandBuilder
+
+create ElevationFactory
+activate ElevationFactory
+IslandBuilder -> ElevationFactory: setElevation(board)
+ElevationFactory -> IslandBuilder
+deactivate ElevationFactory
+
+create PlaceLakes
+activate PlaceLakes
+IslandBuilder -> PlaceLakes: drawLakes(board)
+PlaceLakes -> IslandBuilder
+deactivate PlaceLakes
+
+create Aquifers
+activate Aquifers
+IslandBuilder -> Aquifers: placeAquifers(board)
+Aquifers -> IslandBuilder
+deactivate Aquifers
+
+create RiverGenerator
+activate RiverGenerator
+IslandBuilder -> RiverGenerator: placeRivers(board)
+RiverGenerator -> IslandBuilder
+deactivate RiverGenerator
+
+create MoistureProfile
+activate MoistureProfile
+IslandBuilder -> MoistureProfile: drawMoisture(board)
+MoistureProfile -> IslandBuilder
+deactivate MoistureProfile
+
 create DefaultRoads
 activate DefaultRoads
-RoadFactory -> DefaultRoads
-DefaultRoads -> RoadFactory
-RoadFactory -> IslandBuilder:
 IslandBuilder -> DefaultRoads: drawRoads(board)
 
 create MarkovNameGenerator
