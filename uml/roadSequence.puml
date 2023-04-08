@@ -1,0 +1,46 @@
+@startuml
+activate IslandBuilder
+IslandBuilder -> RoadFactory: create(numCities)
+create DefaultRoads
+activate DefaultRoads
+RoadFactory -> DefaultRoads
+DefaultRoads -> RoadFactory
+RoadFactory -> IslandBuilder:
+IslandBuilder -> DefaultRoads: drawRoads(board)
+
+create MarkovNameGenerator
+DefaultRoads -> MarkovNameGenerator:
+activate MarkovNameGenerator
+MarkovNameGenerator -> DefaultRoads:
+deactivate MarkovNameGenerator
+DefaultRoads -> DefaultRoads: placeCities()
+DefaultRoads -> MarkovNameGenerator: generateName()
+activate MarkovNameGenerator
+MarkovNameGenerator -> DefaultRoads:
+deactivate MarkovNameGenerator
+
+create BoardToGraph
+DefaultRoads -> BoardToGraph:
+activate BoardToGraph
+BoardToGraph -> DefaultRoads:
+DefaultRoads -> BoardToGraph: getGraph()
+BoardToGraph -> DefaultRoads:
+DefaultRoads -> BoardToGraph: getNodeMap()
+BoardToGraph -> DefaultRoads:
+deactivate BoardToGraph
+
+DefaultRoads -> DefaultRoads: connectCities()
+create DjikstraPathfinder
+DefaultRoads -> DjikstraPathfinder:
+activate DjikstraPathfinder
+DjikstraPathfinder -> DefaultRoads:
+loop for each city
+    DefaultRoads -> DjikstraPathfinder: findShortestPath()
+    DjikstraPathfinder -> DefaultRoads:
+end
+DefaultRoads -> IslandBuilder
+deactivate DefaultRoads
+deactivate DjikstraPathfinder
+
+deactivate IslandBuilder
+@enduml
