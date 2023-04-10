@@ -53,6 +53,12 @@ public class Graph {
         return neighbours;
     }
 
+    /**
+     * Gets the weight of the edge between two nodes, if they are connected
+     * @param n1
+     * @param n2
+     * @return
+     */
     public float getWeight(Node n1, Node n2) {
         for(Edge e : this.adjacency.get(n1)) {
             if(e.getOtherNode(n1) == n2){

@@ -28,22 +28,26 @@ public class DijkstraPathfinder implements Pathfinder {
             prev.put(n, null);
             queue.add(n);
         }
+
+        // Start has a distance of 0 to itself
         dist.put(start, 0f);
         queue.remove(start);
         queue.add(start);
 
         while (!queue.isEmpty()) {
+            // Get current lowest distance node
             Node currNode = queue.poll();
             if (currNode == end) {
                 break;
             }
+            // Add all neighbours to the queue and see if we have found a faster path to them
             for (Node neigh : g.getNeighbours(currNode)) {
                 float alt = dist.get(currNode) + g.getWeight(currNode, neigh);
                 if (alt < dist.get(neigh)) {
                     dist.put(neigh, alt);
 
                     // Remove and re-add to update the priority queue with node's new distance
-                    // (weird but thats how Java does priority queues)
+                    // (weird but Java's PQ only updates priority when you add)
                     queue.remove(neigh);
                     queue.add(neigh);
 

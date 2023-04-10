@@ -26,6 +26,11 @@ public class BoardToGraph {
             }
         }
         for (ca.mcmcaster.cas.se2aa4.a2.island.adt.Edge e : board.getEdges()) {
+            /*
+             * We currently mark edges as all having a weight of 1, so the pathfinder just
+             * takes the least number of "hops". If we want to, this weight value can be
+             * used for the real geometric distance between the two points
+             */
             Point[] pts = board.getPoints(e);
             Node n1 = nodes.get(pts[0]);
             Node n2 = nodes.get(pts[1]);
@@ -34,6 +39,11 @@ public class BoardToGraph {
         return graph;
     }
 
+    /**
+     * Returns a map from a Point on the Board to the Node it's associated with
+     * 
+     * @return
+     */
     public BiMap<Point, Node> getNodeMap() {
         return this.nodes;
     }

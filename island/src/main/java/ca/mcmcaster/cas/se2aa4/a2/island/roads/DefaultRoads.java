@@ -28,6 +28,11 @@ public class DefaultRoads implements RoadGenerator {
         this.numCities = numCities;
     }
 
+    /**
+     * Places cities on the board
+     * @param board the board to add cities to
+     * @param nameGen the NameGenerator to use to name the cities
+     */
     private void placeCities(Board board, NameGenerator nameGen) {
         List<Point> points = board.getPoints();
         // Loop through all the polygons endlessly until we get enough cities
@@ -61,6 +66,7 @@ public class DefaultRoads implements RoadGenerator {
             this.cities.add(c);
         }
 
+        // Assign city types based on a random population
         for (City p : cities) {
             CityType ct = CityType.NONE;
             // Choose city type based on random population
@@ -78,6 +84,9 @@ public class DefaultRoads implements RoadGenerator {
         }
     }
 
+    /**
+     * Draws the roads between the cities with pathfinding
+     */
     private void connectCities(Board board) {
         Pathfinder pf = new DijkstraPathfinder();
         // TODO: Decide on a center node in a smart way
